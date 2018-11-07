@@ -35,8 +35,9 @@ class ProteinDataset(Dataset):
 		for channel in color_channels:
 			imagepath = self.images_path + imagename + '_' + channel + ".png"
 			image.append(io.imread(imagepath))
-		image = torch.Tensor(image)
+		image = torch.Tensor(image).permute(1, 2, 0)
 		image = image/255
 		labels = self.images_df.loc[idx, 'Target']
+		labels = sorted(labels.split())
 		sample = {"image": image, "labels": labels}
 		return sample
