@@ -1,0 +1,269 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "utils/dataloader.py",
+			"settings":
+			{
+				"buffer_size": 12,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/functional.py",
+		"/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/activation.py",
+		"/home/litemax/Videos/vids/conv.sh",
+		"/home/litemax/Videos/vids/convert4kf.sh",
+		"/home/litemax/Videos/vids/convert.sh",
+		"/home/litemax/misc/DeepJ/train.py",
+		"/home/litemax/misc/DeepJ/dataset.py",
+		"/home/litemax/misc/DeepJ/util.py",
+		"/home/litemax/misc/DeepJ/model.py",
+		"/home/litemax/misc/DeepJ/scripts/python.sh",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/conda/core/subdir_data.py",
+		"/home/litemax/misc/DeepJ/scripts/load_data.sh",
+		"/home/litemax/misc/DeepJ/midi_util.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/make_preds.py",
+		"/home/litemax/misc/musegan/src/musegan/model.py",
+		"/home/litemax/misc/musegan/src/inference.py",
+		"/home/litemax/misc/musegan/v2/main.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/average_models.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/blend_masks.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/train_mt.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/models/nets.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/models/segnet.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/utils/data_loaders.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/train.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/train_smt.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/evaluations.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/data_loaders.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/train0.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/make_preds.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/lovasz_losses.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/helpers.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/data_vis.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/nets.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/utils/transforms.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/utils/lovasz_losses.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/utils/helpers.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/utils/evaluations.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/utils/data_vis.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/flatten/utils/data_loaders.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/all_in_one.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/train0.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/_functions/dropout.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/modules/loss.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/functional.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/modules/dropout.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts_colab/train0.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/_functions/linear.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/_functions/loss.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/_functions/thnn/auto.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/_functions/thnn/loss.py",
+		"/home/litemax/anaconda3/lib/python3.6/site-packages/torch/nn/_functions/thnn/activation.py",
+		"/home/litemax/Desktop/_C.cpython-36m-x86_64-linux-gnu.so",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts_fake/utils/data_loaders.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts_fake/train.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts_fake/train_no_mem.py",
+		"/home/litemax/Practise/object detection/models/research/object_detection/utils/visualization_utils.py",
+		"/home/litemax/Practise/object detection/models/research/object_detection/lazy_ssd_video.py",
+		"/home/litemax/kaggle/tgs_salt/kaggle_kernels/i_messed_up/scripts/utils/evaluations.py",
+		"/home/litemax/classes/deeplearning/ass2written/Written_Homework2.tex"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"np.sa",
+			"challenge",
+			")\n",
+			"lr_sca",
+			"thres",
+			"import",
+			"device",
+			"pretrainedmodels"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "utils/dataloader.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12,
+								12
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "protein.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
