@@ -10,12 +10,12 @@ import torch.optim as optim
 import torch.backends.cudnn as cudnn
 
 from models.densenet import Atlas_DenseNet
-from utils.dataloader import ProteinDataset
+from utils.dataloader import get_data_loaders
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--imsize', default=256, type=int, 
                     help='image size')
-parser.add_argument('--batch_size', default=16, type=int, 
+parser.add_argument('--batch_size', default=32, type=int, 
                     help='size of batches')
 parser.add_argument('--epochs', default=200, type=int, 
                     help='number of epochs')
@@ -25,7 +25,7 @@ parser.add_argument('--l2', default=1e-4, type=float,
                     help='l2 regularization for model')
 parser.add_argument('--es_patience', default=50, type=int, 
                     help='early stopping patience')
-parser.add_argument('--model_name', default='resunet', type=str,
+parser.add_argument('--model_name', default='densenet121', type=str,
                     help='name of model for saving/loading weights')
 parser.add_argument('--exp_name', default='atlas_protein', type=str,
                     help='name of experiment for saving files')
@@ -50,11 +50,11 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
 
     # loop over the images for the desired amount
     for i, data in enumerate(train_loader):
-        imgs = data['image'].to(device)
-        labels = data['labels'] 
+        imgs = data[0].to(device)
+        labels = data[1].to(device)
 
         # get predictions
-        label_preds = net(labels)
+        label_preds = net(imgs)
         #print(len(msk_preds), len(msks))
         # calculate loss
         tloss = loss(label_preds, labels)
@@ -67,12 +67,12 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
         optimizer.step()
 
         # get training stats
-        iter_loss += loss.item()
+        iter_loss += tloss.item()
         # make a cool terminal output
         sys.stdout.write('\r')
         sys.stdout.write('B: {:>3}/{:<3} | {:.4}'.format(i+1, 
                                             len(train_loader),
-                                            loss.item()))
+                                            tloss.item()))
 
     epoch_loss = iter_loss / (len(train_loader.dataset) / args.batch_size)
     print('\n' + 'Avg Train Loss: {:.4}'.format(epoch_loss))
@@ -87,8 +87,8 @@ def valid(net, optimizer, loss, valid_loader, save_imgs=False, fold_num=0):
     # no gradients during validation
     with torch.no_grad():
         for i, data in enumerate(valid_loader):
-            valid_imgs = data['image'].to(device)
-            valid_labels = data['labels']
+            valid_imgs = data[0].to(device)
+            valid_labels = data[1].to(device)
             
             # get predictions
             label_vpreds = net(valid_imgs)
@@ -124,8 +124,7 @@ def train_network(net, fold=0, model_ckpt=None):
         valid_ious = []
 
         valid_patience = 0
-        best_val_metric = 1000.0
-        best_val_iou = 0.0
+        best_val_metric = float('inf')
         cycle = 0
         swa_n = 0
         t_ = 0
@@ -140,12 +139,13 @@ def train_network(net, fold=0, model_ckpt=None):
             v_l = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
 
             # save the model on best validation loss
-            if v_l < best_val_loss:
+            if v_l < best_val_metric:
                 net.eval()
-                torch.save(net.state_dict(), '../model_weights/best_{}_{}.pth'.format(args.model_name,
+                torch.save(net.state_dict(), './model_weights/best_{}_{}.pth'.format(args.model_name,
                                                                                       args.exp_name))
                 best_val_metric = v_l
                 valid_patience = 0
+                print('Best val metric achieved, model saved. metric = {}'.format(v_l))
             else:
                 valid_patience += 1
 
@@ -159,7 +159,7 @@ def train_network(net, fold=0, model_ckpt=None):
         pass
 
     net.eval()
-    torch.save(net.state_dict(), '../model_weights/swa_{}_{}.pth'.format(args.model_name, 
+    torch.save(net.state_dict(), './model_weights/swa_{}_{}.pth'.format(args.model_name, 
                                                                                  args.exp_name))
 
     return best_val_iou

@@ -1,4 +1,4 @@
-# Implementation adapeted from https://github.com/pytorch/vision/blob/master/torchvision/models/densenet.py
+# Implementation adapted from https://github.com/pytorch/vision/blob/master/torchvision/models/densenet.py
 
 import re
 import torch
