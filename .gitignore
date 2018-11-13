@@ -1,7 +1,5 @@
 /data/test/
 /data/train/
 __pycache__/
-/model_weights
-/logs
 /protein.sublime-project
 /protein.sublime-workspace
