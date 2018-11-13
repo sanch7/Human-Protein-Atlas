@@ -21,13 +21,15 @@ parser.add_argument('--epochs', default=200, type=int,
                     help='number of epochs')
 parser.add_argument('--lr', default=0.01, type=float,
                     help='initial learning rate')
+parser.add_argument('--drop_rate', default=0.75, type=float,
+                    help='l2 regularization for model')
 parser.add_argument('--l2', default=1e-4, type=float,
                     help='l2 regularization for model')
 parser.add_argument('--es_patience', default=50, type=int, 
                     help='early stopping patience')
 parser.add_argument('--model_name', default='densenet121', type=str,
                     help='name of model for saving/loading weights')
-parser.add_argument('--exp_name', default='atlas_protein', type=str,
+parser.add_argument('--exp_name', default='run3', type=str,
                     help='name of experiment for saving files')
 args = parser.parse_args()
 
@@ -174,7 +176,7 @@ def main_train():
     model_params = [args.model_name, args.exp_name]
     MODEL_CKPT = './model_weights/best_{}_{}.pth'.format(*model_params)
 
-    net = Atlas_DenseNet(model = args.model_name, bn_size=4, drop_rate=0.)
+    net = Atlas_DenseNet(model = args.model_name, bn_size=4, drop_rate=args.drop_rate)
     
     net = nn.parallel.DataParallel(net)
     net.to(device)

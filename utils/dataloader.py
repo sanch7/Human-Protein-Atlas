@@ -14,6 +14,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 train_labels_path = f"./data/train.csv"
+test_submission_path = f"./data/sample_submission.csv"
 train_images_path = f"./data/train/"
 test_images_path = f"./data/test/"
 
@@ -74,10 +75,13 @@ class ProteinDataset(Dataset):
                 image.append(img)
             image = torch.Tensor(image)
             image = image/255
-            labels = self.images_df.loc[idx, 'Target']
-            labels = [int(label) for label in labels.split()]
-            targets = torch.zeros(28)
-            targets[labels] = 1
+            if self.test:
+                targets = 0
+            else:
+                labels = self.images_df.loc[idx, 'Target']
+                labels = [int(label) for label in labels.split()]
+                targets = torch.zeros(28)
+                targets[labels] = 1
         return image, targets
         
 def get_data_loaders(imsize=256, batch_size=16):
@@ -111,3 +115,23 @@ def get_data_loaders(imsize=256, batch_size=16):
                                    pin_memory=True)
 
     return train_loader, valid_loader
+
+def get_test_loader(imsize=256, batch_size=128):
+    '''sets up the torch data loaders for training'''
+    images_df = pd.read_csv(test_submission_path)
+
+    # set up the datasets
+    test_dataset = ProteinDataset(data_df = images_df, imsize=imsize, test=True)
+
+    test_sampler = SubsetRandomSampler(images_df.index)
+
+    # set up the data loaders
+    test_loader = DataLoader(test_dataset,
+                                   batch_size=batch_size,
+                                   shuffle=False,
+                                   sampler=test_sampler,
+                                   num_workers=4,
+                                   pin_memory=True,
+                                   drop_last=False)
+
+    return test_loader
