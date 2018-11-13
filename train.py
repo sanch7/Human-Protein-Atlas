@@ -33,6 +33,11 @@ args = parser.parse_args()
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+if not os.path.exists('./model_weights'):
+    os.makedirs('./model_weights')
+if not os.path.exists('./logs'):
+    os.makedirs('./logs') 
+
 # training function
 def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
     '''
