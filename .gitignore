@@ -1,4 +1,5 @@
 /data/test/
 /data/train/
+__pycache__/
 /protein.sublime-project
 /protein.sublime-workspace

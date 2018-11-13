@@ -6,7 +6,9 @@ from skimage import io, transform
 import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader
+from torch.utils.data.sampler import SubsetRandomSampler
 from torchvision import utils, transforms
+from sklearn.model_selection import train_test_split
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -15,29 +17,77 @@ train_labels_path = f"./data/train.csv"
 train_images_path = f"./data/train/"
 test_images_path = f"./data/test/"
 
-labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli", 3: "Nucleoli fibrillar center", 4: "Nuclear speckles", 5: "Nuclear bodies", 6: "Endoplasmic reticulum", 7: "Golgi apparatus", 8: "Peroxisomes", 9: "Endosomes", 10: "Lysosomes", 11: "Intermediate filaments", 12: "Actin filaments", 13: "Focal adhesion sites", 14: "Microtubules", 15: "Microtubule ends", 16: "Cytokinetic bridge", 17: "Mitotic spindle", 18: "Microtubule organizing center", 19: "Centrosome", 20: "Lipid droplets", 21: "Plasma membrane", 22: "Cell junctions", 23: "Mitochondria", 24: "Aggresome", 25: "Cytosol", 26: "Cytoplasmic bodies", 27: "Rods & rings" }
+labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli", 
+    3: "Nucleoli fibrillar center", 4: "Nuclear speckles", 5: "Nuclear bodies", 
+    6: "Endoplasmic reticulum", 7: "Golgi apparatus", 8: "Peroxisomes", 
+    9: "Endosomes", 10: "Lysosomes", 11: "Intermediate filaments", 
+    12: "Actin filaments", 13: "Focal adhesion sites", 14: "Microtubules", 
+    15: "Microtubule ends", 16: "Cytokinetic bridge", 17: "Mitotic spindle", 
+    18: "Microtubule organizing center", 19: "Centrosome", 20: "Lipid droplets", 
+    21: "Plasma membrane", 22: "Cell junctions", 23: "Mitochondria", 
+    24: "Aggresome", 25: "Cytosol", 26: "Cytoplasmic bodies", 27: "Rods & rings"}
 
 color_channels = ('red','green','blue','yellow')
 
 class ProteinDataset(Dataset):
-	def __init__(self, test = False):
-		super(ProteinDataset, self).__init__()
-		self.test = test
-		self.images_path = test_images_path if test else train_images_path
-		self.images_df = pd.read_csv(train_labels_path)
+    def __init__(self, data_df = None, test = False, imsize = 0):
+        super(ProteinDataset, self).__init__()
+        self.test = test
+        self.imsize = imsize
+        self.images_path = test_images_path if test else train_images_path
+        if data_df is None:
+            self.images_df = pd.read_csv(train_labels_path)
+        else:
+            self.images_df = data_df
 
-	def __len__(self):
-		return len(self.images_df)
+    def __len__(self):
+        return len(self.images_df)
 
-	def __getitem__(self, idx):
-		imagename = self.images_df.loc[idx, 'Id']
-		image = []
-		for channel in color_channels:
-			imagepath = self.images_path + imagename + '_' + channel + ".png"
-			image.append(io.imread(imagepath))
-		image = torch.Tensor(image).permute(1, 2, 0)
-		image = image/255
-		labels = self.images_df.loc[idx, 'Target']
-		labels = sorted(labels.split())
-		sample = {"image": image, "labels": labels}
-		return sample
+    def __getitem__(self, idx):
+        imagename = self.images_df.loc[idx, 'Id']
+        image = []
+        for channel in color_channels:
+            imagepath = self.images_path + imagename + '_' + channel + ".png"
+            img = io.imread(imagepath)
+            if (self.imsize != 0):
+                img = transform.resize(img, (self.imsize, self.imsize))
+            image.append(img)
+        image = torch.Tensor(image)
+        image = image/255
+        labels = self.images_df.loc[idx, 'Target']
+        labels = [int(label) for label in labels.split()]
+        targets = torch.zeros(28)
+        targets[labels] = 1
+        return image, targets
+        
+def get_data_loaders(imsize=256, batch_size=16):
+    '''sets up the torch data loaders for training'''
+    images_df = pd.read_csv(train_labels_path)
+    train_df, valid_df = train_test_split(images_df, test_size=0.15, random_state=42)
+    train_df = train_df.reset_index()
+    valid_df = valid_df.reset_index()
+
+    # set up the datasets
+    train_dataset = ProteinDataset(data_df = train_df, imsize=imsize)
+    valid_dataset = ProteinDataset(data_df = valid_df, imsize=imsize)
+
+    train_sampler = SubsetRandomSampler(train_df.index)
+    valid_sampler = SubsetRandomSampler(valid_df.index) 
+
+    # set up the data loaders
+    train_loader = DataLoader(train_dataset,
+                                   batch_size=batch_size,
+                                   shuffle=False,
+                                   sampler=train_sampler,
+                                   num_workers=4,
+                                   pin_memory=True,
+                                   drop_last=True)
+
+    valid_loader = DataLoader(valid_dataset,
+                                   batch_size=batch_size,
+                                   shuffle=False,
+                                   sampler=valid_sampler,
+                                   num_workers=4,
+                                   pin_memory=True)
+
+    return train_loader, valid_loader
