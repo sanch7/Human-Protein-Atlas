@@ -50,7 +50,6 @@ def test():
 
             # compute model output
             output_batch = net(test_imgs)
-            print("test_imgs.shape", test_imgs.shape, "output_batch.shape", output_batch.shape)
 
             # extract data from torch Variable, move to cpu, convert to numpy arrays
             output_batch = output_batch.data.cpu().numpy()
@@ -58,10 +57,8 @@ def test():
             for i in range(output_batch.shape[0]):
                 output_batch_str = ' '.join(str(v) for v in np.nonzero(output_batch[i])[0].tolist())
                 out.append(output_batch_str)
-            print("out.shape", len(out))
 
     test_df = pd.read_csv(test_submission_path)
-    print("out.shape", len(out), "df len", len(test_df))
     test_df.Predicted = out
     test_df.to_csv(OUT_FILE, index=False)
 

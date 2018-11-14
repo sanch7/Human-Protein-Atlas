@@ -19,9 +19,9 @@ parser.add_argument('--batch_size', default=32, type=int,
                     help='size of batches')
 parser.add_argument('--epochs', default=200, type=int, 
                     help='number of epochs')
-parser.add_argument('--lr', default=0.01, type=float,
+parser.add_argument('--lr', default=0.0005, type=float,
                     help='initial learning rate')
-parser.add_argument('--drop_rate', default=0.75, type=float,
+parser.add_argument('--drop_rate', default=0.5, type=float,
                     help='l2 regularization for model')
 parser.add_argument('--l2', default=1e-4, type=float,
                     help='l2 regularization for model')
@@ -29,7 +29,7 @@ parser.add_argument('--es_patience', default=50, type=int,
                     help='early stopping patience')
 parser.add_argument('--model_name', default='densenet121', type=str,
                     help='name of model for saving/loading weights')
-parser.add_argument('--exp_name', default='run3', type=str,
+parser.add_argument('--exp_name', default='run4', type=str,
                     help='name of experiment for saving files')
 args = parser.parse_args()
 

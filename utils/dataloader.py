@@ -31,57 +31,59 @@ labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli",
 color_channels = ('red','green','blue','yellow')
 
 class ProteinDataset(Dataset):
-    def __init__(self, data_df = None, test = False, imsize = 256, load_all = False):
+    def __init__(self, data_df = None, test = False, imsize = 256, load_images = False):
         """
         Params:
             data_df: data DataFrame of image name and labels
             test: load testing images
             imsize: output image size
-            load_all: load all images in memory. 256x256 images require 30GB memory.
+            load_images: load all images in memory. 256x256 images require 30GB memory.
                 Please buy me some memory if you can.
         """
         super(ProteinDataset, self).__init__()
         self.test = test
         self.imsize = imsize
         self.images_path = test_images_path if test else train_images_path
-        self.load_all = load_all
+        self.load_images = load_images
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
             self.images_df = data_df
 
-        if self.load_all:
-            self.loaded_images = torch.Tensor(len(self.images_df), 4, 
-                self.imsize, self.imsize)
-            self.loaded_targets = torch.Tensor(len(self.images_df), 28)
-            for idx in range(len(self.images_df)):
-                self.loaded_images[idx,:,:,:], self.loaded_targets[idx,:] = \
-                    self.__getitem__(idx)
-
-    def __len__(self):
-        return len(self.images_df)
-
-    def __getitem__(self, idx):
-        if self.load_all == True:
-            image = self.loaded_images[idx,:,:,:]
-            targets = self.loaded_targets[idx,:]
-        else:
-            imagename = self.images_df.loc[idx, 'Id']
-            image = []
-            for channel in color_channels:
-                imagepath = self.images_path + imagename + '_' + channel + ".png"
-                img = io.imread(imagepath)
-                img = transform.resize(img, (self.imsize, self.imsize))
-                image.append(img)
-            image = torch.Tensor(image)
-            image = image/255
+        # Always preload targets in memory
+        self.loaded_targets = torch.zeros(len(self.images_df), 28)
+        for idx in range(len(self.images_df)):
             if self.test:
                 targets = 0
             else:
                 labels = self.images_df.loc[idx, 'Target']
                 labels = [int(label) for label in labels.split()]
-                targets = torch.zeros(28)
-                targets[labels] = 1
+                self.loaded_targets[idx,labels] = 1
+
+        # Preloading images in memory
+        if self.load_images:
+            self.loaded_images = torch.Tensor(len(self.images_df), 4, 
+                self.imsize, self.imsize)
+            for idx in range(len(self.images_df)):
+                self.loaded_images[idx,:,:,:], _ = self.__getitem__(idx)
+
+    def __len__(self):
+        return len(self.images_df)
+
+    def __getitem__(self, idx):
+        if self.load_images == True:
+            image = self.loaded_images[idx,:,:,:]
+        else:
+            imagename = self.images_df.loc[idx, 'Id']
+            image = np.zeros((4, self.imsize, self.imsize))
+            for ch, channel in enumerate(color_channels):
+                imagepath = self.images_path + imagename + '_' + channel + ".png"
+                img = io.imread(imagepath)
+                img = transform.resize(img, (self.imsize, self.imsize))
+                image[ch,:,:] = img
+            image /= 255.
+            image = torch.from_numpy(image)
+        targets = self.loaded_targets[idx,:]    
         return image, targets
         
 def get_data_loaders(imsize=256, batch_size=16):
@@ -105,7 +107,7 @@ def get_data_loaders(imsize=256, batch_size=16):
                                    sampler=train_sampler,
                                    num_workers=4,
                                    pin_memory=True,
-                                   drop_last=True)
+                                   drop_last=False)
 
     valid_loader = DataLoader(valid_dataset,
                                    batch_size=batch_size,
