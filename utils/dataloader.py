@@ -84,7 +84,7 @@ class ProteinDataset(Dataset):
             image /= 255.
             image = torch.from_numpy(image)
         targets = self.loaded_targets[idx,:]    
-        return image, targets
+        return image.float(), targets
         
 def get_data_loaders(imsize=256, batch_size=16):
     '''sets up the torch data loaders for training'''

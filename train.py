@@ -11,6 +11,7 @@ import torch.backends.cudnn as cudnn
 
 from models.densenet import Atlas_DenseNet
 from utils.dataloader import get_data_loaders
+from utils.metrics import FocalLoss, f1_score
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--imsize', default=256, type=int, 
@@ -29,7 +30,7 @@ parser.add_argument('--es_patience', default=50, type=int,
                     help='early stopping patience')
 parser.add_argument('--model_name', default='densenet121', type=str,
                     help='name of model for saving/loading weights')
-parser.add_argument('--exp_name', default='run4', type=str,
+parser.add_argument('--exp_name', default='run5_FocalLoss', type=str,
                     help='name of experiment for saving files')
 args = parser.parse_args()
 
@@ -91,6 +92,7 @@ def valid(net, optimizer, loss, valid_loader, save_imgs=False, fold_num=0):
     net.eval() 
     # keep track of losses
     val_iter_loss = 0.
+    val_iter_f1 = 0.
     # no gradients during validation
     with torch.no_grad():
         for i, data in enumerate(valid_loader):
@@ -102,13 +104,17 @@ def valid(net, optimizer, loss, valid_loader, save_imgs=False, fold_num=0):
        
             # calculate loss
             vloss = loss(label_vpreds, valid_labels)
+
+            v_f1 = f1_score(label_vpreds, valid_labels)
  
             # get validation stats
             val_iter_loss += vloss.item()
+            val_iter_f1 += v_f1.item()
             
     epoch_vloss = val_iter_loss / (len(valid_loader.dataset) / args.batch_size)
-    print('Avg Eval Loss: {:.4}'.format(epoch_vloss))
-    return epoch_vloss
+    epoch_vf1 = val_iter_f1 / (len(valid_loader.dataset) / args.batch_size)
+    print('Avg Eval Loss: {:.4}, Avg Eval F1: {:.2}'.format(epoch_vloss, epoch_vf1))
+    return epoch_vloss, epoch_vf1
 
 def train_network(net, fold=0, model_ckpt=None):
     # train the network, allow for keyboard interrupt
@@ -119,8 +125,7 @@ def train_network(net, fold=0, model_ckpt=None):
         train_loader, valid_loader = get_data_loaders(imsize=args.imsize,
                                                       batch_size=args.batch_size)
 
-        loss = torch.nn.MultiLabelSoftMarginLoss(weight=None, 
-        	size_average=None, reduce=None, reduction='elementwise_mean')
+        loss = FocalLoss()
 
         # training flags
         swa = False
@@ -131,7 +136,7 @@ def train_network(net, fold=0, model_ckpt=None):
         valid_ious = []
 
         valid_patience = 0
-        best_val_metric = float('inf')
+        best_val_metric = 0
         cycle = 0
         swa_n = 0
         t_ = 0
@@ -143,16 +148,16 @@ def train_network(net, fold=0, model_ckpt=None):
             start = time.time()
 
             t_l = train(net, optimizer, loss, train_loader, freeze_bn)
-            v_l = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
+            v_l, v_f1 = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
 
             # save the model on best validation loss
-            if v_l < best_val_metric:
+            if v_f1 > best_val_metric:
                 net.eval()
                 torch.save(net.state_dict(), './model_weights/best_{}_{}.pth'.format(args.model_name,
                                                                                       args.exp_name))
-                best_val_metric = v_l
+                best_val_metric = v_f1
                 valid_patience = 0
-                print('Best val metric achieved, model saved. metric = {}'.format(v_l))
+                print('Best val metric achieved, model saved. metric = {}'.format(v_f1))
             else:
                 valid_patience += 1
 
