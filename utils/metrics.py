@@ -5,25 +5,15 @@ import torch.nn.functional as F
 from sklearn.metrics import f1_score
 
 def accuracy(preds, target):
-    """
-    compute accuracy per pixel
-
-    preds and target share same shape,they are np.ndarray
-    """
-    return np.mean((preds.numpy() > 0.0) == target.numpy())
+    return np.mean((preds > 0.) == target)
 
 def macro_f1(preds, target):
-    """
-    compute macro f1 score
-    """
-    preds = preds.numpy()
-    target = target.numpy()
     score = []
     for i in range(preds.shape[1]):
         score.append(f1_score(target[:, i], preds[:, i]))
     return np.mean(score)
 
-def f1_scoremy(y_true, y_pred, threshold=0.5):
+def f1_score_slow(y_true, y_pred, threshold=0.5):
     """
     Usage: f1_score(py_true, py_pred)
     """

@@ -1,6 +1,8 @@
 import os, sys
 import time
 import argparse
+import json
+from collections import namedtuple
 
 import numpy as np
 import torch
@@ -11,34 +13,28 @@ import torch.backends.cudnn as cudnn
 
 from tqdm import tqdm
 
-from models.densenet import Atlas_DenseNet
-from models.uselessnet import UselessNet
-from models.resnet import ResNet
+import models.model_list as model_list
 from utils.dataloader import get_data_loaders
 from utils.metrics import FocalLoss, accuracy, macro_f1
 
+from generate_preds import generate_preds
+
 parser = argparse.ArgumentParser(description='Atlas Protein')
-parser.add_argument('--dev_mode', action='store_true', default=False,
+parser.add_argument('--config', default='./configs/config.json', 
+                    help="run configuration")
+parser.add_argument('--dev_mode', action='store_true', default=True,
                     help='train only few batches per epoch')
-parser.add_argument('--imsize', default=256, type=int, 
-                    help='image size')
-parser.add_argument('--batch_size', default=16, type=int, 
-                    help='size of batches')
-parser.add_argument('--epochs', default=200, type=int, 
-                    help='number of epochs')
-parser.add_argument('--lr', default=0.001, type=float,
-                    help='initial learning rate')
-parser.add_argument('--drop_rate', default=0.5, type=float,
-                    help='l2 regularization for model')
-parser.add_argument('--l2', default=1e-4, type=float,
-                    help='l2 regularization for model')
-parser.add_argument('--es_patience', default=50, type=int, 
-                    help='early stopping patience')
-parser.add_argument('--model_name', default='densenet121', type=str,
-                    help='name of model for saving/loading weights')
-parser.add_argument('--exp_name', default='runtest_FocalLoss', type=str,
-                    help='name of experiment for saving files')
 args = parser.parse_args()
+
+with open(args.config) as f_in:
+    d = json.load(f_in)
+    config = namedtuple("config", d.keys())(*d.values())
+
+print("Loaded configuration from ", args.config)
+print('')
+pprint.pprint(d)
+time.sleep(5)
+print('')
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -55,10 +51,8 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
     updates network weights by evaluating the loss functions
     '''
     # set network to train mode
-    #if args.gpu == 99:
     net.train()
-    #else:
-    #    net.train(mode=True, freeze_bn=args.freeze_bn)
+
     # keep track of our loss
     iter_loss = 0.
 
@@ -89,14 +83,14 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
         tc = time.time() - t0
         tr = int(tc*(ll-i-1)/(i+1))
         sys.stdout.write('\r')
-        sys.stdout.write('B: {:>3}/{:<3} | Loss: {:.4} | ETA: {:d}s'.
+        sys.stdout.write('B: {:>3}/{:<3} | Loss: {:<6.4f} | ETA: {:>4d}s'.
             format(i+1, ll, tloss.item(), tr))
 
         if (i == 5 and args.dev_mode == True):
             print("\nDev mode on. Prematurely stopping epoch training.")
             break
 
-    epoch_loss = iter_loss / (len(train_loader.dataset) / args.batch_size)
+    epoch_loss = iter_loss / (len(train_loader.dataset) / config.batch_size)
     print('\n' + 'Avg Train Loss: {:.4}'.format(epoch_loss))
 
     return epoch_loss
@@ -105,30 +99,11 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
 def valid(net, optimizer, loss, valid_loader, save_imgs=False, fold_num=0):
     net.eval() 
     #keep track of preds
-    val_labels = torch.Tensor(len(valid_loader.dataset), 28)
-    val_preds = torch.Tensor(len(valid_loader.dataset), 28)
-    ci = 0
-
-    # no gradients during validation
-    with torch.no_grad():
-        for i, data in enumerate(valid_loader):
-            valid_imgs = data[0].to(device)
-            valid_labels = data[1].to(device)
-            
-            # get predictions
-            label_vpreds = net(valid_imgs)
-            val_preds[ci: ci+label_vpreds.shape[0], :] = label_vpreds
-            val_labels[ci: ci+valid_labels.shape[0], :] = valid_labels
-            ci = ci+label_vpreds.shape[0]
-
-            # make a cool terminal output
-            sys.stdout.write('\r')
-            sys.stdout.write('E: {:>3}/{:<3}'.format(i+1, 
-                                                len(valid_loader)))
-            
+    val_preds, val_labels = generate_preds(net, valid_loader)
+    
     epoch_vloss = loss(val_preds, val_labels)
-    epoch_vf1 = macro_f1(val_preds>0, val_labels)
-    epoch_vacc = accuracy(val_preds>0, val_labels)
+    epoch_vf1 = macro_f1(val_preds.numpy()>0., val_labels.numpy())
+    epoch_vacc = accuracy(val_preds.numpy()>0., val_labels.numpy())
     print('Avg Eval Loss: {:.4}, Avg Eval Macro F1: {:.4}, Avg Eval Acc. {:.4}'.
         format(epoch_vloss, epoch_vf1, epoch_vacc))
     return epoch_vloss, epoch_vf1
@@ -137,12 +112,12 @@ def train_network(net, fold=0, model_ckpt=None):
     # train the network, allow for keyboard interrupt
     try:
         # define optimizer
-        # optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=args.l2)
-        optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), lr=0.00005)
+        # optimizer = optim.SGD(net.parameters(), lr=config.lr, momentum=0.9, weight_decay=configs.l2)
+        optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), lr=config.lr)
 
         # get the loaders
-        train_loader, valid_loader = get_data_loaders(imsize=args.imsize,
-                                                      batch_size=args.batch_size)
+        train_loader, valid_loader = get_data_loaders(imsize=config.imsize,
+                                                      batch_size=config.batch_size)
 
         loss = FocalLoss()
         # loss = nn.BCEWithLogitsLoss()
@@ -163,8 +138,8 @@ def train_network(net, fold=0, model_ckpt=None):
 
         print('Training ...')
         print('Saving to ', model_ckpt)
-        for e in range(args.epochs):
-            print('\n' + 'Epoch {}/{}'.format(e, args.epochs))
+        for e in range(config.epochs):
+            print('\n' + 'Epoch {}/{}'.format(e, config.epochs))
 
             start = time.time()
 
@@ -174,11 +149,11 @@ def train_network(net, fold=0, model_ckpt=None):
             # save the model on best validation loss
             if v_l < best_val_metric:
                 net.eval()
-                torch.save(net.state_dict(), './model_weights/best_{}_{}.pth'.format(args.model_name,
-                                                                                      args.exp_name))
+                torch.save(net.state_dict(), './model_weights/best_{}_{}.pth'.format(config.model_name,
+                                                                                      config.exp_name))
                 best_val_metric = v_l
                 valid_patience = 0
-                print('Best val metric achieved, model saved. metric = {}'.format(v_l))
+                print('Best val metric achieved, model saved. metric = {:.4f}'.format(v_l))
             else:
                 valid_patience += 1
 
@@ -186,24 +161,26 @@ def train_network(net, fold=0, model_ckpt=None):
             valid_losses.append(v_l)
 
             t_ += 1
-            print('Time: {}'.format(time.time()-start))
+            print('Time: {:d}s'.format(int(time.time()-start)))
 
     except KeyboardInterrupt:
         pass
 
     net.eval()
-    torch.save(net.state_dict(), './model_weights/swa_{}_{}.pth'.format(args.model_name, 
-                                                                                 args.exp_name))
+    torch.save(net.state_dict(), './model_weights/swa_{}_{}.pth'.format(config.model_name, 
+                                                                                 config.exp_name))
 
     return best_val_iou
 
 def main_train():
 
-    model_params = [args.model_name, args.exp_name]
+    model_params = [config.model_name, config.exp_name]
     MODEL_CKPT = './model_weights/best_{}_{}.pth'.format(*model_params)
 
-    # net = Atlas_DenseNet(model = args.model_name, bn_size=4, drop_rate=args.drop_rate)
-    net = ResNet()
+    # net = Atlas_DenseNet(model = config.model_name, bn_size=4, drop_rate=config.drop_rate)
+    Net = getattr(model_list, config.model_name)
+    
+    net = Net()
     
     net = nn.parallel.DataParallel(net)
     net.to(device)

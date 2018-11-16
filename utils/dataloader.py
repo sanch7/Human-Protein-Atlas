@@ -55,8 +55,8 @@ class ProteinDataset(Dataset):
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
-            if 'Predicted' in data_df.columns:
-                df.rename(index=str, columns={'Predicted': 'Target'})
+            if 'Target' not in data_df.columns:
+                data_df['Target'] = torch.zeros(len(data_df), 28)
             self.images_df = data_df
 
         if not self.test:
@@ -116,7 +116,8 @@ def get_data_loaders(imsize=256, batch_size=16):
                                    shuffle=False,
                                    sampler=valid_sampler,
                                    num_workers=4,
-                                   pin_memory=True)
+                                   pin_memory=True,
+                                   drop_last=False)
 
     return train_loader, valid_loader
 
