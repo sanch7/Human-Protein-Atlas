@@ -11,7 +11,7 @@ def str2bool(v):
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
-def save_pred(pred, th=0.5, fname='./subm/submission.csv'):
+def save_pred(pred, th=0.5, SUBM_OUT='./subm/submission.csv'):
     pred_list = []
     for line in pred:
         s = ' '.join(list([str(i) for i in np.nonzero(line>th)[0]]))
@@ -19,5 +19,5 @@ def save_pred(pred, th=0.5, fname='./subm/submission.csv'):
     
     sample_df = pd.read_csv('./data/sample_submission.csv')
     sample_df['Predicted'] = pred_list
-    sample_df.to_csv(fname, header=True, index=False)
-    print('Saved to ', fname)
+    sample_df.to_csv(SUBM_OUT, header=True, index=False)
+    print('Saved to ', SUBM_OUT)

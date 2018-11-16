@@ -65,7 +65,7 @@ def validate(net, config):
     print('Avg Eval Macro F1: {:.4}, Avg Eval Acc. {:.4}'.
         format(epoch_vf1, epoch_vacc))
 
-def generate_submission(net, config):
+def generate_submission(net, config, SUBM_OUT=None):
     print('Generating submission...')
     net.eval()
     
@@ -74,7 +74,8 @@ def generate_submission(net, config):
 
     test_preds = generate_preds(net, test_loader, test=True)
 
-    model_params = [config.model_name, config.exp_name]
-    MODEL_OUT = './subm/best_{}_{}.pth'.format(*model_params)
+    if SUBM_OUT is None:
+        model_params = [config.model_name, config.exp_name]
+        SUBM_OUT = './subm/best_{}_{}.csv'.format(*model_params)
 
-    save_pred(test_preds, 0., MODEL_OUT)
+    save_pred(test_preds.numpy(), 0., SUBM_OUT)
