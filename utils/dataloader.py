@@ -128,13 +128,10 @@ def get_test_loader(imsize=256, batch_size=16):
     # set up the datasets
     test_dataset = ProteinDataset(data_df = images_df, imsize=imsize, test=True)
 
-    test_sampler = SubsetRandomSampler(images_df.index)
-
     # set up the data loaders
     test_loader = DataLoader(test_dataset,
                                    batch_size=batch_size,
                                    shuffle=False,
-                                   sampler=test_sampler,
                                    num_workers=4,
                                    pin_memory=True,
                                    drop_last=False)

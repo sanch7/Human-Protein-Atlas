@@ -154,10 +154,10 @@ def train_network(net, model_ckpt, fold=0):
                 print('Best val metric achieved. metric = {:.4f}.'.
                     format(v_l), " Saving model to ", model_ckpt)
 
-                if (e > 5):
-                    SUBM_OUT = './subm/best_{}_{}_epoch{}.csv'.format(
-                                    config.model_name, config.exp_name, str(e))
-                    generate_submission(net, config, SUBM_OUT)
+                # if (e > 5):
+                #     SUBM_OUT = './subm/{}_{}_epoch{}.csv'.format(
+                #                     config.model_name, config.exp_name, str(e))
+                #     generate_submission(net, config, SUBM_OUT)
 
             else:
                 valid_patience += 1
