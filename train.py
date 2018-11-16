@@ -2,6 +2,7 @@ import os, sys
 import time
 import argparse
 import json
+import pprint
 from collections import namedtuple
 
 import numpy as np
@@ -17,7 +18,7 @@ import models.model_list as model_list
 from utils.dataloader import get_data_loaders
 from utils.metrics import FocalLoss, accuracy, macro_f1
 
-from generate_preds import generate_preds
+from evaluations import generate_preds, generate_submission
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
@@ -108,7 +109,7 @@ def valid(net, optimizer, loss, valid_loader, save_imgs=False, fold_num=0):
         format(epoch_vloss, epoch_vf1, epoch_vacc))
     return epoch_vloss, epoch_vf1
 
-def train_network(net, fold=0, model_ckpt=None):
+def train_network(net, model_ckpt, fold=0):
     # train the network, allow for keyboard interrupt
     try:
         # define optimizer
@@ -131,7 +132,7 @@ def train_network(net, fold=0, model_ckpt=None):
         valid_ious = []
 
         valid_patience = 0
-        best_val_metric = float('inf')
+        best_val_metric = None
         cycle = 0
         swa_n = 0
         t_ = 0
@@ -147,13 +148,13 @@ def train_network(net, fold=0, model_ckpt=None):
             v_l, v_f1 = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
 
             # save the model on best validation loss
-            if v_l < best_val_metric:
+            if best_val_metric == None or v_l < best_val_metric:
                 net.eval()
-                torch.save(net.state_dict(), './model_weights/best_{}_{}.pth'.format(config.model_name,
-                                                                                      config.exp_name))
+                torch.save(net.state_dict(), model_ckpt)
                 best_val_metric = v_l
                 valid_patience = 0
-                print('Best val metric achieved, model saved. metric = {:.4f}'.format(v_l))
+                print('Best val metric achieved. metric = {:.4f}.'.
+                    format(v_l), " Saving model to ", model_ckpt)
             else:
                 valid_patience += 1
 
@@ -170,7 +171,9 @@ def train_network(net, fold=0, model_ckpt=None):
     torch.save(net.state_dict(), './model_weights/swa_{}_{}.pth'.format(config.model_name, 
                                                                                  config.exp_name))
 
-    return best_val_iou
+    gen_sub = input("\n\nGenerate submission while the GPU is still hot from training? [Y/n]: ")
+    if gen_sub in ['Y', 'y', 'Yes', 'yes']:
+        generate_submission(net, config)
 
 def main_train():
 

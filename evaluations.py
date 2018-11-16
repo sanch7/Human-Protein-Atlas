@@ -11,6 +11,7 @@ from models.densenet import Atlas_DenseNet
 from models.resnet import ResNet
 
 from utils.dataloader import get_test_loader
+from utils.misc import save_pred
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -50,3 +51,30 @@ def generate_preds(net, test_loader, test=False):
         return val_preds, val_labels
     else:
         return val_preds
+
+def validate(net, config):
+    print('Validating model...')
+    net.eval()
+    _, valid_loader = get_data_loaders(imsize=config.imsize,
+                                            batch_size=config.batch_size)
+
+    val_preds, val_labels = generate_preds(net, valid_loader)
+    
+    epoch_vf1 = macro_f1(val_preds.numpy()>0, val_labels.numpy())
+    epoch_vacc = accuracy(val_preds.numpy()>0, val_labels.numpy())
+    print('Avg Eval Macro F1: {:.4}, Avg Eval Acc. {:.4}'.
+        format(epoch_vf1, epoch_vacc))
+
+def generate_submission(net, config):
+    print('Generating submission...')
+    net.eval()
+    
+    test_loader = get_test_loader(imsize=config.imsize, 
+                                    batch_size=config.batch_size)
+
+    test_preds = generate_preds(net, test_loader, test=True)
+
+    model_params = [config.model_name, config.exp_name]
+    MODEL_OUT = './subm/best_{}_{}.pth'.format(*model_params)
+
+    save_pred(test_preds, 0., MODEL_OUT)
