@@ -31,41 +31,36 @@ OUT_FILE = './subm/' + os.path.basename(model_path.replace('pth', 'csv'))
 test_submission_path = f"./data/sample_submission.csv"
 print('Saving to {}'.format(OUT_FILE))
 
-def test():
-    test_loader = get_test_loader(imsize=args.imsize, batch_size=args.batch_size)
-    # net = Atlas_DenseNet(model = args.model_name, bn_size=4)
-    net = ResNet()
-    net = nn.DataParallel(net).to(device)
-    cudnn.benchmark = True
+def test(net, optimizer, loss, test_loader):
+    net.eval() 
+    #keep track of preds
+    val_labels = torch.Tensor(len(valid_loader.dataset), 28)
+    val_preds = torch.Tensor(len(valid_loader.dataset), 28)
+    ci = 0
 
-    net.load_state_dict(torch.load(model_path, 
-                                   map_location=lambda storage, 
-                                    loc: storage))
-
-    net.eval()
-
-    a = None
-    out = []
+    t0 = time.time()
+    ll = len(train_loader)
+    # no gradients during validation
     with torch.no_grad():
-        for data in test_loader:
-            # move to GPU if available
-            test_imgs = data[0].to(device)
+        for i, data in enumerate(valid_loader):
+            valid_imgs = data[0].to(device)
+            valid_labels = data[1].to(device)
+            
+            # get predictions
+            label_vpreds = net(valid_imgs)
+            val_preds[ci: ci+label_vpreds.shape[0], :] = label_vpreds
+            val_labels[ci: ci+valid_labels.shape[0], :] = valid_labels
+            ci = ci+label_vpreds.shape[0]
 
-            # compute model output
-            output_batch_raw = net(test_imgs)
+            # make a cool terminal output
+            tc = time.time() - t0
+            tr = int(tc*(ll-i-1)/(i+1))
+            sys.stdout.write('\r')
+            sys.stdout.write('B: {:>3}/{:<3} | Loss: {:.4} | ETA: {:d}s'.
+                format(i+1, ll, tloss.item(), tr))
 
-            # extract data from torch Variable, move to cpu, convert to numpy arrays
-            output_batch_raw = output_batch_raw.data.cpu().numpy()
-            output_batch = (output_batch_raw > 0.0).astype(np.int32)
-            for i in range(output_batch.shape[0]):
-                output_batch_str = ' '.join(str(v) for v in np.nonzero(output_batch[i])[0].tolist())
-                if output_batch_str == '':
-                    output_batch_str = str(output_batch_raw[i, :].argmax())
-                out.append(output_batch_str)
-
-    test_df = pd.read_csv(test_submission_path)
-    test_df.Predicted = out
-    test_df.to_csv(OUT_FILE, index=False)
+    val_preds = val_preds > 0
+    return val_preds.numpy(), val_labels.numpy()
 
 if __name__ == '__main__':
     test()

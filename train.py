@@ -62,6 +62,8 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
     # keep track of our loss
     iter_loss = 0.
 
+    t0 = time.time()
+    ll = len(train_loader)
     # loop over the images for the desired amount
     for i, data in enumerate(train_loader):
         imgs = data[0].to(device)
@@ -82,11 +84,13 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False, swa=False):
 
         # get training stats
         iter_loss += tloss.item()
+
         # make a cool terminal output
+        tc = time.time() - t0
+        tr = int(tc*(ll-i-1)/(i+1))
         sys.stdout.write('\r')
-        sys.stdout.write('B: {:>3}/{:<3} | {:.4}'.format(i+1, 
-                                            len(train_loader),
-                                            tloss.item()))
+        sys.stdout.write('B: {:>3}/{:<3} | Loss: {:.4} | ETA: {:d}s'.
+            format(i+1, ll, tloss.item(), tr))
 
         if (i == 5 and args.dev_mode == True):
             print("\nDev mode on. Prematurely stopping epoch training.")
