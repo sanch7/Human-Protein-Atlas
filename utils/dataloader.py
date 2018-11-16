@@ -30,6 +30,13 @@ labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli",
 
 color_channels = ('red','green','blue','yellow')
 
+def label_gen(labelstr):
+    label = torch.zeros(28)
+    labelstr = labelstr.split()
+    for l in labelstr:
+        label[int(l)]=1
+    return label
+
 class ProteinDataset(Dataset):
     def __init__(self, data_df = None, test = False, imsize = 256, load_images = False):
         """
@@ -48,17 +55,12 @@ class ProteinDataset(Dataset):
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
+            if 'Predicted' in data_df.columns:
+                df.rename(index=str, columns={'Predicted': 'Target'})
             self.images_df = data_df
 
-        # Always preload targets in memory
-        self.loaded_targets = torch.zeros(len(self.images_df), 28)
-        for idx in range(len(self.images_df)):
-            if self.test:
-                targets = 0
-            else:
-                labels = self.images_df.loc[idx, 'Target']
-                labels = [int(label) for label in labels.split()]
-                self.loaded_targets[idx,labels] = 1
+        if not self.test:
+            self.images_df['Target'] = self.images_df['Target'].apply(label_gen)
 
         # Preloading images in memory
         if self.load_images:
@@ -83,7 +85,7 @@ class ProteinDataset(Dataset):
                 image[ch,:,:] = img
             image /= 255.
             image = torch.from_numpy(image)
-        targets = self.loaded_targets[idx,:]    
+        targets = self.images_df['Target'][idx]    
         return image.float(), targets
         
 def get_data_loaders(imsize=256, batch_size=16):
@@ -118,7 +120,7 @@ def get_data_loaders(imsize=256, batch_size=16):
 
     return train_loader, valid_loader
 
-def get_test_loader(imsize=256, batch_size=128):
+def get_test_loader(imsize=256, batch_size=16):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(test_submission_path)
 
