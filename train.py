@@ -23,7 +23,7 @@ from evaluations import generate_preds, generate_submission
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
                     help="run configuration")
-parser.add_argument('--dev_mode', action='store_true', default=False,
+parser.add_argument('--dev_mode', action='store_true', default=True,
                     help='train only few batches per epoch')
 args = parser.parse_args()
 

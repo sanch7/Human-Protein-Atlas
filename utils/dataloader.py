@@ -2,13 +2,16 @@ from __future__ import print_function, division
 import os
 import torch
 import pandas as pd
-from skimage import io, transform
+from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
-from torchvision import utils, transforms
+
 from sklearn.model_selection import train_test_split
+
+from skimage import transform
+from .preprocessing import train_transformer, test_transformer
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -38,20 +41,19 @@ def label_gen(labelstr):
     return label
 
 class ProteinDataset(Dataset):
-    def __init__(self, data_df = None, test = False, imsize = 256, load_images = False):
+    def __init__(self, data_df = None, test = False, imsize = 256, 
+                    transformer = None):
         """
         Params:
             data_df: data DataFrame of image name and labels
             test: load testing images
             imsize: output image size
-            load_images: load all images in memory. 256x256 images require 30GB memory.
-                Please buy me some memory if you can.
         """
         super(ProteinDataset, self).__init__()
         self.test = test
         self.imsize = imsize
+        self.transformer = transformer
         self.images_path = test_images_path if test else train_images_path
-        self.load_images = load_images
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
@@ -62,42 +64,50 @@ class ProteinDataset(Dataset):
         if not self.test:
             self.images_df['Target'] = self.images_df['Target'].apply(label_gen)
 
-        # Preloading images in memory
-        if self.load_images:
-            self.loaded_images = torch.Tensor(len(self.images_df), 4, 
-                self.imsize, self.imsize)
-            for idx in range(len(self.images_df)):
-                self.loaded_images[idx,:,:,:], _ = self.__getitem__(idx)
-
     def __len__(self):
         return len(self.images_df)
 
     def __getitem__(self, idx):
-        if self.load_images == True:
-            image = self.loaded_images[idx,:,:,:]
+        imagename = self.images_df.loc[idx, 'Id']
+        image = np.zeros((512, 512, 4), dtype='uint8')
+        for ch, channel in enumerate(color_channels):
+            imagepath = self.images_path + imagename + '_' + channel + ".png"
+            img = Image.open(imagepath)
+            image[:,:, ch] = img
+
+        if self.transformer is not None:
+            image = self.transformer(image)
         else:
-            imagename = self.images_df.loc[idx, 'Id']
-            image = np.zeros((4, self.imsize, self.imsize))
-            for ch, channel in enumerate(color_channels):
-                imagepath = self.images_path + imagename + '_' + channel + ".png"
-                img = io.imread(imagepath)
-                img = transform.resize(img, (self.imsize, self.imsize))
-                image[ch,:,:] = img
-            image /= 255.
-            image = torch.from_numpy(image)
+            image = transform.resize(image, (self.imsize, self.imsize))
+            image = torch.from_numpy(image).permute(-1, 0, 1)
         targets = self.images_df['Target'][idx]    
-        return image.float(), targets
+        return image, targets, imagename
+
+    def getImageName(self, imagename):
+        image = np.zeros((512, 512, 4), dtype='uint8')
+        for ch, channel in enumerate(color_channels):
+            imagepath = self.images_path + imagename + '_' + channel + ".png"
+            img = Image.open(imagepath)
+            image[:,:, ch] = img
+
+        targets = self.images_df[self.images_df['Id'] == imagename]['Target']    
+        return image, targets
         
-def get_data_loaders(imsize=256, batch_size=16):
+def get_data_loaders(imsize=256, batch_size=16, test_size=0.15):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(train_labels_path)
-    train_df, valid_df = train_test_split(images_df, test_size=0.15, random_state=42)
+    train_df, valid_df = train_test_split(images_df, test_size=test_size, random_state=42)
     train_df = train_df.reset_index()
     valid_df = valid_df.reset_index()
 
+    # set up the transformers
+    train_tf = train_transformer(imsize)
+
     # set up the datasets
-    train_dataset = ProteinDataset(data_df = train_df, imsize=imsize)
-    valid_dataset = ProteinDataset(data_df = valid_df, imsize=imsize)
+    train_dataset = ProteinDataset(data_df = train_df, imsize=imsize, 
+                                    transformer = train_tf)
+    valid_dataset = ProteinDataset(data_df = valid_df, imsize=imsize, 
+                                    transformer = train_tf)
 
     train_sampler = SubsetRandomSampler(train_df.index)
     valid_sampler = SubsetRandomSampler(valid_df.index) 
@@ -124,6 +134,9 @@ def get_data_loaders(imsize=256, batch_size=16):
 def get_test_loader(imsize=256, batch_size=16):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(test_submission_path)
+
+    # set up the transformer
+    test_tf = test_transformer(imsize)
 
     # set up the datasets
     test_dataset = ProteinDataset(data_df = images_df, imsize=imsize, test=True)
