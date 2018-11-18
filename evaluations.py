@@ -86,7 +86,7 @@ def find_threshold(net, config, plot=False):
         format(best_th, f1s.max()))
     return best_th
 
-def generate_submission(net, config, SUBM_OUT=None):
+def generate_submission(net, config, folds=1, SUBM_OUT=None):
     print('Generating submission...')
 
     if SUBM_OUT is None:
@@ -101,6 +101,13 @@ def generate_submission(net, config, SUBM_OUT=None):
     test_loader = get_test_loader(imsize=config.imsize, 
                                     batch_size=config.batch_size)
 
-    test_preds = generate_preds(net, test_loader, test=True)
+    test_preds = torch.zeros(len(test_loader.dataset), 28)
+    for _ in range(folds):
+        test_preds += generate_preds(net, test_loader, test=True)
+    test_preds = test_preds.numpy()/float(folds)
 
-    save_pred(test_preds.numpy(), best_th, SUBM_OUT)
+    preds_df = pd.DataFrame(data=test_preds)
+    preds_df['th'] = best_th
+    preds_df.to_csv(SUBM_OUT.replace('subm', 'preds'), index=False)
+
+    save_pred(test_preds, best_th, SUBM_OUT)

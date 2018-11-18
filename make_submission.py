@@ -21,7 +21,9 @@ parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
                     help="Run configuration")
 parser.add_argument('--outfile', default='', 
-                    help="Run configuration")
+                    help="Append arg to the file name")
+parser.add_argument('-f', '--folds', type=int, default=1, 
+                    help="Number of folds for predictions averaging")
 args = parser.parse_args()
 
 with open(args.config) as f_in:
@@ -57,7 +59,7 @@ def main_eval():
     SUBM_OUT = './subm/best_{}_{}.csv'.format(*model_params)
     if args.outfile != '':
         SUBM_OUT = SUBM_OUT.replace('.csv', '_{}.csv'.format(args.outfile))
-    generate_submission(net, config, SUBM_OUT)
+    generate_submission(net, config, args.folds, SUBM_OUT)
 
 if __name__ == '__main__':
     main_eval()

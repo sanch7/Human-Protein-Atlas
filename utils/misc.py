@@ -14,7 +14,7 @@ def str2bool(v):
 def save_pred(pred, th=0., SUBM_OUT='./subm/submission.csv'):
     pred_list = []
     for line in pred:
-        s = ' '.join(list([str(i) for i in np.nonzero(line>th)[0]]))
+        s = ' '.join(list([str(i) for i in np.nonzero(line>=th)[0]]))
         if s == '':
             s = str(line.argmax())
         pred_list.append(s)
