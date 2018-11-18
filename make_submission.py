@@ -12,8 +12,7 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 
 from utils.dataloader import get_data_loaders, get_test_loader
-from utils.misc import str2bool
-from evaluations import validate, generate_submission
+from evaluations import generate_submission
 from utils.metrics import FocalLoss, accuracy, macro_f1
 
 import models.model_list as model_list
@@ -21,9 +20,8 @@ import models.model_list as model_list
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
                     help="Run configuration")
-parser.add_argument('-g', '--generate', type=str2bool, nargs='?',
-                    const=True, default='1', 
-                    help="Generate submission or validate. [0/1]")
+parser.add_argument('--outfile', default='', 
+                    help="Run configuration")
 args = parser.parse_args()
 
 with open(args.config) as f_in:
@@ -55,11 +53,11 @@ def main_eval():
     net.to(device)
 
     net.load_state_dict(torch.load(MODEL_CKPT))
-
-    if args.generate:
-        generate_submission(net, config)
-    else:
-        validate(net, config)
+    
+    SUBM_OUT = './subm/best_{}_{}.csv'.format(*model_params)
+    if args.outfile != '':
+        SUBM_OUT = SUBM_OUT.replace('.csv', '_{}.csv'.format(args.outfile))
+    generate_submission(net, config, SUBM_OUT)
 
 if __name__ == '__main__':
     main_eval()

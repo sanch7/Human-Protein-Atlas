@@ -3,6 +3,7 @@ import argparse
 import time
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
@@ -10,8 +11,9 @@ import torch.backends.cudnn as cudnn
 from models.densenet import Atlas_DenseNet
 from models.resnet import ResNet
 
-from utils.dataloader import get_test_loader
+from utils.dataloader import get_data_loaders, get_test_loader
 from utils.misc import save_pred
+from utils.metrics import accuracy, macro_f1
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -52,30 +54,53 @@ def generate_preds(net, test_loader, test=False):
     else:
         return val_preds
 
-def validate(net, config):
-    print('Validating model...')
-    net.eval()
-    _, valid_loader = get_data_loaders(imsize=config.imsize,
-                                            batch_size=config.batch_size)
+def find_threshold(net, config, plot=False):
+    print('Finding best threshold...')
 
-    val_preds, val_labels = generate_preds(net, valid_loader)
-    
-    epoch_vf1 = macro_f1(val_preds.numpy()>0, val_labels.numpy())
-    epoch_vacc = accuracy(val_preds.numpy()>0, val_labels.numpy())
-    print('Avg Eval Macro F1: {:.4}, Avg Eval Acc. {:.4}'.
-        format(epoch_vf1, epoch_vacc))
+    net.eval()
+
+    test_loader, _ = get_data_loaders(imsize=config.imsize,
+                                    batch_size=config.batch_size, test_size=0.)
+
+    val_preds, val_labels = generate_preds(net, test_loader)
+
+    f1s = []
+    ths = []
+    for th in np.arange(-0.5, 0.5, 0.05):
+        th_vf1 = macro_f1(val_preds.numpy()>th, val_labels.numpy())
+        f1s.append(th_vf1)
+        ths.append(th)
+    f1s = np.array(f1s)
+    ths = np.array(ths)
+    best_th = ths[f1s.argmax()]
+
+    if plot == True:
+        plt.plot(ths, f1s, 'bx')
+        plt.plot(best_th, f1s.max(), 'ro')
+        plt.ylabel('Macro F1s over testing set')
+        plt.xlabel('Thresholds')
+        plt.title('Threshold vs Macro F1')
+        plt.show()
+
+    print('Best Threshold: {:.2}, Best Eval Macro F1: {:.4}'.
+        format(best_th, f1s.max()))
+    return best_th
 
 def generate_submission(net, config, SUBM_OUT=None):
     print('Generating submission...')
+
+    if SUBM_OUT is None:
+        model_params = [config.model_name, config.exp_name]
+        SUBM_OUT = './subm/best_{}_{}.csv'.format(*model_params)
+    print('Saving to ', SUBM_OUT)
+
     net.eval()
     
+    best_th = find_threshold(net, config)
+
     test_loader = get_test_loader(imsize=config.imsize, 
                                     batch_size=config.batch_size)
 
     test_preds = generate_preds(net, test_loader, test=True)
 
-    if SUBM_OUT is None:
-        model_params = [config.model_name, config.exp_name]
-        SUBM_OUT = './subm/best_{}_{}.csv'.format(*model_params)
-
-    save_pred(test_preds.numpy(), 0., SUBM_OUT)
+    save_pred(test_preds.numpy(), best_th, SUBM_OUT)
