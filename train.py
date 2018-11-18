@@ -23,7 +23,7 @@ from evaluations import generate_preds, generate_submission
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
                     help="run configuration")
-parser.add_argument('--dev_mode', action='store_true', default=True,
+parser.add_argument('--dev_mode', action='store_true', default=False,
                     help='train only few batches per epoch')
 args = parser.parse_args()
 
@@ -131,7 +131,8 @@ def train_network(net, model_ckpt, fold=0):
         valid_ious = []
 
         valid_patience = 0
-        best_val_metric = None
+        best_val_loss = None
+        best_val_f1 = None
         cycle = 0
         t_ = 0
 
@@ -146,13 +147,22 @@ def train_network(net, model_ckpt, fold=0):
             v_l, v_f1 = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
 
             # save the model on best validation loss
-            if best_val_metric is None or v_l < best_val_metric:
+            if best_val_loss is None or v_l < best_val_loss:
                 net.eval()
                 torch.save(net.state_dict(), model_ckpt)
-                best_val_metric = v_l
+                best_val_loss = v_l
                 valid_patience = 0
-                print('Best val metric achieved. metric = {:.4f}.'.
+                print('Best val loss achieved. loss = {:.4f}.'.
                     format(v_l), " Saving model to ", model_ckpt)
+
+            # save the model on best validation f1
+            if best_val_f1 is None or v_f1 > best_val_f1:
+                net.eval()
+                torch.save(net.state_dict(), model_ckpt.replace('best', 'bestf1'))
+                best_val_f1 = v_f1
+                valid_patience = 0
+                print('Best val f1 achieved. f1 = {:.4f}.'.
+                    format(v_f1), " Saving model to ", model_ckpt.replace('best', 'bestf1'))
 
                 # if (e > 5):
                 #     SUBM_OUT = './subm/{}_{}_epoch{}.csv'.format(

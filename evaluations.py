@@ -28,10 +28,10 @@ def generate_preds(net, test_loader, test=False):
     # no gradients during validation
     with torch.no_grad():
         for i, data in enumerate(test_loader):
-            valid_imgs = data[0].to(device)
+            valid_imgs = data[0].float().to(device)
             if not test:
-                valid_labels = data[1].to(device)
-            
+                valid_labels = data[1].float().to(device)
+
             # get predictions
             label_vpreds = net(valid_imgs)
             val_preds[ci: ci+label_vpreds.shape[0], :] = label_vpreds

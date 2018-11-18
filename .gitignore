@@ -3,3 +3,5 @@
 __pycache__/
 /protein.sublime-project
 /protein.sublime-workspace
+**/*.pth
+**/*.csv

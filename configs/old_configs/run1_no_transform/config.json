@@ -1,9 +1,9 @@
 {   
-    "exp_name": "run3",
+    "exp_name": "run1",
     "model_name": "densenet121",
     "pretrained": true,
-    "lr": 1e-4,
+    "lr": 1e-5,
     "batch_size": 32,
-    "epochs": 40,
+    "epochs": 20,
     "imsize": 256
 }

@@ -102,12 +102,13 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15):
 
     # set up the transformers
     train_tf = train_transformer(imsize)
+    valid_tf = test_transformer(imsize)
 
     # set up the datasets
     train_dataset = ProteinDataset(data_df = train_df, imsize=imsize, 
                                     transformer = train_tf)
     valid_dataset = ProteinDataset(data_df = valid_df, imsize=imsize, 
-                                    transformer = train_tf)
+                                    transformer = valid_tf)
 
     train_sampler = SubsetRandomSampler(train_df.index)
     valid_sampler = SubsetRandomSampler(valid_df.index) 
@@ -139,7 +140,8 @@ def get_test_loader(imsize=256, batch_size=16):
     test_tf = test_transformer(imsize)
 
     # set up the datasets
-    test_dataset = ProteinDataset(data_df = images_df, imsize=imsize, test=True)
+    test_dataset = ProteinDataset(data_df = images_df, imsize=imsize, 
+                                    transformer = test_tf, test=True)
 
     # set up the data loaders
     test_loader = DataLoader(test_dataset,

@@ -12,10 +12,9 @@ def train_transformer(imsize = 256):
         transforms.ToPILImage(),
         # resize the image to 64x64 (remove if images are already 64x64)
         transforms.Resize(imsize),
-        transforms.RandomRotation(20.0),
+        transforms.RandomRotation(40.0),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
-        transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
         transforms.ToTensor(),
         torchvision_normalize
         ]) 
