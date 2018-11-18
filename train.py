@@ -128,7 +128,7 @@ def train_network(net, model_ckpt, fold=0):
         save_imgs = False
         train_losses = []
         valid_losses = []
-        valid_ious = []
+        valid_f1s = []
 
         valid_patience = 0
         best_val_loss = None
@@ -139,7 +139,7 @@ def train_network(net, model_ckpt, fold=0):
         print('Training ...')
         print('Saving to ', model_ckpt)
         for e in range(config.epochs):
-            print('\n' + 'Epoch {}/{}'.format(e, config.epochs))
+            print('\n' + 'Epoch {}/{}'.format(e+1, config.epochs))
 
             start = time.time()
 
@@ -174,6 +174,17 @@ def train_network(net, model_ckpt, fold=0):
 
             train_losses.append(t_l)
             valid_losses.append(v_l)
+            valid_f1s.append(v_f1)
+
+            _, axes = plt.subplots(2, 2, sharex='col', sharey='row', figsize=(16, 16))
+            axes[0, 0].plot(t_l)
+            axes[0, 1].plot(v_l)
+            axes[1, 0].plot(v_f1)
+            axes[0, 0].set_title('Train Loss')
+            axes[0, 1].set_title('Val Loss')
+            axes[1, 0].set_title('Val F1')
+            plt.suptitle("At Epoch {}".foramt(e+1), fontsize=16)
+            plt.savefig(model_ckpt.replace('model_weights', 'logs').replace('.pth', '.png'))
 
             t_ += 1
             print('Time: {:d}s'.format(int(time.time()-start)))
@@ -193,7 +204,7 @@ def main_train():
     # net = Atlas_DenseNet(model = config.model_name, bn_size=4, drop_rate=config.drop_rate)
     Net = getattr(model_list, config.model_name)
     
-    net = Net()
+    net = Net(pretrained=config.pretrained, drop_rate=config.drop_rate)
     
     net = nn.parallel.DataParallel(net)
     net.to(device)

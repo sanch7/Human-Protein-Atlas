@@ -1,11 +1,10 @@
 {   
-    "exp_name": "run5",
+    "exp_name": "run3",
     "model_name": "densenet121",
     "pretrained": true,
-    "lr": 1e-6,
-    "drop_rate": 0.2,
+    "lr": 1e-4,
     "batch_size": 32,
     "epochs": 40,
     "imsize": 256,
-    "desc": "Data aug, pretrained"
+    "desc": "Data aug, traning from scratch, 0.312"
 }

@@ -5,8 +5,9 @@ from models.resnet import ResNet
 def resnet():
     return ResNet()
 
-def densenet121():
-    return Atlas_DenseNet()
+def densenet121(pretrained=False, drop_rate=0.):
+    return Atlas_DenseNet(modeln="densenet121", pretrained=pretrained, 
+    		drop_rate=drop_rate)
 
 def uselessnet():
     return UselessNet()

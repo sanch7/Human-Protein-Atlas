@@ -45,7 +45,7 @@ if not os.path.exists('./subm'):
 
 def main_eval():
     model_params = [config.model_name, config.exp_name]
-    MODEL_CKPT = './model_weights/best_{}_{}.pth'.format(*model_params)
+    MODEL_CKPT = './model_weights/bestf1_{}_{}.pth'.format(*model_params)
     print('Loading model from ' + MODEL_CKPT)
 
     Net = getattr(model_list, config.model_name)
@@ -53,6 +53,7 @@ def main_eval():
     net = Net()
     net = nn.parallel.DataParallel(net)
     net.to(device)
+
 
     net.load_state_dict(torch.load(MODEL_CKPT))
     
