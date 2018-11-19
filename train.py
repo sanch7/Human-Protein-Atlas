@@ -6,6 +6,7 @@ import pprint
 from collections import namedtuple
 
 import numpy as np
+import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -17,6 +18,7 @@ from tqdm import tqdm
 import models.model_list as model_list
 from utils.dataloader import get_data_loaders
 from utils.metrics import FocalLoss, accuracy, macro_f1
+from utils.misc import log_metrics
 
 from evaluations import generate_preds, generate_submission
 
@@ -114,8 +116,10 @@ def train_network(net, model_ckpt, fold=0):
     try:
         # define optimizer
         # optimizer = optim.SGD(net.parameters(), lr=config.lr, momentum=0.9, weight_decay=configs.l2)
-        optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), lr=config.lr)
-
+        optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), 
+                            lr=config.lr)
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', config.lr_scale,
+                            config.lr_patience, True)
         # get the loaders
         train_loader, valid_loader = get_data_loaders(imsize=config.imsize,
                                                       batch_size=config.batch_size)
@@ -129,6 +133,7 @@ def train_network(net, model_ckpt, fold=0):
         train_losses = []
         valid_losses = []
         valid_f1s = []
+        lr_hist = []
 
         valid_patience = 0
         best_val_loss = None
@@ -139,12 +144,15 @@ def train_network(net, model_ckpt, fold=0):
         print('Training ...')
         print('Saving to ', model_ckpt)
         for e in range(config.epochs):
-            print('\n' + 'Epoch {}/{}'.format(e+1, config.epochs))
+            print('\n' + 'Epoch {}/{}'.format(e, config.epochs))
 
             start = time.time()
 
             t_l = train(net, optimizer, loss, train_loader, freeze_bn)
             v_l, v_f1 = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
+
+            scheduler.step(v_l)
+            lr_hist.append(optimizer.param_groups[0]['lr'])
 
             # save the model on best validation loss
             if best_val_loss is None or v_l < best_val_loss:
@@ -161,7 +169,7 @@ def train_network(net, model_ckpt, fold=0):
                 torch.save(net.state_dict(), model_ckpt.replace('best', 'bestf1'))
                 best_val_f1 = v_f1
                 valid_patience = 0
-                print('Best val f1 achieved. f1 = {:.4f}.'.
+                print('Best val F1 achieved. F1 = {:.4f}.'.
                     format(v_f1), " Saving model to ", model_ckpt.replace('best', 'bestf1'))
 
                 # if (e > 5):
@@ -176,15 +184,7 @@ def train_network(net, model_ckpt, fold=0):
             valid_losses.append(v_l)
             valid_f1s.append(v_f1)
 
-            _, axes = plt.subplots(2, 2, sharex='col', sharey='row', figsize=(16, 16))
-            axes[0, 0].plot(t_l)
-            axes[0, 1].plot(v_l)
-            axes[1, 0].plot(v_f1)
-            axes[0, 0].set_title('Train Loss')
-            axes[0, 1].set_title('Val Loss')
-            axes[1, 0].set_title('Val F1')
-            plt.suptitle("At Epoch {}".foramt(e+1), fontsize=16)
-            plt.savefig(model_ckpt.replace('model_weights', 'logs').replace('.pth', '.png'))
+            log_metrics(train_losses, valid_losses, valid_f1s, lr_hist, e, model_ckpt)
 
             t_ += 1
             print('Time: {:d}s'.format(int(time.time()-start)))

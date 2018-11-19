@@ -2,12 +2,10 @@
     "exp_name": "run6",
     "model_name": "densenet121",
     "pretrained": true,
-    "lr": 1e-2,
-    "lr_scale": 0.1,
-    "lr_patience": 5,
+    "lr": 1e-6,
     "drop_rate": 0.2,
     "batch_size": 32,
-    "epochs": 60,
+    "epochs": 40,
     "imsize": 256,
-    "desc": "Data aug, pretrained, lr_plateau"
+    "desc": "Data aug, pretrained"
 }
