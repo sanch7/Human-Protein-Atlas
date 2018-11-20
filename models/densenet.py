@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from torchvision.models import densenet121, densenet161, densenet169, densenet201
+from torchvision.models import densenet121, densenet169, densenet201, densenet161
 
 def Atlas_DenseNet(modeln = "densenet121", drop_rate=0., pretrained=False):
     """

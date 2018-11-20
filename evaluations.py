@@ -60,7 +60,8 @@ def find_threshold(net, config, plot=False):
     net.eval()
 
     test_loader, _ = get_data_loaders(imsize=config.imsize,
-                                    batch_size=config.batch_size, test_size=0.)
+                                    batch_size=config.batch_size, test_size=0.,
+                                    num_workers=config.num_workers, eval_mode=True)
 
     val_preds, val_labels = generate_preds(net, test_loader)
 

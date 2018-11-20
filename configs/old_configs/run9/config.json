@@ -1,15 +1,14 @@
 {   
-    "exp_name": "run10",
-    "model_name": "densenet201",
+    "exp_name": "run9",
+    "model_name": "densenet121",
     "pretrained": true,
     "lr": 1e-2,
     "lr_scale": 0.1,
-    "lr_patience": 8,
+    "lr_patience": 5,
     "drop_rate": 0,
     "batch_size": 32,
     "epochs": 200,
     "imsize": 256,
     "num_workers": 6,
-    "preload_data": false,
-    "desc": "densenet201"
+    "desc": "Albu Data aug"
 }

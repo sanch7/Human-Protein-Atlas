@@ -123,7 +123,8 @@ def train_network(net, model_ckpt, fold=0):
         # get the loaders
         train_loader, valid_loader = get_data_loaders(imsize=config.imsize,
                                                       batch_size=config.batch_size,
-                                                      num_workers=config.num_workers)
+                                                      num_workers=config.num_workers,
+                                                      preload=config.preload_data)
 
         loss = FocalLoss()
         # loss = nn.BCEWithLogitsLoss()
@@ -165,13 +166,13 @@ def train_network(net, model_ckpt, fold=0):
                     format(v_l), " Saving model to ", model_ckpt)
 
             # save the model on best validation f1
-            if best_val_f1 is None or v_f1 > best_val_f1:
-                net.eval()
-                torch.save(net.state_dict(), model_ckpt.replace('best', 'bestf1'))
-                best_val_f1 = v_f1
-                valid_patience = 0
-                print('Best val F1 achieved. F1 = {:.4f}.'.
-                    format(v_f1), " Saving model to ", model_ckpt.replace('best', 'bestf1'))
+            # if best_val_f1 is None or v_f1 > best_val_f1:
+            #     net.eval()
+            #     torch.save(net.state_dict(), model_ckpt.replace('best', 'bestf1'))
+            #     best_val_f1 = v_f1
+            #     valid_patience = 0
+            #     print('Best val F1 achieved. F1 = {:.4f}.'.
+            #         format(v_f1), " Saving model to ", model_ckpt.replace('best', 'bestf1'))
 
                 # if (e > 5):
                 #     SUBM_OUT = './subm/{}_{}_epoch{}.csv'.format(

@@ -41,7 +41,7 @@ def test_transformer(imsize = 256):
         ]) 
     return test_tf
 
-def alb_transform(imsize = 256, p=1):
+def alb_transform_train(imsize = 256, p=1):
     albumentations_transform = Compose([
     Resize(imsize, imsize), 
     RandomRotate90(),
@@ -76,32 +76,14 @@ def alb_transform(imsize = 256, p=1):
     ], p=p)
     return albumentations_transform
 
-def strong_aug(p=1):
-    return Compose([
-        RandomRotate90(),
-        Flip(),
-        Transpose(),
-        OneOf([
-            IAAAdditiveGaussianNoise(),
-            GaussNoise(),
-        ], p=0.2),
-        OneOf([
-            MotionBlur(p=.2),
-            MedianBlur(blur_limit=3, p=.1),
-            Blur(blur_limit=3, p=.1),
-        ], p=0.2),
-        ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.2, rotate_limit=45, p=.2),
-        OneOf([
-            OpticalDistortion(p=0.3),
-            GridDistortion(p=.1),
-            IAAPiecewiseAffine(p=0.3),
-        ], p=0.2),
-        OneOf([
-            CLAHE(clip_limit=2),
-            IAASharpen(),
-            IAAEmboss(),
-            RandomContrast(),
-            RandomBrightness(),
-        ], p=0.3),
-        #HueSaturationValue(p=0.3),
+def alb_transform_test(imsize = 256, p=1):
+    albumentations_transform = Compose([
+    Resize(imsize, imsize), 
+    RandomRotate90(),
+    Flip(),
+    Normalize(
+        mean=[0.485, 0.456, 0.406, 0.456],
+        std=[0.229, 0.224, 0.225, 0.224]
+        )
     ], p=p)
+    return albumentations_transform
