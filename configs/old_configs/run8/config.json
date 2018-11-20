@@ -1,13 +1,13 @@
 {   
-    "exp_name": "run9",
+    "exp_name": "run8",
     "model_name": "densenet121",
     "pretrained": true,
     "lr": 1e-2,
     "lr_scale": 0.1,
     "lr_patience": 5,
     "drop_rate": 0,
-    "batch_size": 32,
+    "batch_size": 12,
     "epochs": 200,
-    "imsize": 256,
-    "desc": "Albu Data aug"
+    "imsize": 512,
+    "desc": "Data aug, pretrained, lr_plateau"
 }

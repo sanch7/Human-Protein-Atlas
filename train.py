@@ -86,7 +86,7 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
         tc = time.time() - t0
         tr = int(tc*(ll-i-1)/(i+1))
         sys.stdout.write('\r')
-        sys.stdout.write('B: {:>3}/{:<3} | Loss: {:<6.4f} | ETA: {:>4d}s'.
+        sys.stdout.write('B: {:>3}/{:<3} | Loss: {:<7.4f} | ETA: {:>4d}s'.
             format(i+1, ll, tloss.item(), tr))
 
         if (i == 5 and args.dev_mode == True):

@@ -66,7 +66,7 @@ def find_threshold(net, config, plot=False):
 
     f1s = []
     ths = []
-    for th in np.arange(-0.5, 0.5, 0.05):
+    for th in np.arange(-1., 1., 0.05):
         th_vf1 = macro_f1(val_preds.numpy()>th, val_labels.numpy())
         f1s.append(th_vf1)
         ths.append(th)
@@ -96,7 +96,7 @@ def generate_submission(net, config, folds=1, SUBM_OUT=None):
 
     net.eval()
     
-    best_th = find_threshold(net, config)
+    best_th = find_threshold(net, config, plot=False)
 
     test_loader = get_test_loader(imsize=config.imsize, 
                                     batch_size=config.batch_size)

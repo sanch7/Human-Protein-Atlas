@@ -10,8 +10,9 @@ from torch.utils.data.sampler import SubsetRandomSampler
 
 from sklearn.model_selection import train_test_split
 
-from skimage import transform
-from .preprocessing import train_transformer, test_transformer
+from skimage import io, transform
+import cv2
+from .preprocessing import train_transformer, test_transformer, alb_transform
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -72,14 +73,17 @@ class ProteinDataset(Dataset):
         image = np.zeros((512, 512, 4), dtype='uint8')
         for ch, channel in enumerate(color_channels):
             imagepath = self.images_path + imagename + '_' + channel + ".png"
-            img = Image.open(imagepath)
+            img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
+            # img = io.imread(imagepath)                            #239s
+            # img = Image.open(imagepath)                           #236s
             image[:,:, ch] = img
+            image = np.array(image)
 
-        if self.transformer is not None:
-            image = self.transformer(image)
+        if self.transformer:
+            image = self.transformer(image=image)['image']
         else:
             image = transform.resize(image, (self.imsize, self.imsize))
-            image = torch.from_numpy(image).permute(-1, 0, 1)
+        image = torch.from_numpy(image).permute(-1, 0, 1).float()
         targets = self.images_df['Target'][idx]    
         return image, targets, imagename
 
@@ -101,8 +105,10 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15):
     valid_df = valid_df.reset_index()
 
     # set up the transformers
-    train_tf = train_transformer(imsize)
-    valid_tf = test_transformer(imsize)
+    train_tf = alb_transform(imsize)
+    valid_tf = alb_transform(imsize)
+    # train_tf = train_transformer(imsize)
+    # valid_tf = test_transformer(imsize)
 
     # set up the datasets
     train_dataset = ProteinDataset(data_df = train_df, imsize=imsize, 
