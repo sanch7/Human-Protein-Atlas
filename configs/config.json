@@ -9,5 +9,6 @@
     "batch_size": 32,
     "epochs": 200,
     "imsize": 256,
+    "num_workers": 6,
     "desc": "Albu Data aug"
 }

@@ -122,7 +122,8 @@ def train_network(net, model_ckpt, fold=0):
                             config.lr_patience, True)
         # get the loaders
         train_loader, valid_loader = get_data_loaders(imsize=config.imsize,
-                                                      batch_size=config.batch_size)
+                                                      batch_size=config.batch_size,
+                                                      num_workers=config.num_workers)
 
         loss = FocalLoss()
         # loss = nn.BCEWithLogitsLoss()

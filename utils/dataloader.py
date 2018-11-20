@@ -97,7 +97,7 @@ class ProteinDataset(Dataset):
         targets = self.images_df[self.images_df['Id'] == imagename]['Target']    
         return image, targets
         
-def get_data_loaders(imsize=256, batch_size=16, test_size=0.15):
+def get_data_loaders(imsize=256, batch_size=16, test_size=0.15, num_workers=4):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(train_labels_path)
     train_df, valid_df = train_test_split(images_df, test_size=test_size, random_state=42)
@@ -124,7 +124,7 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15):
                                    batch_size=batch_size,
                                    shuffle=False,
                                    sampler=train_sampler,
-                                   num_workers=4,
+                                   num_workers=num_workers,
                                    pin_memory=True,
                                    drop_last=False)
 
@@ -132,13 +132,13 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15):
                                    batch_size=batch_size,
                                    shuffle=False,
                                    sampler=valid_sampler,
-                                   num_workers=4,
+                                   num_workers=num_workers,
                                    pin_memory=True,
                                    drop_last=False)
 
     return train_loader, valid_loader
 
-def get_test_loader(imsize=256, batch_size=16):
+def get_test_loader(imsize=256, batch_size=16, num_workers=4):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(test_submission_path)
 
@@ -153,7 +153,7 @@ def get_test_loader(imsize=256, batch_size=16):
     test_loader = DataLoader(test_dataset,
                                    batch_size=batch_size,
                                    shuffle=False,
-                                   num_workers=4,
+                                   num_workers=num_workers,
                                    pin_memory=True,
                                    drop_last=False)
 
