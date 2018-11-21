@@ -1,6 +1,6 @@
 {   
-    "exp_name": "run11",
-    "model_name": "densenet121",
+    "exp_name": "run10",
+    "model_name": "densenet201",
     "pretrained": true,
     "lr": 1e-2,
     "lr_scale": 0.1,
@@ -11,5 +11,5 @@
     "imsize": 256,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "iterative stratification"
+    "desc": "densenet201"
 }

@@ -10,10 +10,12 @@ from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
 from sklearn.model_selection import train_test_split
+from skmultilearn.model_selection import iterative_train_test_split
 
 from skimage import io, transform
 import cv2
 from .preprocessing import alb_transform_train, alb_transform_test
+from .misc import label_gen_tensor, label_gen_np
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -34,13 +36,6 @@ labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli",
     24: "Aggresome", 25: "Cytosol", 26: "Cytoplasmic bodies", 27: "Rods & rings"}
 
 color_channels = ('red','green','blue','yellow')
-
-def label_gen(labelstr):
-    label = torch.zeros(28)
-    labelstr = labelstr.split()
-    for l in labelstr:
-        label[int(l)]=1
-    return label
 
 class ProteinDataset(Dataset):
     def __init__(self, data_df = None, test = False, imsize = 256, 
@@ -65,7 +60,7 @@ class ProteinDataset(Dataset):
             self.images_df = data_df
 
         if not self.test:
-            self.images_df['Target'] = self.images_df['Target'].apply(label_gen)
+            self.images_df['Target'] = self.images_df['Target'].apply(label_gen_tensor)
 
         if preload:
             print('Preloading images...')
@@ -117,7 +112,13 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15, num_workers=4,
                         preload=False, eval_mode=False):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(train_labels_path)
-    train_df, valid_df = train_test_split(images_df, test_size=test_size, random_state=42)
+    # train_df, valid_df = train_test_split(images_df, test_size=test_size, random_state=42)
+    images_df['labels'] = images_df['Target'].apply(label_gen_np)
+    valid_idx, _, train_idx, _ = iterative_train_test_split(np.arange(len(images_df))[:, None], 
+                                    np.stack(images_df['labels']), test_size=0.15)
+    train_df = images_df.loc[train_idx.squeeze(1)]
+    valid_df = images_df.loc[valid_idx.squeeze(1)]
+
     train_df = train_df.reset_index()
     valid_df = valid_df.reset_index()
 

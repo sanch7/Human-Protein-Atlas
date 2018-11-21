@@ -1,6 +1,7 @@
 import argparse
 
 import numpy as np
+import torch
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -11,6 +12,20 @@ def str2bool(v):
         return False
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
+
+def label_gen_tensor(labelstr):
+    label = torch.zeros(28)
+    labelstr = labelstr.split()
+    for l in labelstr:
+        label[int(l)]=1
+    return label
+
+def label_gen_np(labelstr):
+    label = np.zeros(28, dtype='uint8')
+    labelstr = labelstr.split()
+    for l in labelstr:
+        label[int(l)]=1
+    return label
 
 def save_pred(pred, th=0., SUBM_OUT='./subm/submission.csv'):
     pred_list = []

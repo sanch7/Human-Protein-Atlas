@@ -10,7 +10,7 @@ from collections import namedtuple
 import pandas as pd
 import numpy as np
 
-from utils.misc import save_pred
+from utils.misc import save_pred, label_gen_np
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
@@ -36,13 +36,6 @@ print('')
 
 if not os.path.exists('./subm'):
     os.makedirs('./subm')
-
-def label_gen_np(labelstr):
-    label = np.zeros(28)
-    labelstr = labelstr.split()
-    for l in labelstr:
-        label[int(l)]=1.
-    return label
 
 def preds_ensemble():
     if len(os.listdir('./preds/') ) == 0:
@@ -75,7 +68,7 @@ def subm_ensemble():
     for i, filepath in enumerate(glob.iglob('./subm/*.csv')):
         print('Processing file', filepath.split('/')[-1])
         predi = pd.read_csv(filepath)
-        all_preds += np.stack(predi['Predicted'].apply(label_gen_np))
+        all_preds += np.stack(predi['Predicted'].apply(label_gen_np)).astype(np.float)
     
     SUBM_OUT = './subm/subm_ensemble_{}.csv'.\
                         format(datetime.now().strftime('%Y-%m-%d_%H:%M:%S'))
