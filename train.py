@@ -123,6 +123,7 @@ def train_network(net, model_ckpt, fold=0):
         # get the loaders
         train_loader, valid_loader = get_data_loaders(imsize=config.imsize,
                                                       batch_size=config.batch_size,
+                                                      test_size=config.test_size,
                                                       num_workers=config.num_workers,
                                                       preload=config.preload_data)
 
