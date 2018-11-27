@@ -18,7 +18,7 @@ from tqdm import tqdm
 import models.model_list as model_list
 from utils.dataloader import get_data_loaders
 from utils.metrics import FocalLoss, DiceLoss, F1Loss, accuracy, macro_f1
-from utils.misc import log_metrics, cosine_annealing_lr
+from utils.misc import log_metrics
 
 from evaluations import generate_preds, generate_submission
 
@@ -118,16 +118,8 @@ def train_network(net, model_ckpt, fold=0):
         # optimizer = optim.SGD(net.parameters(), lr=config.lr, momentum=0.9, weight_decay=configs.l2)
         optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), 
                             lr=config.lr)
-
-        if config.reduce_lr_plateau:
-            config.cosine_annealing = False
-            scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', config.lr_scale,
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', config.lr_scale,
                             config.lr_patience, True)
-
-        if config.cosine_annealing:
-            cos_lr, cycle_ends = cosine_annealing_lr(config.min_lr, config.max_lr, 
-                    config.cycle_size, config.epochs, config.cycle_size_inc)
-
         # get the loaders
         train_loader, valid_loader = get_data_loaders(imsize=config.imsize,
                                                       batch_size=config.batch_size,
@@ -163,20 +155,7 @@ def train_network(net, model_ckpt, fold=0):
             t_l = train(net, optimizer, loss, train_loader, freeze_bn)
             v_l, v_f1 = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
 
-            if config.reduce_lr_plateau:
-                scheduler.step(v_l)
-
-            if config.cosine_annealing:
-                for param_group in optimizer.param_groups:
-                    param_group['lr'] = cos_lr[e]
-                if (e in cycle_ends):
-                    cycle = np.where(cycle_ends==e)[0][0]+1
-                    net.eval()
-                    torch.save(net.state_dict(), 
-                        model_ckpt.replace('best', 'cycle{}'.format(cycle)))
-                    print("Cycle {} completed. Saving model to {}".format(cycle, 
-                        model_ckpt.replace('best', 'cycle{}'.format(cycle))))
-
+            scheduler.step(v_l)
             lr_hist.append(optimizer.param_groups[0]['lr'])
 
             # save the model on best validation loss

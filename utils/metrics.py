@@ -54,3 +54,35 @@ class FocalLoss(nn.Module):
         
         return loss.sum(dim=1).mean()
 
+class F1Loss(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, input, target):
+        tp = (target*input).sum(0)
+        # tn = ((1-target)*(1-input)).sum(0)
+        fp = ((1-target)*input).sum(0)
+        fn = (target*(1-input)).sum(0)
+
+        p = tp / (tp + fp + 1e-9)
+        r = tp / (tp + fn + 1e-9)
+
+        f1 = 2*p*r / (p+r+1e-9)
+        f1[f1!=f1] = 0.
+        return 1 - f1.mean()
+
+
+class DiceLoss(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, input, target):
+        input = torch.sigmoid(input)
+        smooth = 1.
+
+        iflat = input.view(-1)
+        tflat = target.view(-1)
+        intersection = (iflat * tflat).sum()
+        
+        return 1 - ((2.*intersection + smooth) / (iflat.sum() + tflat.sum() + smooth))
+
