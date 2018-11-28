@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 
 from models.densenet import Atlas_DenseNet
-from models.resnet import ResNet
+from models.resnet import Atlas_ResNet
 
 from utils.dataloader import get_data_loaders, get_test_loader
 from utils.misc import save_pred

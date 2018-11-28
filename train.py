@@ -120,7 +120,6 @@ def train_network(net, model_ckpt, fold=0):
                             lr=config.lr)
 
         if config.reduce_lr_plateau:
-            config.cosine_annealing = False
             scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', config.lr_scale,
                             config.lr_patience, True)
 
@@ -136,7 +135,10 @@ def train_network(net, model_ckpt, fold=0):
                                                       preload=config.preload_data)
 
         # loss = F1Loss()
-        loss = FocalLoss(config.focal_gamma)
+        if hasattr(config, 'focal_gamma'):
+            loss = FocalLoss(config.focal_gamma)
+        else:
+            loss = FocalLoss()
         # loss = nn.BCEWithLogitsLoss()
 
         # training flags

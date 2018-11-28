@@ -1,9 +1,22 @@
 from models.densenet import Atlas_DenseNet
 from models.uselessnet import UselessNet
-from models.resnet import ResNet
+from models.resnet import Atlas_ResNet
 
-def resnet():
-    return ResNet()
+def resnet18(pretrained=False, drop_rate=0.):
+    return Atlas_ResNet(modeln="resnet18", pretrained=pretrained)
+
+def resnet34(pretrained=False, drop_rate=0.):
+    return Atlas_ResNet(modeln="resnet34", pretrained=pretrained)
+
+def resnet50(pretrained=False, drop_rate=0.):
+    return Atlas_ResNet(modeln="resnet50", pretrained=pretrained)
+
+def resnet101(pretrained=False, drop_rate=0.):
+    return Atlas_ResNet(modeln="resnet101", pretrained=pretrained)
+
+def resnet152(pretrained=False, drop_rate=0.):
+    return Atlas_ResNet(modeln="resnet152", pretrained=pretrained)
+    
 
 def densenet121(pretrained=False, drop_rate=0.):
     return Atlas_DenseNet(modeln="densenet121", pretrained=pretrained, 
