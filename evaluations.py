@@ -54,6 +54,31 @@ def generate_preds(net, test_loader, test=False):
     else:
         return val_preds
 
+def generate_submission(net, config, folds=1, SUBM_OUT=None, gen_csv=True):
+    print('Generating predictions...')
+
+    net.eval()
+
+    test_loader = get_test_loader(imsize=config.imsize, 
+                                    batch_size=config.batch_size)
+
+    test_preds = torch.zeros(len(test_loader.dataset), 28)
+    for _ in range(folds):
+        test_preds += generate_preds(net, test_loader, test=True)
+    test_preds = test_preds.numpy()/float(folds)
+
+    if gen_csv:
+        print('Generating submission...')
+        best_th = find_threshold(net, config, plot=False)
+
+        preds_df = pd.DataFrame(data=test_preds)
+        preds_df['th'] = best_th
+        preds_df.to_csv(SUBM_OUT.replace('subm', 'preds'), index=False)
+
+        save_pred(test_preds, best_th, SUBM_OUT)
+
+    return test_preds
+
 def find_threshold(net, config, plot=False):
     print('Finding best threshold...')
 
@@ -86,29 +111,3 @@ def find_threshold(net, config, plot=False):
     print('Best Threshold: {:.2}, Best Eval Macro F1: {:.4}'.
         format(best_th, f1s.max()))
     return best_th
-
-def generate_submission(net, config, folds=1, SUBM_OUT=None):
-    print('Generating submission...')
-
-    if SUBM_OUT is None:
-        model_params = [config.model_name, config.exp_name]
-        SUBM_OUT = './subm/best_{}_{}.csv'.format(*model_params)
-    print('Saving to ', SUBM_OUT)
-
-    net.eval()
-    
-    best_th = find_threshold(net, config, plot=False)
-
-    test_loader = get_test_loader(imsize=config.imsize, 
-                                    batch_size=config.batch_size)
-
-    test_preds = torch.zeros(len(test_loader.dataset), 28)
-    for _ in range(folds):
-        test_preds += generate_preds(net, test_loader, test=True)
-    test_preds = test_preds.numpy()/float(folds)
-
-    preds_df = pd.DataFrame(data=test_preds)
-    preds_df['th'] = best_th
-    preds_df.to_csv(SUBM_OUT.replace('subm', 'preds'), index=False)
-
-    save_pred(test_preds, best_th, SUBM_OUT)

@@ -1,0 +1,27 @@
+{   
+    "exp_name": "run18",
+    "model_name": "densenet169",
+    "pretrained": true,
+    "lr": 1e-2,
+    "epochs": 125,
+
+    "reduce_lr_plateau": false,
+    "lr_scale": 0.4,
+    "lr_patience": 8,
+
+    "comment1": "Note: Cosine annealing will be ignored if reduce_lr_plateau is turned on.",
+    "cosine_annealing": true,
+    "max_lr": 1e-3,
+    "min_lr": 1e-6,
+    "cycle_size": 25,
+    "cycle_size_inc": 0,
+
+    "drop_rate": 0,
+    "batch_size": 32,
+    "test_size": 0.125,
+    "focal_gamma": 2,
+    "imsize": 256,
+    "num_workers": 6,
+    "preload_data": false,
+    "desc": "Cosine annealing"
+}
