@@ -1,0 +1,18 @@
+{   
+    "exp_name": "run23",
+    "model_name": "bninception",
+    "pretrained": true,
+    "lr": 1e-2,
+    "reduce_lr_plateau": true,
+    "lr_scale": 0.4,
+    "lr_patience": 10,
+    "cosine_annealing": false,
+    "drop_rate": 0,
+    "batch_size": 32,
+    "test_size": 0.1,
+    "epochs": 200,
+    "imsize": 512,
+    "num_workers": 6,
+    "preload_data": false,
+    "desc": "bninception imsize 512 focal loss adam"
+}

@@ -7,11 +7,14 @@ from sklearn.metrics import f1_score
 def accuracy(preds, target):
     return np.mean((preds > 0.) == target)
 
-def macro_f1(preds, target):
+def macro_f1(preds, target, class_wise=False):
     score = []
     for i in range(preds.shape[1]):
         score.append(f1_score(target[:, i], preds[:, i]))
-    return np.mean(score)
+    if class_wise:
+        return np.array(score)
+    else:
+        return np.mean(score)
 
 def f1_score_slow(y_true, y_pred, threshold=0.5):
     """
