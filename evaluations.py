@@ -89,7 +89,18 @@ def generate_submission(net, config, folds=1, SUBM_OUT=None, gen_csv=True):
 
     return test_preds
 
-def find_threshold(net, config, class_wise=False, plot=True):
+def annot_max(x,y, ax=None):
+    xmax = x[np.argmax(y)]
+    ymax = y.max()
+    text= "F1={:.3f}\nTh={:.3f}".format(ymax, xmax)
+    if not ax:
+        ax=plt.gca()
+    bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
+    kw = dict(xycoords='data',textcoords="axes fraction",
+                bbox=bbox_props, ha="right", va="top")
+    ax.annotate(text, xy=(xmax, ymax), xytext=(0.94,0.96), **kw)
+
+def find_threshold(net, config, class_wise=True, plot=True):
     print('Finding best threshold...')
 
     net.eval()
@@ -116,6 +127,8 @@ def find_threshold(net, config, class_wise=False, plot=True):
             fig.suptitle("Threshold vs Class F1 score", fontsize=16)
             for i in range(28):
                 axes[i // 4, i % 4].plot(ths[i ,:], f1s[i, :])
+                axes[i // 4, i % 4].plot(best_th[i], f1s.max(axis=1)[i], 'ro')
+                annot_max(ths[i ,:], f1s[i, :], axes[i // 4, i % 4])
                 axes[i // 4, i % 4].set_title(labels_dict[i])
             fig.savefig('./logs/best_{}_{}_F1_vs_th.png'.format(config.model_name, 
                                 config.exp_name))
@@ -134,6 +147,7 @@ def find_threshold(net, config, class_wise=False, plot=True):
         if plot == True:
             plt.plot(ths, f1s, 'bx')
             plt.plot(best_th, f1s.max(), 'ro')
+            annot_max(best_th, f1s.max(), plt)
             plt.ylabel('Macro F1s over testing set')
             plt.xlabel('Thresholds')
             plt.title('Threshold vs Macro F1')
