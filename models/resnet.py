@@ -22,6 +22,7 @@ def Atlas_ResNet(modeln = "resnet34", pretrained=False):
             (i.e. bn_size * k features in the bottleneck layer)
         drop_rate (float) - dropout rate after each dense layer
     """
+    print("Using ResNet")
     if modeln == "resnet18":
         model = resnet18
         cin_features = 512
@@ -41,7 +42,7 @@ def Atlas_ResNet(modeln = "resnet34", pretrained=False):
         raise ValueError('Model name not recognized.')
     model = model(pretrained=pretrained)
 
-    model.fc = nn.Linear(cin_features*4, 28)
+    model.fc = nn.Linear(cin_features*4*25, 28)
 
     nconv = nn.Conv2d(4, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
     if pretrained:

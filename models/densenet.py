@@ -12,6 +12,7 @@ def Atlas_DenseNet(modeln = "densenet121", drop_rate=0., pretrained=False):
             (i.e. bn_size * k features in the bottleneck layer)
         drop_rate (float) - dropout rate after each dense layer
     """
+    print("Using DenseNet")
     if modeln == "densenet121":
         model = densenet121
         cin_features = 1024

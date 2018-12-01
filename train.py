@@ -139,7 +139,7 @@ def train_network(net, model_ckpt, fold=0):
             loss = FocalLoss(config.focal_gamma)
         else:
             loss = FocalLoss()
-        # loss = nn.BCEWithLogitsLoss()
+        # loss = nn.BCEWithLogitsLoss().cuda()
 
         # training flags
         freeze_bn = False

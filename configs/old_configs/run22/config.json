@@ -1,6 +1,6 @@
 {   
-    "exp_name": "run23",
-    "model_name": "bninception",
+    "exp_name": "run22",
+    "model_name": "resnet34",
     "pretrained": true,
     "lr": 1e-2,
     "reduce_lr_plateau": true,
@@ -14,5 +14,5 @@
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "bninception imsize 512 focal loss adam"
+    "desc": "resnet34 imsize 512"
 }
