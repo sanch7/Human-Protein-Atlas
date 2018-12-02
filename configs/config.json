@@ -1,10 +1,10 @@
 {   
-    "exp_name": "run23",
+    "exp_name": "run24",
     "model_name": "bninception",
     "pretrained": true,
-    "lr": 1e-2,
+    "lr": 1e-3,
     "reduce_lr_plateau": true,
-    "lr_scale": 0.4,
+    "lr_scale": 0.25,
     "lr_patience": 10,
     "cosine_annealing": false,
     "drop_rate": 0,
@@ -14,5 +14,5 @@
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "bninception imsize 512 focal loss adam"
+    "desc": "bninception oversampling worst F1 classes"
 }

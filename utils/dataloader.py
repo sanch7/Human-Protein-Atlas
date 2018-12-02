@@ -14,7 +14,7 @@ from skmultilearn.model_selection import iterative_train_test_split
 
 from skimage import io, transform
 import cv2
-from .preprocessing import alb_transform_train, alb_transform_test
+from .preprocessing import alb_transform_train, alb_transform_test, custom_over_sampler
 from .misc import label_gen_tensor, label_gen_np
 
 import warnings
@@ -121,6 +121,9 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15, num_workers=4,
 
     train_df = train_df.reset_index()
     valid_df = valid_df.reset_index()
+
+    # Oversampling
+    train_df = custom_over_sampler(train_df, factor=5, num_classes=10)
 
     # set up the transformers
     if eval_mode:

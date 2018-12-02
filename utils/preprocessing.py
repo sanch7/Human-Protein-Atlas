@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 from torchvision import transforms
@@ -9,7 +10,7 @@ from albumentations import (
     Compose, RandomGamma, ElasticTransform, ChannelShuffle,RGBShift, Rotate, Normalize,
     Resize
 )
-
+from .misc import label_gen_np
 
 # https://pytorch.org/docs/master/torchvision/models.html
 # Copied green channel values for the yellow channel
@@ -87,3 +88,15 @@ def alb_transform_test(imsize = 256, p=1):
         )
     ], p=p)
     return albumentations_transform
+
+def custom_over_sampler(df, factor=5, num_classes=10):
+    worst_classes = [20, 27, 16, 26, 18, 17, 22,  6, 13, 12, 21, 19, 15, 25,
+                        5, 11,  3, 24,  8,  4,  2,  7, 23,  9,  0, 14,  1, 10]
+    cto = worst_classes[:num_classes]
+    np_df = df['Target'].apply(label_gen_np)
+    c = []
+    for i in range(len(df)):
+        if(np.any(np_df[i][cto] == 1)):
+            c.append(i)
+    df = df.append([df.iloc[c]]*(factor-1),ignore_index=True)
+    return df
