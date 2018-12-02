@@ -27,6 +27,8 @@ parser.add_argument('--config', default='./configs/config.json',
                     help="run configuration")
 parser.add_argument('--dev_mode', action='store_true', default=False,
                     help='train only few batches per epoch')
+parser.add_argument('--resume', action='store_true', default=False,
+                    help='Resume training from the checkpoint')
 args = parser.parse_args()
 
 with open(args.config) as f_in:
@@ -45,6 +47,32 @@ if not os.path.exists('./model_weights'):
     os.makedirs('./model_weights')
 if not os.path.exists('./logs'):
     os.makedirs('./logs') 
+
+# resume training
+def load_checkpoint(model, optimizer, model_ckpt):
+    # Note: Input model & optimizer should be pre-defined.  This routine only updates their states.
+    start_epoch = 0
+    if os.path.isfile(model_ckpt):
+        print("Resuming from checkpoint '{}'".format(model_ckpt))
+        checkpoint = torch.load(model_ckpt)
+        start_epoch = checkpoint['epoch']
+        model.load_state_dict(checkpoint['state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer'])
+        best_val_loss = checkpoint['best_val_loss']
+        print("Loaded checkpoint '{}' (epoch {})"
+                  .format(model_ckpt, checkpoint['epoch']))
+
+        model = model.to(device)
+        # now individually transfer the optimizer parts...
+        for state in optimizer.state.values():
+            for k, v in state.items():
+                if isinstance(v, torch.Tensor):
+                    state[k] = v.to(device)
+
+    else:
+        print("=> no checkpoint found at '{}'".format(model_ckpt))
+
+    return model, optimizer, start_epoch, best_val_loss
 
 # training function
 def train(net, optimizer, loss, train_loader, freeze_bn=False):
@@ -119,6 +147,16 @@ def train_network(net, model_ckpt, fold=0):
         optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), 
                             lr=config.lr)
 
+        valid_patience = 0
+        best_val_loss = None
+        best_val_f1 = None
+        cycle = 0
+        t_ = 0
+
+        if args.resume:
+            net, optimizer, start_epoch, best_val_loss = load_checkpoint(net, 
+                                        optimizer, model_ckpt)
+
         if config.reduce_lr_plateau:
             scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', config.lr_scale,
                             config.lr_patience, True)
@@ -149,12 +187,6 @@ def train_network(net, model_ckpt, fold=0):
         valid_f1s = []
         lr_hist = []
 
-        valid_patience = 0
-        best_val_loss = None
-        best_val_f1 = None
-        cycle = 0
-        t_ = 0
-
         print('Training ...')
         print('Saving to ', model_ckpt)
         for e in range(config.epochs):
@@ -183,9 +215,18 @@ def train_network(net, model_ckpt, fold=0):
 
             # save the model on best validation loss
             if best_val_loss is None or v_l < best_val_loss:
-                net.eval()
-                torch.save(net.state_dict(), model_ckpt)
                 best_val_loss = v_l
+                
+                net.eval()
+                state = {
+                    'epoch': e,
+                    'arch': config.model_name,
+                    'state_dict': net.state_dict(),
+                    'best_val_loss': best_val_loss,
+                    'optimizer' : optimizer.state_dict(),
+                }
+
+                torch.save(state, model_ckpt)
                 valid_patience = 0
                 print('Best val loss achieved. loss = {:.4f}.'.
                     format(v_l), " Saving model to ", model_ckpt)
@@ -233,7 +274,7 @@ def main_train():
     Net = getattr(model_list, config.model_name)
     
     net = Net(pretrained=config.pretrained, drop_rate=config.drop_rate)
-    
+
     net = nn.parallel.DataParallel(net)
     net.to(device)
 

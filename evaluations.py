@@ -157,6 +157,7 @@ def find_threshold(net, config, class_wise=True, plot=True):
     if class_wise:
         print('Best Thresholds: ', best_th)
         print('Best Eval Macro F1: ', f1s.max(axis=1))
+        print('Best Eval Macro F1 Avg: ', f1s.max(axis=1).mean())
     else:
         print('Best Threshold: {:.2}, Best Eval Macro F1: {:.4}'.
             format(best_th, f1s.max()))

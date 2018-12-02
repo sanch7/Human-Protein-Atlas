@@ -1,5 +1,5 @@
 {   
-    "exp_name": "run25",
+    "exp_name": "run24",
     "model_name": "bninception",
     "pretrained": true,
     "lr": 1e-3,
@@ -14,5 +14,5 @@
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "bninception oversampling worst F1 classes double"
+    "desc": "bninception oversampling worst F1 classes"
 }

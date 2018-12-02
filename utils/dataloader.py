@@ -123,7 +123,8 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15, num_workers=4,
     valid_df = valid_df.reset_index()
 
     # Oversampling
-    train_df = custom_over_sampler(train_df, factor=5, num_classes=10)
+    if not test_size == 0:
+        train_df = custom_over_sampler(train_df, factor=2, num_classes=10)
 
     # set up the transformers
     if eval_mode:
