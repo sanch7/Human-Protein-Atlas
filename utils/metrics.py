@@ -89,3 +89,28 @@ class DiceLoss(nn.Module):
         
         return 1 - ((2.*intersection + smooth) / (iflat.sum() + tflat.sum() + smooth))
 
+
+class FocalTverskyLoss(nn.Module):
+    """
+    https://github.com/nabsabraham/focal-tversky-unet/blob/master/losses.py
+    Focal Tversky Loss. Tversky loss is a special case with gamma = 1
+    """
+    def __init__(self, alpha = 0.7, gamma = 0.75):
+        super().__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+
+    def tversky(self, input, target):
+        smooth = 1.
+
+        target_pos = target.view(-1)
+        input_pos = input.view(-1)
+        true_pos = (target_pos * input_pos).sum()
+        false_neg = (target_pos * (1-input_pos)).sum()
+        false_pos = ((1-target_pos)*input_pos).sum()
+        return (true_pos + smooth)/(true_pos + self.alpha*false_neg + \
+                        (1-self.alpha)*false_pos + smooth)
+
+    def forward(self, input, target):
+        pt_1 = tversky(input, target)
+        return (1-pt_1).pow(self.gamma)
