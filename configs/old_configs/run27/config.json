@@ -1,8 +1,7 @@
 {   
-    "exp_name": "run28",
+    "exp_name": "run27",
     "model_name": "bninception",
     "pretrained": true,
-    "external_data": true,
     "num_channels": 3,
     "lr": 1e-3,
     "reduce_lr_plateau": true,
@@ -16,5 +15,5 @@
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "bninception external data"
+    "desc": "bninception 3 channel"
 }
