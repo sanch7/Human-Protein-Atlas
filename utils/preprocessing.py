@@ -42,7 +42,7 @@ def test_transformer(imsize = 256):
         ]) 
     return test_tf
 
-def alb_transform_train(imsize = 256, p=1):
+def alb_transform_train(imsize = 256, num_channels=4, p=1):
     albumentations_transform = Compose([
     Resize(imsize, imsize), 
     RandomRotate90(),
@@ -71,20 +71,20 @@ def alb_transform_train(imsize = 256, p=1):
         RandomBrightness(),
         ], p=0.3),
     Normalize(
-        mean=[0.485, 0.456, 0.406, 0.456],
-        std=[0.229, 0.224, 0.225, 0.224]
+        mean=[0.485, 0.456, 0.406, 0.456][:num_channels],
+        std=[0.229, 0.224, 0.225, 0.224][:num_channels]
         )
     ], p=p)
     return albumentations_transform
 
-def alb_transform_test(imsize = 256, p=1):
+def alb_transform_test(imsize = 256, num_channels=4, p=1):
     albumentations_transform = Compose([
     Resize(imsize, imsize), 
     RandomRotate90(),
     Flip(),
     Normalize(
-        mean=[0.485, 0.456, 0.406, 0.456],
-        std=[0.229, 0.224, 0.225, 0.224]
+        mean=[0.485, 0.456, 0.406, 0.456][:num_channels],
+        std=[0.229, 0.224, 0.225, 0.224][:num_channels]
         )
     ], p=p)
     return albumentations_transform

@@ -39,7 +39,7 @@ color_channels = ('red','green','blue','yellow')
 
 class ProteinDataset(Dataset):
     def __init__(self, data_df = None, test = False, imsize = 256, 
-                    transformer = None, preload=False):
+                    num_channels = 4, transformer = None, preload=False):
         """
         Params:
             data_df: data DataFrame of image name and labels
@@ -51,6 +51,7 @@ class ProteinDataset(Dataset):
         self.imsize = imsize
         self.transformer = transformer
         self.preload = preload
+        self.colors = color_channels[:num_channels]
         self.images_path = test_images_path if test else train_images_path
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
@@ -65,9 +66,9 @@ class ProteinDataset(Dataset):
         if preload:
             print('Preloading images...')
             self.imarray = np.zeros((len(self.images_df), self.imsize, 
-                                        self.imsize, 4), dtype='uint8')
+                                        self.imsize, len(self.colors)), dtype='uint8')
             for idx, imagename in enumerate(tqdm(self.images_df['Id'])):
-                for ch, channel in enumerate(color_channels):
+                for ch, channel in enumerate(self.colors):
                     imagepath = self.images_path + imagename + '_' + channel + ".png"
                     img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)
                     img = cv2.resize(img, (self.imsize, self.imsize), 
@@ -82,8 +83,8 @@ class ProteinDataset(Dataset):
         if self.preload:
             image = self.imarray[idx,:,:,:]
         else:
-            image = np.zeros((512, 512, 4), dtype='uint8')
-            for ch, channel in enumerate(color_channels):
+            image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
+            for ch, channel in enumerate(self.colors):
                 imagepath = self.images_path + imagename + '_' + channel + ".png"
                 img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
                 # img = io.imread(imagepath)                            #239s
@@ -99,8 +100,8 @@ class ProteinDataset(Dataset):
         return image, targets, imagename
 
     def getImageName(self, imagename):
-        image = np.zeros((512, 512, 4), dtype='uint8')
-        for ch, channel in enumerate(color_channels):
+        image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
+        for ch, channel in enumerate(self.colors):
             imagepath = self.images_path + imagename + '_' + channel + ".png"
             img = Image.open(imagepath)
             image[:,:, ch] = img
@@ -108,7 +109,7 @@ class ProteinDataset(Dataset):
         targets = self.images_df[self.images_df['Id'] == imagename]['Target']    
         return image, targets
         
-def get_data_loaders(imsize=256, batch_size=16, test_size=0.15, num_workers=4, 
+def get_data_loaders(imsize=256, num_channels=4, batch_size=16, test_size=0.15, num_workers=4, 
                         preload=False, eval_mode=False):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(train_labels_path)
@@ -123,22 +124,24 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15, num_workers=4,
     valid_df = valid_df.reset_index()
 
     # Oversampling
-    if not test_size == 0:
-        train_df = custom_over_sampler(train_df, factor=2, num_classes=10)
+    # if not test_size == 0:
+    #     train_df = custom_over_sampler(train_df, factor=2, num_classes=10)
 
     # set up the transformers
     if eval_mode:
-        train_tf = alb_transform_test(imsize)
+        train_tf = alb_transform_test(imsize, num_channels)
     else:
-        train_tf = alb_transform_train(imsize)
-    valid_tf = alb_transform_test(imsize)
+        train_tf = alb_transform_train(imsize, num_channels)
+    valid_tf = alb_transform_test(imsize, num_channels)
     # train_tf = train_transformer(imsize)
     # valid_tf = test_transformer(imsize)
 
     # set up the datasets
     train_dataset = ProteinDataset(data_df = train_df, imsize=imsize, 
+                                    num_channels = num_channels, 
                                     transformer = train_tf, preload=preload)
     valid_dataset = ProteinDataset(data_df = valid_df, imsize=imsize, 
+                                    num_channels = num_channels, 
                                     transformer = valid_tf, preload=preload)
 
     train_sampler = SubsetRandomSampler(train_df.index)
@@ -163,15 +166,16 @@ def get_data_loaders(imsize=256, batch_size=16, test_size=0.15, num_workers=4,
 
     return train_loader, valid_loader
 
-def get_test_loader(imsize=256, batch_size=16, num_workers=4):
+def get_test_loader(imsize=256, num_channels=4, batch_size=16, num_workers=4):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(test_submission_path)
 
     # set up the transformer
-    test_tf = alb_transform_test(imsize)
+    test_tf = alb_transform_test(imsize, num_channels)
 
     # set up the datasets
     test_dataset = ProteinDataset(data_df = images_df, imsize=imsize, 
+                                    num_channels = num_channels,
                                     transformer = test_tf, test=True)
 
     # set up the data loaders

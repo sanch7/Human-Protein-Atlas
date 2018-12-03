@@ -35,8 +35,9 @@ def densenet161(pretrained=False, drop_rate=0.):
     return Atlas_DenseNet(modeln="densenet161", pretrained=pretrained, 
             drop_rate=drop_rate)
 
-def bninception(pretrained=False, drop_rate=0.):
-    return Atlas_BNInception(pretrained=pretrained, drop_rate=drop_rate)
+def bninception(pretrained=False, drop_rate=0., num_channels=4):
+    return Atlas_BNInception(pretrained=pretrained, drop_rate=drop_rate, 
+                                num_channels=num_channels)
 
 
 def uselessnet():

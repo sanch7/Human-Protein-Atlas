@@ -53,12 +53,16 @@ def main_eval():
 
     Net = getattr(model_list, config.model_name)
     
-    net = Net()
+    net = Net(num_channels = config.num_channels)
     net = nn.parallel.DataParallel(net)
     net.to(device)
 
-    net.load_state_dict(torch.load(MODEL_CKPT))
-    
+    try:
+        net.load_state_dict(torch.load(MODEL_CKPT))
+    except:
+        net.load_state_dict(torch.load(MODEL_CKPT)['state_dict'])
+
+
     SUBM_OUT = './subm/best_{}_{}.csv'.format(*model_params)
     if args.outfile != '':
         SUBM_OUT = SUBM_OUT.replace('.csv', '_{}.csv'.format(args.outfile))

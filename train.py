@@ -42,6 +42,8 @@ time.sleep(5)
 print('')
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    cudnn.benchmark = True
 
 if not os.path.exists('./model_weights'):
     os.makedirs('./model_weights')
@@ -63,6 +65,7 @@ def load_checkpoint(model, optimizer, model_ckpt):
                   .format(model_ckpt, checkpoint['epoch']))
 
         model = model.to(device)
+        model.train()
         # now individually transfer the optimizer parts...
         for state in optimizer.state.values():
             for k, v in state.items():
@@ -167,6 +170,7 @@ def train_network(net, model_ckpt, fold=0):
 
         # get the loaders
         train_loader, valid_loader = get_data_loaders(imsize=config.imsize,
+                                                      num_channels=config.num_channels,
                                                       batch_size=config.batch_size,
                                                       test_size=config.test_size,
                                                       num_workers=config.num_workers,
@@ -273,7 +277,8 @@ def main_train():
     # net = Atlas_DenseNet(model = config.model_name, bn_size=4, drop_rate=config.drop_rate)
     Net = getattr(model_list, config.model_name)
     
-    net = Net(pretrained=config.pretrained, drop_rate=config.drop_rate)
+    net = Net(pretrained=config.pretrained, drop_rate=config.drop_rate, 
+                    num_channels = config.num_channels)
 
     net = nn.parallel.DataParallel(net)
     net.to(device)

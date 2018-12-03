@@ -1,9 +1,8 @@
 {   
-    "exp_name": "run27",
+    "exp_name": "run26",
     "model_name": "bninception",
     "pretrained": true,
-    "num_channels": 3,
-    "lr": 1e-3,
+    "lr": 1e-4,
     "reduce_lr_plateau": true,
     "lr_scale": 0.1,
     "lr_patience": 6,
@@ -15,5 +14,5 @@
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "bninception 3 channel"
+    "desc": "bninception retrain on double oversampled"
 }

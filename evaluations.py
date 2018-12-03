@@ -70,6 +70,7 @@ def generate_submission(net, config, folds=1, SUBM_OUT=None, gen_csv=True):
     net.eval()
 
     test_loader = get_test_loader(imsize=config.imsize, 
+                                    num_channels=config.num_channels,  
                                     batch_size=config.batch_size)
 
     test_preds = torch.zeros(len(test_loader.dataset), 28)
@@ -106,6 +107,7 @@ def find_threshold(net, config, class_wise=True, plot=True):
     net.eval()
 
     test_loader, _ = get_data_loaders(imsize=config.imsize,
+                                    num_channels=config.num_channels,  
                                     batch_size=config.batch_size, test_size=0.,
                                     num_workers=config.num_workers, eval_mode=True)
 

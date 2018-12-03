@@ -1,12 +1,11 @@
 {   
-    "exp_name": "run27",
+    "exp_name": "run25",
     "model_name": "bninception",
     "pretrained": true,
-    "num_channels": 3,
     "lr": 1e-3,
     "reduce_lr_plateau": true,
-    "lr_scale": 0.1,
-    "lr_patience": 6,
+    "lr_scale": 0.25,
+    "lr_patience": 10,
     "cosine_annealing": false,
     "drop_rate": 0,
     "batch_size": 32,
@@ -15,5 +14,5 @@
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "bninception 3 channel"
+    "desc": "bninception oversampling worst F1 classes double"
 }
