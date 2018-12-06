@@ -22,6 +22,7 @@ from utils.metrics import FocalLoss, DiceLoss, F1Loss, FocalTverskyLoss, accurac
 from utils.misc import log_metrics, cosine_annealing_lr
 
 from evaluations import generate_preds, generate_submission
+from make_submission import main_subm
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
@@ -30,6 +31,8 @@ parser.add_argument('--dev_mode', action='store_true', default=False,
                     help='train only few batches per epoch')
 parser.add_argument('--resume', action='store_true', default=False,
                     help='Resume training from the checkpoint')
+parser.add_argument('--submission', action='store_true', default=False,
+                    help='Generate submission')
 
 # Model options
 parser.add_argument('--depth', default=34, type=int)
@@ -112,6 +115,7 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
 
         # get predictions
         label_preds, rloss = net(imgs)
+        label_preds += 3.5
         #print(len(msk_preds), len(msks))
         # calculate loss
         tloss = loss(label_preds, labels)
@@ -310,6 +314,10 @@ def main_train():
                                 args.reg_w, args.attention_type)
 
     net.to(device)
+
+    if args.submission:
+        main_subm(net, config, attn=True)
+        sys.exit()
 
     train_network(net, model_ckpt=MODEL_CKPT)
 

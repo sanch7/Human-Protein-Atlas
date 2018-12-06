@@ -49,6 +49,7 @@ def generate_preds(net, test_loader, test=False, attn=False):
                 label_vpreds = net(valid_imgs)
             else:
                 label_vpreds, _ = net(valid_imgs)
+                label_vpreds += 3.5
 
             val_preds[ci: ci+label_vpreds.shape[0], :] = label_vpreds
             if not test:
@@ -84,7 +85,7 @@ def generate_submission(net, config, folds=1, SUBM_OUT=None, gen_csv=True, attn=
 
     if gen_csv:
         print('Generating submission with class wise thresholding...')
-        best_th = find_threshold(net, config, class_wise=True, plot=True)
+        best_th = find_threshold(net, config, class_wise=True, plot=True, attn=attn)
 
         preds_df = pd.DataFrame(data=test_preds)
         preds_df['th'] = pd.Series(best_th)

@@ -26,6 +26,8 @@ parser.add_argument('--outfile', default='',
                     help="Append arg to the file name")
 parser.add_argument('-f', '--folds', type=int, default=1, 
                     help="Number of folds for predictions averaging")
+parser.add_argument('--submission', action='store_true', default=False,
+                    help='Generate submission')
 args = parser.parse_args()
 
 with open(args.config) as f_in:
@@ -45,17 +47,20 @@ if torch.cuda.is_available():
 if not os.path.exists('./subm'):
     os.makedirs('./subm')
 
-def main_eval():
+def main_subm(net = None, opcon = None, attn=False):
+    if opcon is not None:
+        config = opcon
+
     model_params = [config.model_name, config.exp_name]
     MODEL_CKPT = './model_weights/best_{}_{}.pth'.format(*model_params)
 
-    print('Loading model from ' + MODEL_CKPT)
+    if net is None:
+        Net = getattr(model_list, config.model_name)
+        net = Net(num_channels = config.num_channels)
+        net = nn.parallel.DataParallel(net)
+        net.to(device)
 
-    Net = getattr(model_list, config.model_name)
-    
-    net = Net(num_channels = config.num_channels)
-    net = nn.parallel.DataParallel(net)
-    net.to(device)
+    print('Loading model from ' + MODEL_CKPT)
 
     try:
         net.load_state_dict(torch.load(MODEL_CKPT))
@@ -68,19 +73,19 @@ def main_eval():
         SUBM_OUT = SUBM_OUT.replace('.csv', '_{}.csv'.format(args.outfile))
 
     if not config.cosine_annealing:
-        generate_submission(net, config, args.folds, SUBM_OUT, gen_csv=True)
+        generate_submission(net, config, args.folds, SUBM_OUT, gen_csv=True, attn=attn)
     else:
         test_preds_avg = generate_submission(net, config, args.folds, SUBM_OUT,
-                                                gen_csv=False)
-        best_th = 2*find_threshold(net, config, plot=False)
+                                                gen_csv=False, attn=attn)
+        best_th = 2*find_threshold(net, config, plot=False, attn=attn)
         num_models = 2
 
         for MODEL_CKPT in glob.glob("./model_weights/cycle*{}.pth".format(config.exp_name)):
             print('Loading model from ' + MODEL_CKPT)
             net.load_state_dict(torch.load(MODEL_CKPT))
             test_preds_avg += generate_submission(net, config, args.folds, SUBM_OUT,
-                                                gen_csv=False)
-            best_th += find_threshold(net, config, plot=False)
+                                                gen_csv=False, attn=attn)
+            best_th += find_threshold(net, config, plot=False, attn=attn)
             num_models += 1
 
         test_preds_avg /= num_models
@@ -95,4 +100,4 @@ def main_eval():
 
 
 if __name__ == '__main__':
-    main_eval()
+    main_subm()
