@@ -1,6 +1,7 @@
 /data/test/
 /data/train/
 /data/subcellular/
+/data/subcellular
 __pycache__/
 /protein.sublime-project
 /protein.sublime-workspace

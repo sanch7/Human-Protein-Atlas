@@ -27,7 +27,7 @@ labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli",
     21: "Plasma membrane", 22: "Cell junctions", 23: "Mitochondria", 
     24: "Aggresome", 25: "Cytosol", 26: "Cytoplasmic bodies", 27: "Rods & rings"}
 
-def generate_preds(net, test_loader, test=False):
+def generate_preds(net, test_loader, test=False, attn=False):
     net.eval() 
     
     if not test:
@@ -45,7 +45,11 @@ def generate_preds(net, test_loader, test=False):
                 valid_labels = data[1].float().to(device)
 
             # get predictions
-            label_vpreds = net(valid_imgs)
+            if not attn:
+                label_vpreds = net(valid_imgs)
+            else:
+                label_vpreds, _ = net(valid_imgs)
+
             val_preds[ci: ci+label_vpreds.shape[0], :] = label_vpreds
             if not test:
                 val_labels[ci: ci+valid_labels.shape[0], :] = valid_labels
@@ -64,7 +68,7 @@ def generate_preds(net, test_loader, test=False):
     else:
         return val_preds
 
-def generate_submission(net, config, folds=1, SUBM_OUT=None, gen_csv=True):
+def generate_submission(net, config, folds=1, SUBM_OUT=None, gen_csv=True, attn=False):
     print('Generating predictions...')
 
     net.eval()
@@ -75,7 +79,7 @@ def generate_submission(net, config, folds=1, SUBM_OUT=None, gen_csv=True):
 
     test_preds = torch.zeros(len(test_loader.dataset), 28)
     for _ in range(folds):
-        test_preds += generate_preds(net, test_loader, test=True)
+        test_preds += generate_preds(net, test_loader, test=True, attn=attn)
     test_preds = test_preds.numpy()/float(folds)
 
     if gen_csv:
@@ -101,7 +105,7 @@ def annot_max(x,y, ax=None):
                 bbox=bbox_props, ha="right", va="top")
     ax.annotate(text, xy=(xmax, ymax), xytext=(0.94,0.96), **kw)
 
-def find_threshold(net, config, class_wise=True, plot=True):
+def find_threshold(net, config, class_wise=True, plot=True, attn=False):
     print('Finding best threshold...')
 
     net.eval()
@@ -111,7 +115,7 @@ def find_threshold(net, config, class_wise=True, plot=True):
                                     batch_size=config.batch_size, test_size=0.,
                                     num_workers=config.num_workers, eval_mode=True)
 
-    val_preds, val_labels = generate_preds(net, test_loader)
+    val_preds, val_labels = generate_preds(net, test_loader, attn=attn)
 
     if class_wise:
         search_range = np.arange(-2., 1., 0.05)

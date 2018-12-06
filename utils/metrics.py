@@ -95,13 +95,14 @@ class FocalTverskyLoss(nn.Module):
     https://github.com/nabsabraham/focal-tversky-unet/blob/master/losses.py
     Focal Tversky Loss. Tversky loss is a special case with gamma = 1
     """
-    def __init__(self, alpha = 0.7, gamma = 0.75):
+    def __init__(self, alpha = 0.4, gamma = 0.5):
         super().__init__()
         self.alpha = alpha
         self.gamma = gamma
 
     def tversky(self, input, target):
         smooth = 1.
+        input = torch.sigmoid(input)
 
         target_pos = target.view(-1)
         input_pos = input.view(-1)
@@ -112,5 +113,5 @@ class FocalTverskyLoss(nn.Module):
                         (1-self.alpha)*false_pos + smooth)
 
     def forward(self, input, target):
-        pt_1 = tversky(input, target)
+        pt_1 = self.tversky(input, target)
         return (1-pt_1).pow(self.gamma)
