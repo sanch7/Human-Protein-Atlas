@@ -1,0 +1,948 @@
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 32,
+ 'cosine_annealing': False,
+ 'desc': 'WideResNetAttention d=34, w=1, ad=1, aw=1, softmax, rw=0.001',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run33',
+ 'external_data': False,
+ 'imsize': 256,
+ 'lr': 0.01,
+ 'lr_patience': 8,
+ 'lr_scale': 0.1,
+ 'model_name': 'WideResNetAttention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.1}
+
+Attention after groups [2, 1, 0]
+Training ...
+Saving to  ./model_weights/best_WideResNetAttention_run33.pth
+
+Epoch 0/200
+B: 874/874 | Loss: 1.2506  | ETA:    0ss
+Avg Train Loss: 2.503
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 1.205, Avg Eval Macro F1: 0.03624, Avg Eval Acc. 0.9485
+Best val loss achieved. loss = 1.2048.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 397s
+
+Epoch 1/200
+B: 874/874 | Loss: 1.2384  | ETA:    0s
+Avg Train Loss: 1.19
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 1.164, Avg Eval Macro F1: 0.04931, Avg Eval Acc. 0.9491
+Best val loss achieved. loss = 1.1635.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 395s
+
+Epoch 2/200
+B: 874/874 | Loss: 1.0818  | ETA:    0s
+Avg Train Loss: 1.148
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 1.102, Avg Eval Macro F1: 0.04937, Avg Eval Acc. 0.9497
+Best val loss achieved. loss = 1.1022.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 395s
+
+Epoch 3/200
+B: 874/874 | Loss: 0.9380  | ETA:    0s
+Avg Train Loss: 1.107
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 1.098, Avg Eval Macro F1: 0.07186, Avg Eval Acc. 0.9505
+Best val loss achieved. loss = 1.0981.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 395s
+
+Epoch 4/200
+B: 874/874 | Loss: 0.9727  | ETA:    0s
+Avg Train Loss: 1.061
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 1.022, Avg Eval Macro F1: 0.1162, Avg Eval Acc. 0.9525
+Best val loss achieved. loss = 1.0221.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 395s
+
+Epoch 5/200
+B: 874/874 | Loss: 0.9445  | ETA:    0s
+Avg Train Loss: 1.025
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 1.016, Avg Eval Macro F1: 0.1606, Avg Eval Acc. 0.9517
+Best val loss achieved. loss = 1.0157.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 394s
+
+Epoch 6/200
+B: 874/874 | Loss: 0.9010  | ETA:    0s
+Avg Train Loss: 0.9921
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.9629, Avg Eval Macro F1: 0.1876, Avg Eval Acc. 0.9555
+Best val loss achieved. loss = 0.9629.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 395s
+
+Epoch 7/200
+B: 874/874 | Loss: 1.0749  | ETA:    0s
+Avg Train Loss: 0.9716
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.9311, Avg Eval Macro F1: 0.2177, Avg Eval Acc. 0.9563
+Best val loss achieved. loss = 0.9311.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 394s
+
+Epoch 8/200
+B: 874/874 | Loss: 0.9697  | ETA:    0s
+Avg Train Loss: 0.9449
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.9345, Avg Eval Macro F1: 0.1781, Avg Eval Acc. 0.9558
+Time: 395s
+
+Epoch 9/200
+B: 874/874 | Loss: 1.0332  | ETA:    0s
+Avg Train Loss: 0.9174
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.9189, Avg Eval Macro F1: 0.2643, Avg Eval Acc. 0.9575
+Best val loss achieved. loss = 0.9189.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 395s
+
+Epoch 10/200
+B: 874/874 | Loss: 1.0273  | ETA:    0s
+Avg Train Loss: 0.9009
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.909, Avg Eval Macro F1: 0.2605, Avg Eval Acc. 0.9589
+Best val loss achieved. loss = 0.9090.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 395s
+
+Epoch 11/200
+B: 874/874 | Loss: 1.1880  | ETA:    0s
+Avg Train Loss: 0.8896
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.8443, Avg Eval Macro F1: 0.2588, Avg Eval Acc. 0.9602
+Best val loss achieved. loss = 0.8443.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 393s
+
+Epoch 12/200
+B: 874/874 | Loss: 0.7512  | ETA:    0s
+Avg Train Loss: 0.8732
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.8505, Avg Eval Macro F1: 0.2878, Avg Eval Acc. 0.9602
+Time: 390s
+
+Epoch 13/200
+B: 874/874 | Loss: 0.5907  | ETA:    0s
+Avg Train Loss: 0.8589
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.8355, Avg Eval Macro F1: 0.3302, Avg Eval Acc. 0.9616
+Best val loss achieved. loss = 0.8355.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 14/200
+B: 874/874 | Loss: 0.9180  | ETA:    0s
+Avg Train Loss: 0.851
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.8776, Avg Eval Macro F1: 0.2876, Avg Eval Acc. 0.9606
+Time: 392s
+
+Epoch 15/200
+B: 874/874 | Loss: 1.0706  | ETA:    0s
+Avg Train Loss: 0.8371
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7906, Avg Eval Macro F1: 0.3114, Avg Eval Acc. 0.9623
+Best val loss achieved. loss = 0.7906.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 16/200
+B: 874/874 | Loss: 0.8014  | ETA:    0s
+Avg Train Loss: 0.8264
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.8085, Avg Eval Macro F1: 0.2999, Avg Eval Acc. 0.9623
+Time: 391s
+
+Epoch 17/200
+B: 874/874 | Loss: 0.6474  | ETA:    0s
+Avg Train Loss: 0.8167
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7929, Avg Eval Macro F1: 0.345, Avg Eval Acc. 0.9625
+Time: 391s
+
+Epoch 18/200
+B: 874/874 | Loss: 0.6497  | ETA:    0s
+Avg Train Loss: 0.8079
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7743, Avg Eval Macro F1: 0.3358, Avg Eval Acc. 0.9635
+Best val loss achieved. loss = 0.7743.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 391s
+
+Epoch 19/200
+B: 874/874 | Loss: 0.7414  | ETA:    0s
+Avg Train Loss: 0.8009
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7713, Avg Eval Macro F1: 0.3439, Avg Eval Acc. 0.9642
+Best val loss achieved. loss = 0.7713.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 20/200
+B: 874/874 | Loss: 0.5440  | ETA:    0s
+Avg Train Loss: 0.7946
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7748, Avg Eval Macro F1: 0.3674, Avg Eval Acc. 0.9636
+Time: 390s
+
+Epoch 21/200
+B: 874/874 | Loss: 0.8061  | ETA:    0s
+Avg Train Loss: 0.7882
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7812, Avg Eval Macro F1: 0.3617, Avg Eval Acc. 0.9636
+Time: 391s
+
+Epoch 22/200
+B: 874/874 | Loss: 0.5856  | ETA:    0s
+Avg Train Loss: 0.7825
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7596, Avg Eval Macro F1: 0.3624, Avg Eval Acc. 0.9638
+Best val loss achieved. loss = 0.7596.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 23/200
+B: 874/874 | Loss: 0.6866  | ETA:    0s
+Avg Train Loss: 0.7787
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7709, Avg Eval Macro F1: 0.3163, Avg Eval Acc. 0.963
+Time: 391s
+
+Epoch 24/200
+B: 874/874 | Loss: 0.9913  | ETA:    0s
+Avg Train Loss: 0.7717
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.73, Avg Eval Macro F1: 0.3887, Avg Eval Acc. 0.9659
+Best val loss achieved. loss = 0.7300.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 25/200
+B: 874/874 | Loss: 0.7389  | ETA:    0s
+Avg Train Loss: 0.7657
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7576, Avg Eval Macro F1: 0.422, Avg Eval Acc. 0.9655
+Time: 388s
+
+Epoch 26/200
+B: 874/874 | Loss: 0.7425  | ETA:    0s
+Avg Train Loss: 0.7672
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7391, Avg Eval Macro F1: 0.4228, Avg Eval Acc. 0.9658
+Time: 389s
+
+Epoch 27/200
+B: 874/874 | Loss: 0.6147  | ETA:    0s
+Avg Train Loss: 0.7605
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7466, Avg Eval Macro F1: 0.367, Avg Eval Acc. 0.9642
+Time: 390s
+
+Epoch 28/200
+B: 874/874 | Loss: 0.7654  | ETA:    0s
+Avg Train Loss: 0.756
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7216, Avg Eval Macro F1: 0.4232, Avg Eval Acc. 0.966
+Best val loss achieved. loss = 0.7216.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 388s
+
+Epoch 29/200
+B: 874/874 | Loss: 0.6564  | ETA:    0s
+Avg Train Loss: 0.7521
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7217, Avg Eval Macro F1: 0.4037, Avg Eval Acc. 0.9661
+Time: 387s
+
+Epoch 30/200
+B: 874/874 | Loss: 0.8091  | ETA:    0s
+Avg Train Loss: 0.7494
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7308, Avg Eval Macro F1: 0.4112, Avg Eval Acc. 0.9658
+Time: 388s
+
+Epoch 31/200
+B: 874/874 | Loss: 0.6850  | ETA:    0s
+Avg Train Loss: 0.7469
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7337, Avg Eval Macro F1: 0.3756, Avg Eval Acc. 0.9654
+Time: 388s
+
+Epoch 32/200
+B: 874/874 | Loss: 0.7585  | ETA:    0s
+Avg Train Loss: 0.7457
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7305, Avg Eval Macro F1: 0.418, Avg Eval Acc. 0.9651
+Time: 390s
+
+Epoch 33/200
+B: 874/874 | Loss: 0.6296  | ETA:    0s
+Avg Train Loss: 0.7403
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7212, Avg Eval Macro F1: 0.3815, Avg Eval Acc. 0.9665
+Best val loss achieved. loss = 0.7212.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 34/200
+B: 874/874 | Loss: 0.5306  | ETA:    0s
+Avg Train Loss: 0.7364
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7257, Avg Eval Macro F1: 0.3993, Avg Eval Acc. 0.9652
+Time: 390s
+
+Epoch 35/200
+B: 874/874 | Loss: 0.6750  | ETA:    0s
+Avg Train Loss: 0.7328
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7291, Avg Eval Macro F1: 0.4125, Avg Eval Acc. 0.9662
+Time: 388s
+
+Epoch 36/200
+B: 874/874 | Loss: 0.6171  | ETA:    0s
+Avg Train Loss: 0.7326
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7356, Avg Eval Macro F1: 0.4191, Avg Eval Acc. 0.9655
+Time: 388s
+
+Epoch 37/200
+B: 874/874 | Loss: 0.9788  | ETA:    0s
+Avg Train Loss: 0.7306
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7273, Avg Eval Macro F1: 0.4026, Avg Eval Acc. 0.9656
+Time: 388s
+
+Epoch 38/200
+B: 874/874 | Loss: 0.8783  | ETA:    0s
+Avg Train Loss: 0.7294
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7174, Avg Eval Macro F1: 0.4336, Avg Eval Acc. 0.9663
+Best val loss achieved. loss = 0.7174.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 388s
+
+Epoch 39/200
+B: 874/874 | Loss: 0.7101  | ETA:    0s
+Avg Train Loss: 0.7276
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7249, Avg Eval Macro F1: 0.4398, Avg Eval Acc. 0.9658
+Time: 390s
+
+Epoch 40/200
+B: 874/874 | Loss: 0.7416  | ETA:    0s
+Avg Train Loss: 0.7249
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7116, Avg Eval Macro F1: 0.4104, Avg Eval Acc. 0.9662
+Best val loss achieved. loss = 0.7116.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 41/200
+B: 874/874 | Loss: 0.7616  | ETA:    0s
+Avg Train Loss: 0.7243
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7311, Avg Eval Macro F1: 0.3766, Avg Eval Acc. 0.9655
+Time: 387s
+
+Epoch 42/200
+B: 874/874 | Loss: 0.5850  | ETA:    0s
+Avg Train Loss: 0.7196
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6922, Avg Eval Macro F1: 0.4477, Avg Eval Acc. 0.9672
+Best val loss achieved. loss = 0.6922.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 43/200
+B: 874/874 | Loss: 0.4640  | ETA:    0s
+Avg Train Loss: 0.7187
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7102, Avg Eval Macro F1: 0.4506, Avg Eval Acc. 0.967
+Time: 387s
+
+Epoch 44/200
+B: 874/874 | Loss: 0.8442  | ETA:    0s
+Avg Train Loss: 0.7139
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7381, Avg Eval Macro F1: 0.4111, Avg Eval Acc. 0.9652
+Time: 389s
+
+Epoch 45/200
+B: 874/874 | Loss: 0.7522  | ETA:    0s
+Avg Train Loss: 0.7141
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7178, Avg Eval Macro F1: 0.4245, Avg Eval Acc. 0.966
+Time: 389s
+
+Epoch 46/200
+B: 874/874 | Loss: 0.6159  | ETA:    0s
+Avg Train Loss: 0.7122
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7057, Avg Eval Macro F1: 0.419, Avg Eval Acc. 0.9667
+Time: 388s
+
+Epoch 47/200
+B: 874/874 | Loss: 0.7071  | ETA:    0s
+Avg Train Loss: 0.7094
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6949, Avg Eval Macro F1: 0.4923, Avg Eval Acc. 0.9676
+Time: 388s
+
+Epoch 48/200
+B: 874/874 | Loss: 0.8039  | ETA:    0s
+Avg Train Loss: 0.7087
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6891, Avg Eval Macro F1: 0.423, Avg Eval Acc. 0.9673
+Best val loss achieved. loss = 0.6891.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 49/200
+B: 874/874 | Loss: 0.6697  | ETA:    0s
+Avg Train Loss: 0.7082
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6823, Avg Eval Macro F1: 0.4674, Avg Eval Acc. 0.9683
+Best val loss achieved. loss = 0.6823.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 388s
+
+Epoch 50/200
+B: 874/874 | Loss: 0.6121  | ETA:    0s
+Avg Train Loss: 0.707
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6779, Avg Eval Macro F1: 0.4522, Avg Eval Acc. 0.9682
+Best val loss achieved. loss = 0.6779.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 51/200
+B: 874/874 | Loss: 0.6960  | ETA:    0s
+Avg Train Loss: 0.7025
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6817, Avg Eval Macro F1: 0.5144, Avg Eval Acc. 0.9684
+Time: 387s
+
+Epoch 52/200
+B: 874/874 | Loss: 0.7531  | ETA:    0s
+Avg Train Loss: 0.7027
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6965, Avg Eval Macro F1: 0.4325, Avg Eval Acc. 0.9675
+Time: 389s
+
+Epoch 53/200
+B: 874/874 | Loss: 0.6370  | ETA:    0s
+Avg Train Loss: 0.6998
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6792, Avg Eval Macro F1: 0.427, Avg Eval Acc. 0.9682
+Time: 389s
+
+Epoch 54/200
+B: 874/874 | Loss: 0.8823  | ETA:    0s
+Avg Train Loss: 0.7001
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7039, Avg Eval Macro F1: 0.4407, Avg Eval Acc. 0.9675
+Time: 389s
+
+Epoch 55/200
+B: 874/874 | Loss: 0.6419  | ETA:    0s
+Avg Train Loss: 0.6997
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6889, Avg Eval Macro F1: 0.4272, Avg Eval Acc. 0.9675
+Time: 390s
+
+Epoch 56/200
+B: 874/874 | Loss: 0.6942  | ETA:    0s
+Avg Train Loss: 0.6979
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.682, Avg Eval Macro F1: 0.4356, Avg Eval Acc. 0.968
+Time: 388s
+
+Epoch 57/200
+B: 874/874 | Loss: 0.5952  | ETA:    0s
+Avg Train Loss: 0.6967
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6756, Avg Eval Macro F1: 0.4609, Avg Eval Acc. 0.9685
+Best val loss achieved. loss = 0.6756.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 58/200
+B: 874/874 | Loss: 0.6412  | ETA:    0s
+Avg Train Loss: 0.6941
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6772, Avg Eval Macro F1: 0.4816, Avg Eval Acc. 0.9687
+Time: 388s
+
+Epoch 59/200
+B: 874/874 | Loss: 0.6081  | ETA:    0s
+Avg Train Loss: 0.6939
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6949, Avg Eval Macro F1: 0.4379, Avg Eval Acc. 0.9669
+Time: 389s
+
+Epoch 60/200
+B: 874/874 | Loss: 0.8105  | ETA:    0s
+Avg Train Loss: 0.6887
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6813, Avg Eval Macro F1: 0.4429, Avg Eval Acc. 0.9679
+Time: 388s
+
+Epoch 61/200
+B: 874/874 | Loss: 0.7122  | ETA:    0s
+Avg Train Loss: 0.6922
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6692, Avg Eval Macro F1: 0.4612, Avg Eval Acc. 0.9689
+Best val loss achieved. loss = 0.6692.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 62/200
+B: 874/874 | Loss: 0.6764  | ETA:    0s
+Avg Train Loss: 0.6902
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6932, Avg Eval Macro F1: 0.4548, Avg Eval Acc. 0.9672
+Time: 388s
+
+Epoch 63/200
+B: 874/874 | Loss: 0.6776  | ETA:    0s
+Avg Train Loss: 0.6902
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6854, Avg Eval Macro F1: 0.4669, Avg Eval Acc. 0.9682
+Time: 389s
+
+Epoch 64/200
+B: 874/874 | Loss: 0.5977  | ETA:    0s
+Avg Train Loss: 0.6871
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6677, Avg Eval Macro F1: 0.4553, Avg Eval Acc. 0.9685
+Best val loss achieved. loss = 0.6677.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 65/200
+B: 874/874 | Loss: 0.9223  | ETA:    0s
+Avg Train Loss: 0.6903
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6943, Avg Eval Macro F1: 0.444, Avg Eval Acc. 0.968
+Time: 389s
+
+Epoch 66/200
+B: 874/874 | Loss: 0.6192  | ETA:    0s
+Avg Train Loss: 0.6827
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.696, Avg Eval Macro F1: 0.4509, Avg Eval Acc. 0.9673
+Time: 390s
+
+Epoch 67/200
+B: 874/874 | Loss: 0.4624  | ETA:    0s
+Avg Train Loss: 0.6837
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6708, Avg Eval Macro F1: 0.4529, Avg Eval Acc. 0.9682
+Time: 388s
+
+Epoch 68/200
+B: 874/874 | Loss: 0.4626  | ETA:    0s
+Avg Train Loss: 0.6831
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6988, Avg Eval Macro F1: 0.4381, Avg Eval Acc. 0.9665
+Time: 389s
+
+Epoch 69/200
+B: 874/874 | Loss: 0.8022  | ETA:    0s
+Avg Train Loss: 0.6833
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6811, Avg Eval Macro F1: 0.4671, Avg Eval Acc. 0.9675
+Time: 390s
+
+Epoch 70/200
+B: 874/874 | Loss: 0.9301  | ETA:    0s
+Avg Train Loss: 0.6848
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6746, Avg Eval Macro F1: 0.4578, Avg Eval Acc. 0.9684
+Time: 389s
+
+Epoch 71/200
+B: 874/874 | Loss: 0.6827  | ETA:    0s
+Avg Train Loss: 0.6827
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7341, Avg Eval Macro F1: 0.4272, Avg Eval Acc. 0.9654
+Time: 389s
+
+Epoch 72/200
+B: 874/874 | Loss: 0.8264  | ETA:    0s
+Avg Train Loss: 0.6815
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6671, Avg Eval Macro F1: 0.4608, Avg Eval Acc. 0.9687
+Best val loss achieved. loss = 0.6671.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 73/200
+B: 874/874 | Loss: 1.0806  | ETA:    0s
+Avg Train Loss: 0.6795
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6833, Avg Eval Macro F1: 0.4648, Avg Eval Acc. 0.9675
+Time: 390s
+
+Epoch 74/200
+B: 874/874 | Loss: 0.8649  | ETA:    0s
+Avg Train Loss: 0.6792
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6638, Avg Eval Macro F1: 0.4912, Avg Eval Acc. 0.969
+Best val loss achieved. loss = 0.6638.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 75/200
+B: 874/874 | Loss: 0.7338  | ETA:    0s
+Avg Train Loss: 0.6768
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6664, Avg Eval Macro F1: 0.4415, Avg Eval Acc. 0.9686
+Time: 388s
+
+Epoch 76/200
+B: 874/874 | Loss: 0.7941  | ETA:    0s
+Avg Train Loss: 0.6758
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6659, Avg Eval Macro F1: 0.4674, Avg Eval Acc. 0.9681
+Time: 390s
+
+Epoch 77/200
+B: 874/874 | Loss: 0.5930  | ETA:    0s
+Avg Train Loss: 0.6777
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6686, Avg Eval Macro F1: 0.4635, Avg Eval Acc. 0.969
+Time: 389s
+
+Epoch 78/200
+B: 874/874 | Loss: 0.6588  | ETA:    0s
+Avg Train Loss: 0.6765
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6653, Avg Eval Macro F1: 0.4982, Avg Eval Acc. 0.9682
+Time: 389s
+
+Epoch 79/200
+B: 874/874 | Loss: 0.7905  | ETA:    0s
+Avg Train Loss: 0.6737
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.7158, Avg Eval Macro F1: 0.4614, Avg Eval Acc. 0.966
+Time: 388s
+
+Epoch 80/200
+B: 874/874 | Loss: 0.5966  | ETA:    0s
+Avg Train Loss: 0.6726
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6689, Avg Eval Macro F1: 0.4826, Avg Eval Acc. 0.9686
+Time: 388s
+
+Epoch 81/200
+B: 874/874 | Loss: 0.5709  | ETA:    0s
+Avg Train Loss: 0.6728
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6682, Avg Eval Macro F1: 0.4897, Avg Eval Acc. 0.9685
+Time: 389s
+
+Epoch 82/200
+B: 874/874 | Loss: 0.6518  | ETA:    0s
+Avg Train Loss: 0.6716
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6716, Avg Eval Macro F1: 0.4789, Avg Eval Acc. 0.9685
+Time: 389s
+
+Epoch 83/200
+B: 874/874 | Loss: 0.6998  | ETA:    0s
+Avg Train Loss: 0.6736
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6665, Avg Eval Macro F1: 0.4873, Avg Eval Acc. 0.9692
+Epoch    83: reducing learning rate of group 0 to 1.0000e-03.
+Time: 389s
+
+Epoch 84/200
+B: 874/874 | Loss: 0.5459  | ETA:    0s
+Avg Train Loss: 0.6354
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6299, Avg Eval Macro F1: 0.4974, Avg Eval Acc. 0.9701
+Best val loss achieved. loss = 0.6299.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 85/200
+B: 874/874 | Loss: 0.5980  | ETA:    0s
+Avg Train Loss: 0.6302
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6296, Avg Eval Macro F1: 0.5439, Avg Eval Acc. 0.9706
+Best val loss achieved. loss = 0.6296.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 388s
+
+Epoch 86/200
+B: 874/874 | Loss: 0.7898  | ETA:    0s
+Avg Train Loss: 0.6271
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6266, Avg Eval Macro F1: 0.5019, Avg Eval Acc. 0.9704
+Best val loss achieved. loss = 0.6266.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 388s
+
+Epoch 87/200
+B: 874/874 | Loss: 0.3530  | ETA:    0s
+Avg Train Loss: 0.6258
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6291, Avg Eval Macro F1: 0.508, Avg Eval Acc. 0.9702
+Time: 388s
+
+Epoch 88/200
+B: 874/874 | Loss: 0.7683  | ETA:    0s
+Avg Train Loss: 0.6251
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6249, Avg Eval Macro F1: 0.4954, Avg Eval Acc. 0.9708
+Best val loss achieved. loss = 0.6249.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 388s
+
+Epoch 89/200
+B: 874/874 | Loss: 0.8192  | ETA:    0s
+Avg Train Loss: 0.6227
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.625, Avg Eval Macro F1: 0.5109, Avg Eval Acc. 0.9707
+Time: 388s
+
+Epoch 90/200
+B: 874/874 | Loss: 0.5075  | ETA:    0s
+Avg Train Loss: 0.6238
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6236, Avg Eval Macro F1: 0.5196, Avg Eval Acc. 0.9706
+Best val loss achieved. loss = 0.6236.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 389s
+
+Epoch 91/200
+B: 874/874 | Loss: 0.6134  | ETA:    0s
+Avg Train Loss: 0.6224
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.619, Avg Eval Macro F1: 0.5269, Avg Eval Acc. 0.9705
+Best val loss achieved. loss = 0.6190.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 391s
+
+Epoch 92/200
+B: 874/874 | Loss: 0.6747  | ETA:    0s
+Avg Train Loss: 0.6215
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6266, Avg Eval Macro F1: 0.5544, Avg Eval Acc. 0.9704
+Time: 389s
+
+Epoch 93/200
+B: 874/874 | Loss: 0.6220  | ETA:    0s
+Avg Train Loss: 0.6207
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6251, Avg Eval Macro F1: 0.5342, Avg Eval Acc. 0.9706
+Time: 389s
+
+Epoch 94/200
+B: 874/874 | Loss: 0.4552  | ETA:    0s
+Avg Train Loss: 0.6187
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.617, Avg Eval Macro F1: 0.5287, Avg Eval Acc. 0.9707
+Best val loss achieved. loss = 0.6170.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 391s
+
+Epoch 95/200
+B: 874/874 | Loss: 0.7025  | ETA:    0s
+Avg Train Loss: 0.6193
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6262, Avg Eval Macro F1: 0.5194, Avg Eval Acc. 0.9703
+Time: 389s
+
+Epoch 96/200
+B: 874/874 | Loss: 0.5988  | ETA:    0s
+Avg Train Loss: 0.6187
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6228, Avg Eval Macro F1: 0.524, Avg Eval Acc. 0.9704
+Time: 390s
+
+Epoch 97/200
+B: 874/874 | Loss: 0.7117  | ETA:    0s
+Avg Train Loss: 0.6202
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6219, Avg Eval Macro F1: 0.5323, Avg Eval Acc. 0.9704
+Time: 389s
+
+Epoch 98/200
+B: 874/874 | Loss: 0.6907  | ETA:    0s
+Avg Train Loss: 0.6193
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6209, Avg Eval Macro F1: 0.5253, Avg Eval Acc. 0.9702
+Time: 390s
+
+Epoch 99/200
+B: 874/874 | Loss: 0.5644  | ETA:    0s
+Avg Train Loss: 0.6157
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6242, Avg Eval Macro F1: 0.5127, Avg Eval Acc. 0.9705
+Time: 390s
+
+Epoch 100/200
+B: 874/874 | Loss: 0.7227  | ETA:    0s
+Avg Train Loss: 0.6162
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6211, Avg Eval Macro F1: 0.5529, Avg Eval Acc. 0.9709
+Time: 390s
+
+Epoch 101/200
+B: 874/874 | Loss: 0.5021  | ETA:    0s
+Avg Train Loss: 0.6158
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6229, Avg Eval Macro F1: 0.5183, Avg Eval Acc. 0.9706
+Time: 390s
+
+Epoch 102/200
+B: 874/874 | Loss: 0.7162  | ETA:    0s
+Avg Train Loss: 0.616
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6198, Avg Eval Macro F1: 0.4894, Avg Eval Acc. 0.9704
+Time: 389s
+
+Epoch 103/200
+B: 874/874 | Loss: 0.6129  | ETA:    0s
+Avg Train Loss: 0.6178
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6187, Avg Eval Macro F1: 0.5294, Avg Eval Acc. 0.9706
+Epoch   103: reducing learning rate of group 0 to 1.0000e-04.
+Time: 389s
+
+Epoch 104/200
+B: 874/874 | Loss: 0.7028  | ETA:    0s
+Avg Train Loss: 0.6148
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6155, Avg Eval Macro F1: 0.5365, Avg Eval Acc. 0.9706
+Best val loss achieved. loss = 0.6155.  Saving model to  ./model_weights/best_WideResNetAttention_run33.pth
+Time: 390s
+
+Epoch 105/200
+B: 874/874 | Loss: 0.5646  | ETA:    0s
+Avg Train Loss: 0.6116
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6224, Avg Eval Macro F1: 0.5141, Avg Eval Acc. 0.9704
+Time: 388s
+
+Epoch 106/200
+B: 874/874 | Loss: 0.5037  | ETA:    0s
+Avg Train Loss: 0.6091
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6206, Avg Eval Macro F1: 0.5467, Avg Eval Acc. 0.9707
+Time: 389s
+
+Epoch 107/200
+B: 874/874 | Loss: 0.6659  | ETA:    0s
+Avg Train Loss: 0.6095
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6197, Avg Eval Macro F1: 0.5174, Avg Eval Acc. 0.9706
+Time: 388s
+
+Epoch 108/200
+B: 874/874 | Loss: 0.5955  | ETA:    0s
+Avg Train Loss: 0.609
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6208, Avg Eval Macro F1: 0.5336, Avg Eval Acc. 0.9708
+Time: 396s
+
+Epoch 109/200
+B: 874/874 | Loss: 0.4832  | ETA:    0s
+Avg Train Loss: 0.6116
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6224, Avg Eval Macro F1: 0.5271, Avg Eval Acc. 0.9706
+Time: 396s
+
+Epoch 110/200
+B: 874/874 | Loss: 0.6377  | ETA:    0s
+Avg Train Loss: 0.6112
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6255, Avg Eval Macro F1: 0.5482, Avg Eval Acc. 0.9709
+Time: 398s
+
+Epoch 111/200
+B: 874/874 | Loss: 0.6067  | ETA:    0s
+Avg Train Loss: 0.6113
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6158, Avg Eval Macro F1: 0.5412, Avg Eval Acc. 0.9709
+Time: 397s
+
+Epoch 112/200
+B: 874/874 | Loss: 0.6082  | ETA:    0s
+Avg Train Loss: 0.6085
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6197, Avg Eval Macro F1: 0.5475, Avg Eval Acc. 0.9712
+Time: 399s
+
+Epoch 113/200
+B: 874/874 | Loss: 0.5877  | ETA:    0s
+Avg Train Loss: 0.6099
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6171, Avg Eval Macro F1: 0.5427, Avg Eval Acc. 0.9709
+Epoch   113: reducing learning rate of group 0 to 1.0000e-05.
+Time: 398s
+
+Epoch 114/200
+B: 874/874 | Loss: 0.6387  | ETA:    0s
+Avg Train Loss: 0.6114
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6161, Avg Eval Macro F1: 0.557, Avg Eval Acc. 0.9708
+Time: 396s
+
+Epoch 115/200
+B: 874/874 | Loss: 0.6063  | ETA:    0s
+Avg Train Loss: 0.6105
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6189, Avg Eval Macro F1: 0.5181, Avg Eval Acc. 0.9701
+Time: 396s
+
+Epoch 116/200
+B: 874/874 | Loss: 0.6137  | ETA:    0s
+Avg Train Loss: 0.6118
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6198, Avg Eval Macro F1: 0.534, Avg Eval Acc. 0.9705
+Time: 396s
+
+Epoch 117/200
+B: 874/874 | Loss: 0.5344  | ETA:    0s
+Avg Train Loss: 0.6091
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6235, Avg Eval Macro F1: 0.5435, Avg Eval Acc. 0.9703
+Time: 399s
+
+Epoch 118/200
+B: 874/874 | Loss: 0.5008  | ETA:    0s
+Avg Train Loss: 0.6108
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6216, Avg Eval Macro F1: 0.5216, Avg Eval Acc. 0.9707
+Time: 397s
+
+Epoch 119/200
+B: 874/874 | Loss: 0.7427  | ETA:    0s
+Avg Train Loss: 0.6102
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6184, Avg Eval Macro F1: 0.54, Avg Eval Acc. 0.9705
+Time: 397s
+
+Epoch 120/200
+B: 874/874 | Loss: 0.6919  | ETA:    0s
+Avg Train Loss: 0.6113
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6175, Avg Eval Macro F1: 0.521, Avg Eval Acc. 0.9706
+Time: 398s
+
+Epoch 121/200
+B: 874/874 | Loss: 0.5655  | ETA:    0s
+Avg Train Loss: 0.6077
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6195, Avg Eval Macro F1: 0.5402, Avg Eval Acc. 0.9708
+Time: 397s
+
+Epoch 122/200
+B: 874/874 | Loss: 0.5207  | ETA:    0s
+Avg Train Loss: 0.6109
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6165, Avg Eval Macro F1: 0.5496, Avg Eval Acc. 0.9706
+Epoch   122: reducing learning rate of group 0 to 1.0000e-06.
+Time: 397s
+
+Epoch 123/200
+B: 874/874 | Loss: 0.6059  | ETA:    0s
+Avg Train Loss: 0.6112
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6173, Avg Eval Macro F1: 0.5099, Avg Eval Acc. 0.9703
+Time: 394s
+
+Epoch 124/200
+B: 874/874 | Loss: 0.6402  | ETA:    0s
+Avg Train Loss: 0.6106
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6196, Avg Eval Macro F1: 0.5287, Avg Eval Acc. 0.9708
+Time: 395s
+
+Epoch 125/200
+B: 874/874 | Loss: 0.5099  | ETA:    0s
+Avg Train Loss: 0.609
+B:  98/98  | ETA:    0s
+Avg Eval Loss: 0.6174, Avg Eval Macro F1: 0.5211, Avg Eval Acc. 0.9707
+Time: 396s

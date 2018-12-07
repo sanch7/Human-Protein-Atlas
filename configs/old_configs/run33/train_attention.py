@@ -16,11 +16,13 @@ import torch.backends.cudnn as cudnn
 from tqdm import tqdm
 
 import models.model_list as model_list
+from models.wide_resnet_cifar_attention import WideResNetAttention
 from utils.dataloader import get_data_loaders
 from utils.metrics import FocalLoss, DiceLoss, F1Loss, FocalTverskyLoss, accuracy, macro_f1
 from utils.misc import log_metrics, cosine_annealing_lr
 
 from evaluations import generate_preds, generate_submission
+from make_submission import main_subm
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('--config', default='./configs/config.json', 
@@ -29,13 +31,25 @@ parser.add_argument('--dev_mode', action='store_true', default=False,
                     help='train only few batches per epoch')
 parser.add_argument('--resume', action='store_true', default=False,
                     help='Resume training from the checkpoint')
+parser.add_argument('--submission', action='store_true', default=False,
+                    help='Generate submission')
+
+# Model options
+parser.add_argument('--depth', default=34, type=int)
+parser.add_argument('--width', default=1, type=float)
+parser.add_argument('--dataset', default='CIFAR10', type=str)
+parser.add_argument('--dropout', type=float, default=0)
+
+# Attention
+parser.add_argument("--attention_depth", default=3, type=int, help="Painless attention depth")
+parser.add_argument("--attention_width", default=1, type=int, help="Painless attention width")
+parser.add_argument("--attention_type", default="softmax", type=str, help="How to compute attention masks")
+parser.add_argument("--reg_w", default=0.001, type=float, help="Inter-mask regularization weight")
 args = parser.parse_args()
 
 with open(args.config) as f_in:
     d = json.load(f_in)
     config = namedtuple("config", d.keys())(*d.values())
-
-if config.external_data: assert(config.num_channels == 3), "Make num_channels = 3"
 
 print("Loaded configuration from ", args.config)
 print('')
@@ -100,10 +114,14 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
         labels = data[1].to(device)
 
         # get predictions
-        label_preds = net(imgs)
+        label_preds, rloss = net(imgs)
+        label_preds += 3.5
         #print(len(msk_preds), len(msks))
         # calculate loss
         tloss = loss(label_preds, labels)
+
+        # Attention Reg Loss
+        tloss += rloss
 
         # zero gradients from previous run
         optimizer.zero_grad()
@@ -135,7 +153,7 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
 def valid(net, optimizer, loss, valid_loader, save_imgs=False, fold_num=0):
     net.eval() 
     #keep track of preds
-    val_preds, val_labels = generate_preds(net, valid_loader)
+    val_preds, val_labels = generate_preds(net, valid_loader, attn=True)
     
     epoch_vloss = loss(val_preds, val_labels)
     epoch_vf1 = macro_f1(val_preds.numpy()>0., val_labels.numpy())
@@ -180,15 +198,15 @@ def train_network(net, model_ckpt, fold=0):
                                                       external_data=config.external_data)
 
         # loss = F1Loss()
-        # if hasattr(config, 'focal_gamma'):
-        #     loss = FocalLoss(config.focal_gamma)
-        # else:
-        #     loss = FocalLoss()
-        # loss = nn.BCEWithLogitsLoss().cuda()
         if hasattr(config, 'focal_gamma'):
-            loss = FocalTverskyLoss(gamma = config.focal_gamma)
+            loss = FocalLoss(config.focal_gamma)
         else:
-            loss = FocalTverskyLoss()
+            loss = FocalLoss()
+        # loss = nn.BCEWithLogitsLoss().cuda()
+        # if hasattr(config, 'focal_gamma'):
+        #     loss = FocalTverskyLoss(gamma = config.focal_gamma)
+        # else:
+        #     loss = FocalTverskyLoss()
         
         # training flags
         freeze_bn = False
@@ -285,13 +303,21 @@ def main_train():
     MODEL_CKPT = './model_weights/best_{}_{}.pth'.format(*model_params)
 
     # net = Atlas_DenseNet(model = config.model_name, bn_size=4, drop_rate=config.drop_rate)
-    Net = getattr(model_list, config.model_name)
+    # Net = getattr(model_list, config.model_name)
     
-    net = Net(pretrained=config.pretrained, drop_rate=config.drop_rate, 
-                    num_channels = config.num_channels)
+    # net = Net(pretrained=config.pretrained, drop_rate=config.drop_rate, 
+    #                 num_channels = config.num_channels)
 
-    net = nn.parallel.DataParallel(net)
+    # net = nn.parallel.DataParallel(net)
+    net = WideResNetAttention(args.depth, args.width, 28, args.dropout, 
+                                args.attention_depth, args.attention_width, 
+                                args.reg_w, args.attention_type)
+
     net.to(device)
+
+    if args.submission:
+        main_subm(net, config, attn=True)
+        sys.exit()
 
     train_network(net, model_ckpt=MODEL_CKPT)
 
