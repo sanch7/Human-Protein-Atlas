@@ -5,16 +5,17 @@
     "external_data": true,
     "num_channels": 3,
     "lr": 1e-3,
+    "focal_gamma": 3,
     "reduce_lr_plateau": true,
     "lr_scale": 0.1,
     "lr_patience": 8,
     "cosine_annealing": false,
     "drop_rate": 0,
-    "batch_size": 8,
+    "batch_size": 11,
     "test_size": 0.2,
     "epochs": 200,
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "inceptionresnetv2"
+    "desc": "inceptionresnetv2, focal loss gamma=3, external_data"
 }

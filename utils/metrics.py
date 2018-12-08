@@ -41,6 +41,7 @@ def fbeta_score(y_true, y_pred, beta, threshold, eps=1e-9):
 class FocalLoss(nn.Module):
     def __init__(self, gamma=2):
         super().__init__()
+        print("Focal Loss with gamma = ", gamma)
         self.gamma = gamma
         
     def forward(self, input, target):
@@ -60,6 +61,7 @@ class FocalLoss(nn.Module):
 class F1Loss(nn.Module):
     def __init__(self):
         super().__init__()
+        print("F1 Loss")
 
     def forward(self, input, target):
         tp = (target*input).sum(0)
@@ -78,6 +80,7 @@ class F1Loss(nn.Module):
 class DiceLoss(nn.Module):
     def __init__(self):
         super().__init__()
+        print("Dice Loss")
 
     def forward(self, input, target):
         input = torch.sigmoid(input)
@@ -99,6 +102,7 @@ class FocalTverskyLoss(nn.Module):
         super().__init__()
         self.alpha = alpha
         self.gamma = gamma
+        print("Focal Tversky Loss with alpha = ", alpha, ", gamma = ", gamma)
 
     def tversky(self, input, target):
         smooth = 1.

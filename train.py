@@ -180,15 +180,15 @@ def train_network(net, model_ckpt, fold=0):
                                                       external_data=config.external_data)
 
         # loss = F1Loss()
-        # if hasattr(config, 'focal_gamma'):
-        #     loss = FocalLoss(config.focal_gamma)
-        # else:
-        #     loss = FocalLoss()
-        # loss = nn.BCEWithLogitsLoss().cuda()
         if hasattr(config, 'focal_gamma'):
-            loss = FocalTverskyLoss(gamma = config.focal_gamma)
+            loss = FocalLoss(config.focal_gamma)
         else:
-            loss = FocalTverskyLoss()
+            loss = FocalLoss()
+        # loss = nn.BCEWithLogitsLoss().cuda()
+        # if hasattr(config, 'focal_gamma'):
+        #     loss = FocalTverskyLoss(gamma = config.focal_gamma)
+        # else:
+        #     loss = FocalTverskyLoss()
         
         # training flags
         freeze_bn = False
