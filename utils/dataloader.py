@@ -3,6 +3,7 @@ import os
 import torch
 import pandas as pd
 from tqdm import tqdm
+import h5py
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -28,6 +29,7 @@ train_images_path = f"./data/train/"
 external_images_path = f"./data/subcellular/images/"
 # external_images_path = f"/media/litemax/A036809A368072D8/Users/JALDI/Data/external-data-for-protein-atlas/protein_atlas_subcellular/images/"
 test_images_path = f"./data/test/"
+hdf_path = f'./data/train.hdf5'
 
 labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli", 
     3: "Nucleoli fibrillar center", 4: "Nuclear speckles", 5: "Nuclear bodies", 
@@ -57,6 +59,7 @@ class ProteinDataset(Dataset):
         self.preload = preload
         self.colors = color_channels[:num_channels]
         self.images_path = test_images_path if test else train_images_path
+        self.train_hdf5 = h5py.File(hdf_path, "r")
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
@@ -87,13 +90,17 @@ class ProteinDataset(Dataset):
         if self.preload:
             image = self.imarray[idx,:,:,:]
         else:
-            image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
-            for ch, channel in enumerate(self.colors):
-                imagepath = self.images_path + imagename + '_' + channel + ".png"
-                img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
-                # img = io.imread(imagepath)                            #239s
-                # img = Image.open(imagepath)                           #236s
-                image[:,:, ch] = img
+            # image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
+            # for ch, channel in enumerate(self.colors):
+            #     imagepath = self.images_path + imagename + '_' + channel + ".png"
+            #     img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
+            #     # img = io.imread(imagepath)                            #239s
+            #     # img = Image.open(imagepath)                           #236s
+            #     image[:,:, ch] = img
+            
+            image = self.train_hdf5['train'][idx, ...]
+            if len(self.colors) == 3:
+                image = image[:,:,:3]
 
         if self.transformer:
             image = self.transformer(image=image)['image']
@@ -102,6 +109,9 @@ class ProteinDataset(Dataset):
         image = torch.from_numpy(image).permute(-1, 0, 1).float()
         targets = self.images_df['Target'][idx]    
         return image, targets, imagename
+
+    def __del__(self):
+        self.train_hdf5.close()
 
     def getImageName(self, imagename):
         image = np.zeros((512, 512, len(self.colors)), dtype='uint8')

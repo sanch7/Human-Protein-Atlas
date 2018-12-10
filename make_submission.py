@@ -16,6 +16,7 @@ from utils.dataloader import get_data_loaders, get_test_loader
 from evaluations import generate_submission, find_threshold
 from utils.metrics import FocalLoss, accuracy, macro_f1
 from utils.misc import save_pred
+from apply_leak import apply_leak
 
 import models.model_list as model_list
 
@@ -100,4 +101,5 @@ def main_subm(net = None, opcon = None, attn=False):
 
 
 if __name__ == '__main__':
-    main_subm()
+    main_subm(opcon=config)
+    apply_leak()

@@ -1,0 +1,184 @@
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 11,
+ 'cosine_annealing': False,
+ 'desc': 'inceptionresnetv2, focal loss gamma=3, external_data',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run34',
+ 'external_data': True,
+ 'focal_gamma': 3,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 8,
+ 'lr_scale': 0.1,
+ 'model_name': 'inceptionresnetv2',
+ 'num_channels': 3,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Inception Resnet v2
+Loading weights...
+Focal Loss with gamma =  3
+Training ...
+Saving to  ./model_weights/best_inceptionresnetv2_run34.pth
+
+Epoch 0/200
+B: 8095/8095 | Loss: 0.5588  | ETA:    0s
+Avg Train Loss: 0.6509
+B: 568/568 | ETA:    0s
+Avg Eval Loss: 1.534, Avg Eval Macro F1: 0.06076, Avg Eval Acc. 0.9428
+Best val loss achieved. loss = 1.5335.  Saving model to  ./model_weights/best_inceptionresnetv2_run34.pth
+Time: 5600s
+
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py --resume
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 10,
+ 'cosine_annealing': False,
+ 'desc': 'inceptionresnetv2, focal loss gamma=3, external_data',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run34',
+ 'external_data': True,
+ 'focal_gamma': 3,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 4,
+ 'lr_scale': 0.1,
+ 'model_name': 'inceptionresnetv2',
+ 'num_channels': 3,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Inception Resnet v2
+Loading weights...
+Resuming from checkpoint './model_weights/best_inceptionresnetv2_run34.pth'
+Loaded checkpoint './model_weights/best_inceptionresnetv2_run34.pth' (epoch 0)
+Focal Loss with gamma =  3
+Training ...
+Saving to  ./model_weights/best_inceptionresnetv2_run34.pth
+
+Epoch 0/200
+B: 8906/8906 | Loss: 0.2246  | ETA:    0s
+Avg Train Loss: 0.475
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.7482, Avg Eval Macro F1: 0.21, Avg Eval Acc. 0.9464
+Best val loss achieved. loss = 0.7482.  Saving model to  ./model_weights/best_inceptionresnetv2_run34.pth
+Time: 5595s
+
+Epoch 1/200
+B: 8906/8906 | Loss: 0.6932  | ETA:    0s
+Avg Train Loss: 0.409
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.5308, Avg Eval Macro F1: 0.2804, Avg Eval Acc. 0.9567
+Best val loss achieved. loss = 0.5308.  Saving model to  ./model_weights/best_inceptionresnetv2_run34.pth
+Time: 5585s
+
+Epoch 2/200
+B: 8906/8906 | Loss: 0.3789  | ETA:    0s
+Avg Train Loss: 0.3832
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 29.15, Avg Eval Macro F1: 0.2163, Avg Eval Acc. 0.8423
+Time: 5584s
+
+Epoch 3/200
+B: 8906/8906 | Loss: 0.4866  | ETA:    0s2ss
+Avg Train Loss: 0.3637
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.48, Avg Eval Macro F1: 0.3848, Avg Eval Acc. 0.9624
+Best val loss achieved. loss = 0.4800.  Saving model to  ./model_weights/best_inceptionresnetv2_run34.pth
+Time: 5585s
+
+Epoch 4/200
+B: 8906/8906 | Loss: 0.3488  | ETA:    0s
+Avg Train Loss: 0.3524
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.4907, Avg Eval Macro F1: 0.3825, Avg Eval Acc. 0.961
+Time: 5582s
+
+Epoch 5/200
+B: 8906/8906 | Loss: 0.3181  | ETA:    0s
+Avg Train Loss: 0.3432
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.4516, Avg Eval Macro F1: 0.3644, Avg Eval Acc. 0.9629
+Best val loss achieved. loss = 0.4516.  Saving model to  ./model_weights/best_inceptionresnetv2_run34.pth
+Time: 5585s
+
+Epoch 6/200
+B: 8906/8906 | Loss: 0.2527  | ETA:    0s
+Avg Train Loss: 0.3407
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.5086, Avg Eval Macro F1: 0.3617, Avg Eval Acc. 0.9582
+Time: 5585s
+
+Epoch 7/200
+B: 8906/8906 | Loss: 0.5578  | ETA:    0s
+Avg Train Loss: 0.3263
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 101.4, Avg Eval Macro F1: 0.2627, Avg Eval Acc. 0.8954
+Time: 5586s
+
+Epoch 8/200
+B: 8906/8906 | Loss: 0.3528  | ETA:    0s
+Avg Train Loss: 0.3174
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.5725, Avg Eval Macro F1: 0.3876, Avg Eval Acc. 0.9627
+Time: 5586s
+
+Epoch 9/200
+B: 8906/8906 | Loss: 0.8052  | ETA:    0s
+Avg Train Loss: 0.3173
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.5758, Avg Eval Macro F1: 0.4065, Avg Eval Acc. 0.9625
+Time: 5585s
+
+Epoch 10/200
+B: 8906/8906 | Loss: 0.5436  | ETA:    0s
+Avg Train Loss: 0.3134
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 0.6029, Avg Eval Macro F1: 0.4477, Avg Eval Acc. 0.9593
+Epoch    10: reducing learning rate of group 0 to 1.0000e-04.
+Time: 5584s
+
+Epoch 11/200
+B: 8906/8906 | Loss: 0.2868  | ETA:    0s
+Avg Train Loss: 0.2784
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 2.115, Avg Eval Macro F1: 0.5089, Avg Eval Acc. 0.964
+Time: 5584s
+
+Epoch 12/200
+B: 8906/8906 | Loss: 0.6202  | ETA:    0s
+Avg Train Loss: 0.2689
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 5.632, Avg Eval Macro F1: 0.5053, Avg Eval Acc. 0.9669
+Time: 5582s
+
+Epoch 13/200
+B: 8906/8906 | Loss: 0.7198  | ETA:    0s
+Avg Train Loss: 0.2662
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 14.54, Avg Eval Macro F1: 0.5164, Avg Eval Acc. 0.9667
+Time: 5582s
+
+Epoch 14/200
+B: 8906/8906 | Loss: 0.3896  | ETA:    0s
+Avg Train Loss: 0.2632
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 1.854, Avg Eval Macro F1: 0.4716, Avg Eval Acc. 0.9618
+Time: 5583s
+
+Epoch 15/200
+B: 8906/8906 | Loss: 0.5516  | ETA:    0s
+Avg Train Loss: 0.2611
+B: 624/624 | ETA:    0s
+Avg Eval Loss: 1.93, Avg Eval Macro F1: 0.5232, Avg Eval Acc. 0.967
+Epoch    15: reducing learning rate of group 0 to 1.0000e-05.
+Time: 5581s

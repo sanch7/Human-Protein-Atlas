@@ -1,0 +1,141 @@
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 10,
+ 'cosine_annealing': False,
+ 'desc': 'inceptionresnetv2, focal loss gamma=2, external_data',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run35',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 4,
+ 'lr_scale': 0.1,
+ 'model_name': 'inceptionresnetv2',
+ 'num_channels': 3,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Inception Resnet v2
+Loading weights...
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_inceptionresnetv2_run35.pth
+
+Epoch 0/200
+B: 8907/8907 | Loss: 1.7673  | ETA:    0s
+Avg Train Loss: 1.145
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 2.359, Avg Eval Macro F1: 0.07556, Avg Eval Acc. 0.9462
+Best val loss achieved. loss = 2.3591.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5594s
+
+Epoch 1/200
+B: 8907/8907 | Loss: 0.5633  | ETA:    0s
+Avg Train Loss: 0.8772
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 1.15, Avg Eval Macro F1: 0.2163, Avg Eval Acc. 0.9535
+Best val loss achieved. loss = 1.1501.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5586s
+
+Epoch 2/200
+B: 8907/8907 | Loss: 0.5466  | ETA:    0s
+Avg Train Loss: 0.7441
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.9786, Avg Eval Macro F1: 0.1969, Avg Eval Acc. 0.956
+Best val loss achieved. loss = 0.9786.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5587s
+
+Epoch 3/200
+B: 8907/8907 | Loss: 0.4316  | ETA:    0s
+Avg Train Loss: 0.6821
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.9467, Avg Eval Macro F1: 0.3638, Avg Eval Acc. 0.9601
+Best val loss achieved. loss = 0.9467.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5587s
+
+Epoch 4/200
+B: 8907/8907 | Loss: 0.5103  | ETA:    0s
+Avg Train Loss: 0.6442
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.8456, Avg Eval Macro F1: 0.3852, Avg Eval Acc. 0.9631
+Best val loss achieved. loss = 0.8456.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5587s
+
+Epoch 5/200
+B: 8907/8907 | Loss: 0.4259  | ETA:    0s
+Avg Train Loss: 0.6208
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.8072, Avg Eval Macro F1: 0.4024, Avg Eval Acc. 0.9635
+Best val loss achieved. loss = 0.8072.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5589s
+
+Epoch 6/200
+B: 8907/8907 | Loss: 0.7549  | ETA:    0s
+Avg Train Loss: 0.6025
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.8227, Avg Eval Macro F1: 0.4616, Avg Eval Acc. 0.9653
+Time: 5586s
+
+Epoch 7/200
+B: 8907/8907 | Loss: 0.7934  | ETA:    0s
+Avg Train Loss: 0.5872
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.7904, Avg Eval Macro F1: 0.4338, Avg Eval Acc. 0.9663
+Best val loss achieved. loss = 0.7904.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5588s
+
+Epoch 8/200
+B: 8907/8907 | Loss: 0.5498  | ETA:    0s
+Avg Train Loss: 0.5756
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.7557, Avg Eval Macro F1: 0.4207, Avg Eval Acc. 0.9668
+Best val loss achieved. loss = 0.7557.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5588s
+
+Epoch 9/200
+B: 8907/8907 | Loss: 0.6966  | ETA:    0s
+Avg Train Loss: 0.5691
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.8526, Avg Eval Macro F1: 0.45, Avg Eval Acc. 0.9655
+Time: 5586s
+
+Epoch 10/200
+B: 8907/8907 | Loss: 0.5084  | ETA:    0s
+Avg Train Loss: 0.5581
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.8122, Avg Eval Macro F1: 0.5104, Avg Eval Acc. 0.966
+Time: 5586s
+
+Epoch 11/200
+B: 8907/8907 | Loss: 0.5337  | ETA:    0s
+Avg Train Loss: 0.5484
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.7423, Avg Eval Macro F1: 0.5275, Avg Eval Acc. 0.9678
+Best val loss achieved. loss = 0.7423.  Saving model to  ./model_weights/best_inceptionresnetv2_run35.pth
+Time: 5589s
+
+Epoch 12/200
+B: 8907/8907 | Loss: 0.9527  | ETA:    0s
+Avg Train Loss: 0.5408
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.765, Avg Eval Macro F1: 0.5041, Avg Eval Acc. 0.9683
+Time: 5587s
+
+Epoch 13/200
+B: 8907/8907 | Loss: 0.7321  | ETA:    0s
+Avg Train Loss: 0.5381
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.8068, Avg Eval Macro F1: 0.5037, Avg Eval Acc. 0.9671
+Time: 5586s
+
+Epoch 14/200
+B: 8907/8907 | Loss: 0.5830  | ETA:    0s
+Avg Train Loss: 0.5303
+B: 622/622 | ETA:    0s
+Avg Eval Loss: 0.8419, Avg Eval Macro F1: 0.4683, Avg Eval Acc. 0.9657
+Time: 5587s
