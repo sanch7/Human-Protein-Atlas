@@ -29,7 +29,7 @@ train_images_path = f"./data/train/"
 external_images_path = f"./data/subcellular/images/"
 # external_images_path = f"/media/litemax/A036809A368072D8/Users/JALDI/Data/external-data-for-protein-atlas/protein_atlas_subcellular/images/"
 test_images_path = f"./data/test/"
-hdf_path = f'./data/train.hdf5'
+hdf_path = f'./data/hpa_data.hdf5'
 
 labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli", 
     3: "Nucleoli fibrillar center", 4: "Nuclear speckles", 5: "Nuclear bodies", 
@@ -59,7 +59,8 @@ class ProteinDataset(Dataset):
         self.preload = preload
         self.colors = color_channels[:num_channels]
         self.images_path = test_images_path if test else train_images_path
-        self.train_hdf5 = h5py.File(hdf_path, "r")
+        # self.data_hdf5 = h5py.File(hdf_path, "r")
+        self.hdf5_key = "test" if test else "train"
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
@@ -98,7 +99,8 @@ class ProteinDataset(Dataset):
             #     # img = Image.open(imagepath)                           #236s
             #     image[:,:, ch] = img
             
-            image = self.train_hdf5['train'][idx, ...]
+            with h5py.File(hdf_path, "r") as data_hdf5:
+                image = data_hdf5[self.hdf5_key][idx, ...]
             if len(self.colors) == 3:
                 image = image[:,:,:3]
 
@@ -111,7 +113,7 @@ class ProteinDataset(Dataset):
         return image, targets, imagename
 
     def __del__(self):
-        self.train_hdf5.close()
+        self.data_hdf5.close()
 
     def getImageName(self, imagename):
         image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
