@@ -91,18 +91,19 @@ class ProteinDataset(Dataset):
         if self.preload:
             image = self.imarray[idx,:,:,:]
         else:
-            # image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
-            # for ch, channel in enumerate(self.colors):
-            #     imagepath = self.images_path + imagename + '_' + channel + ".png"
-            #     img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
-            #     # img = io.imread(imagepath)                            #239s
-            #     # img = Image.open(imagepath)                           #236s
-            #     image[:,:, ch] = img
-            
-            with h5py.File(hdf_path, "r") as data_hdf5:
-                image = data_hdf5[self.hdf5_key][idx, ...]
-            if len(self.colors) == 3:
-                image = image[:,:,:3]
+            # if os.path.exists(hdf_path):
+            #     with h5py.File(hdf_path, "r") as data_hdf5:
+            #         image = data_hdf5[self.hdf5_key][idx, ...]
+            #     if len(self.colors) == 3:
+            #         image = image[:,:,:3]
+            # else:
+            image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
+            for ch, channel in enumerate(self.colors):
+                imagepath = self.images_path + imagename + '_' + channel + ".png"
+                img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
+                # img = io.imread(imagepath)                            #239s
+                # img = Image.open(imagepath)                           #236s
+                image[:,:, ch] = img
 
         if self.transformer:
             image = self.transformer(image=image)['image']
@@ -111,9 +112,6 @@ class ProteinDataset(Dataset):
         image = torch.from_numpy(image).permute(-1, 0, 1).float()
         targets = self.images_df['Target'][idx]    
         return image, targets, imagename
-
-    def __del__(self):
-        self.data_hdf5.close()
 
     def getImageName(self, imagename):
         image = np.zeros((512, 512, len(self.colors)), dtype='uint8')

@@ -19,21 +19,21 @@ def resnet152(pretrained=False, drop_rate=0.):
     return Atlas_ResNet(modeln="resnet152", pretrained=pretrained)
 
 
-def densenet121(pretrained=False, drop_rate=0.):
+def densenet121(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_DenseNet(modeln="densenet121", pretrained=pretrained, 
-            drop_rate=drop_rate)
+            drop_rate=drop_rate, num_channels=num_channels)
 
-def densenet169(pretrained=False, drop_rate=0.):
+def densenet169(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_DenseNet(modeln="densenet169", pretrained=pretrained, 
-            drop_rate=drop_rate)
+            drop_rate=drop_rate, num_channels=num_channels)
 
-def densenet201(pretrained=False, drop_rate=0.):
+def densenet201(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_DenseNet(modeln="densenet201", pretrained=pretrained, 
-            drop_rate=drop_rate)
+            drop_rate=drop_rate, num_channels=num_channels)
 
-def densenet161(pretrained=False, drop_rate=0.):
+def densenet161(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_DenseNet(modeln="densenet161", pretrained=pretrained, 
-            drop_rate=drop_rate)
+            drop_rate=drop_rate, num_channels=num_channels)
 
 def bninception(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_Inception(model_name = 'bninception', pretrained=pretrained, 

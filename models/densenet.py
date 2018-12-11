@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 from torchvision.models import densenet121, densenet169, densenet201, densenet161
 
-def Atlas_DenseNet(modeln = "densenet121", drop_rate=0., pretrained=False):
+def Atlas_DenseNet(modeln = "densenet121", drop_rate=0., pretrained=False, num_channels=4):
     """
     Params:
         model: ['densenet121', 'densenet169', 'densenet201', 'densenet161']
@@ -31,21 +31,22 @@ def Atlas_DenseNet(modeln = "densenet121", drop_rate=0., pretrained=False):
 
     model.classifier = nn.Linear(cin_features*4, 28)
 
-    if modeln != "densenet161":
-        nconv = nn.Conv2d(4, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-        if pretrained:
-            print('Loading weights...')
-            nconv.weight.data[:,:3,:,:] = model.features.conv0.weight.data.clone()
-            nconv.weight.data[:,3,:,:] = model.features.conv0.weight.data[:,1,:,:].clone()
+    if num_channels == 4:
+        if modeln != "densenet161":
+            nconv = nn.Conv2d(4, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+            if pretrained:
+                print('Loading weights...')
+                nconv.weight.data[:,:3,:,:] = model.features.conv0.weight.data.clone()
+                nconv.weight.data[:,3,:,:] = model.features.conv0.weight.data[:,1,:,:].clone()
 
-    else:
-        nconv = nn.Conv2d(4, 96, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-        if pretrained:
-            print('Loading weights...')
-            nconv.weight.data[:,:3,:,:] = model.features.conv0.weight.data.clone()
-            nconv.weight.data[:,3,:,:] = model.features.conv0.weight.data[:,1,:,:].clone()
-    
-    model.features.conv0 = nconv
+        else:
+            nconv = nn.Conv2d(4, 96, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+            if pretrained:
+                print('Loading weights...')
+                nconv.weight.data[:,:3,:,:] = model.features.conv0.weight.data.clone()
+                nconv.weight.data[:,3,:,:] = model.features.conv0.weight.data[:,1,:,:].clone()
+        
+        model.features.conv0 = nconv
 
     return model
 

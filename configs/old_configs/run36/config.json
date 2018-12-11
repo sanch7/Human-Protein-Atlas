@@ -1,11 +1,11 @@
 {   
-    "exp_name": "run38",
+    "exp_name": "run36",
     "model_name": "inceptionresnetv2",
     "pretrained": true,
     "external_data": true,
     "num_channels": 3,
     "lr": 1e-3,
-    "focal_gamma": 2,
+    "focal_gamma": 1,
     "reduce_lr_plateau": true,
     "lr_scale": 0.1,
     "lr_patience": 4,
@@ -17,5 +17,5 @@
     "imsize": 512,
     "num_workers": 6,
     "preload_data": false,
-    "desc": "inceptionresnetv2, focal loss gamma=2, external_data"
+    "desc": "inceptionresnetv2, focal loss gamma=1, external_data"
 }

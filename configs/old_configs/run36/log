@@ -1,0 +1,43 @@
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 10,
+ 'cosine_annealing': False,
+ 'desc': 'inceptionresnetv2, focal loss gamma=1, external_data',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run36',
+ 'external_data': True,
+ 'focal_gamma': 1,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 4,
+ 'lr_scale': 0.1,
+ 'model_name': 'inceptionresnetv2',
+ 'num_channels': 3,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Inception Resnet v2
+Loading weights...
+Focal Loss with gamma =  1
+Training ...
+Saving to  ./model_weights/best_inceptionresnetv2_run36.pth
+
+Epoch 0/200
+B: 8906/8906 | Loss: 1.8155  | ETA:    0s
+Avg Train Loss: 1.973
+B: 623/623 | ETA:    0s
+Avg Eval Loss: 2.61, Avg Eval Macro F1: 0.0006875, Avg Eval Acc. 0.9412
+Best val loss achieved. loss = 2.6099.  Saving model to  ./model_weights/best_inceptionresnetv2_run36.pth
+Time: 5597s
+
+Epoch 1/200
+B: 8906/8906 | Loss: 1.5506  | ETA:    0s
+Avg Train Loss: 1.665
+B: 623/623 | ETA:    0s
+Avg Eval Loss: 2.551, Avg Eval Macro F1: 8.658e-05, Avg Eval Acc. 0.9418
+Best val loss achieved. loss = 2.5505.  Saving model to  ./model_weights/best_inceptionresnetv2_run36.pth
+Time: 5587s

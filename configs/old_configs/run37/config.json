@@ -1,5 +1,5 @@
 {   
-    "exp_name": "run38",
+    "exp_name": "run37",
     "model_name": "inceptionresnetv2",
     "pretrained": true,
     "external_data": true,
