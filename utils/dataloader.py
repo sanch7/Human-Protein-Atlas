@@ -41,9 +41,43 @@ labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli",
 
 color_channels = ('red','green','blue','yellow')
 
+def load_image(id, dataset = "train", colors = color_channels):
+    npy_path = './data/{}_npy/'.format(dataset)
+    if os.path.exists(npy_path + '{}.npsy'.format(id)):
+        # print('Loading npy')
+        image = np.load(npy_path + '{}.npy'.format(id))
+        if len(colors) == 3:
+            image = image[:,:,:3]
+
+    else:
+        # print('Loading raw images')
+        image = np.zeros((512, 512, len(colors)), dtype='uint8')
+        for ch, channel in enumerate(colors):
+            if dataset == "external":
+                imagepath = './data/{}/'.format(dataset) + id + '_' + channel + ".jpg"
+            else:
+                imagepath = './data/{}/'.format(dataset) + id + '_' + channel + ".png"
+            img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)
+            image[:,:, ch] = img
+    return image
+
+def mixup_loader(idx, df, dataset, colors):
+    mixid = df.sample().values[0]
+    ratio = np.random.rand()
+
+    targets1 = df.loc[idx, 'Target']
+    targets2 = mixid[1]
+    targets = ratio*targets1 + (1-ratio)*targets2
+
+    image1 = load_image(df.loc[idx, 'Id'], dataset, colors)
+    image2 = load_image(mixid[0], dataset, colors)
+    image = (ratio*image1 + (1-ratio)*image2).round().astype('uint8')
+    # print("ids = {}, {}. Ratio = {}".format(df.loc[idx, 'Id'], mixid[0], ratio))
+    return image, targets
+
 class ProteinDataset(Dataset):
-    def __init__(self, data_df = None, test = False, imsize = 256, 
-                    num_channels = 4, transformer = None, preload=False):
+    def __init__(self, data_df=None, test=False, imsize=256, num_channels=4, 
+                    transformer=None, preload=False, mixup=False):
         """
         Params:
             data_df: data DataFrame of image name and labels
@@ -57,6 +91,8 @@ class ProteinDataset(Dataset):
         self.preload = preload
         self.colors = color_channels[:num_channels]
         self.images_path = test_images_path if test else train_images_path
+        self.dataset = "test" if test else "train"
+        self.mixup = mixup
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
@@ -84,24 +120,27 @@ class ProteinDataset(Dataset):
 
     def __getitem__(self, idx):
         imagename = self.images_df.loc[idx, 'Id']
-        if self.preload:
-            image = self.imarray[idx,:,:,:]
-        else:
-            image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
-            for ch, channel in enumerate(self.colors):
-                imagepath = self.images_path + imagename + '_' + channel + ".png"
-                img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
-                # img = io.imread(imagepath)                            #239s
-                # img = Image.open(imagepath)                           #236s
-                image[:,:, ch] = img
+        if self.mixup:
+            image, targets = mixup_loader(idx, self.images_df, self.dataset, self.colors)
 
+        else:
+            if self.preload:
+                image = self.imarray[idx,:,:,:]
+            else:
+                image = load_image(imagename, self.dataset, self.colors)
+            targets = self.images_df['Target'][idx]    
+        
         if self.transformer:
             image = self.transformer(image=image)['image']
+
         else:
             image = transform.resize(image, (self.imsize, self.imsize))
+
         image = torch.from_numpy(image).permute(-1, 0, 1).float()
-        targets = self.images_df['Target'][idx]    
         return image, targets, imagename
+
+    def cmix(self, idx):
+        return mixup_loader(idx, self.images_df, self.dataset, self.colors)
 
     def getImageName(self, imagename):
         image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
@@ -110,11 +149,11 @@ class ProteinDataset(Dataset):
             img = Image.open(imagepath)
             image[:,:, ch] = img
 
-        targets = self.images_df[self.images_df['Id'] == imagename]['Target']    
+        targets = self.images_df[self.images_df['Id'] == imagename]['Target'].values[0]   
         return image, targets
         
 def get_data_loaders(imsize=256, num_channels=4, batch_size=16, test_size=0.15, num_workers=4, 
-                        preload=False, eval_mode=False, external_data=False):
+                        preload=False, eval_mode=False, external_data=False, mixup=False):
     '''sets up the torch data loaders for training'''
     images_df = pd.read_csv(train_labels_path)
     # train_df, valid_df = train_test_split(images_df, test_size=test_size, random_state=42)
@@ -141,9 +180,10 @@ def get_data_loaders(imsize=256, num_channels=4, batch_size=16, test_size=0.15, 
     # valid_tf = test_transformer(imsize)
 
     # set up the datasets
-    train_dataset = ProteinDataset(data_df = train_df, imsize=imsize, 
-                                    num_channels = num_channels, 
-                                    transformer = train_tf, preload=preload)
+    train_dataset = ProteinDataset(data_df=train_df, imsize=imsize, 
+                                    num_channels=num_channels, 
+                                    transformer=train_tf, preload=preload,
+                                    mixup=mixup)
     valid_dataset = ProteinDataset(data_df = valid_df, imsize=imsize, 
                                     num_channels = num_channels, 
                                     transformer = valid_tf, preload=preload)
@@ -151,7 +191,8 @@ def get_data_loaders(imsize=256, num_channels=4, batch_size=16, test_size=0.15, 
     if external_data and not eval_mode:
         external_dataset = ProteinExternalDataset(imsize=imsize, 
                                     num_channels = num_channels,
-                                    transformer = train_tf, preload=preload)
+                                    transformer = train_tf, preload=preload,
+                                    mixup=mixup)
         
         train_dataset = torch.utils.data.ConcatDataset([train_dataset, external_dataset])
         
@@ -201,8 +242,8 @@ def get_test_loader(imsize=256, num_channels=4, batch_size=16, num_workers=4):
     return test_loader
 
 class ProteinExternalDataset(Dataset):
-    def __init__(self, data_df = None, imsize = 256, 
-                    num_channels = 4, transformer = None, preload=False):
+    def __init__(self, data_df=None, imsize=256, num_channels=4, 
+                    transformer=None, preload=False, mixup=False):
         """
         Params:
             data_df: data DataFrame of image name and labels
@@ -214,6 +255,8 @@ class ProteinExternalDataset(Dataset):
         self.preload = preload
         self.colors = color_channels[:num_channels]
         self.images_path = external_images_path
+        self.mixup = mixup
+        self.dataset = "external"
         if data_df is None:
             self.images_df = pd.read_csv(external_labels_path)
             self.images_df.columns=['Id', 'Target']
@@ -241,21 +284,20 @@ class ProteinExternalDataset(Dataset):
 
     def __getitem__(self, idx):
         imagename = self.images_df.loc[idx, 'Id']
-        if self.preload:
-            image = self.imarray[idx,:,:,:]
+        if self.mixup:
+            image, targets = mixup_loader(idx, self.images_df, self.dataset, self.colors)
+
         else:
-            image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
-            for ch, channel in enumerate(self.colors):
-                imagepath = self.images_path + imagename + '_' + channel + ".jpg"
-                img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
-                # img = io.imread(imagepath)                            #239s
-                # img = Image.open(imagepath)                           #236s
-                image[:,:, ch] = img
+            if self.preload:
+                image = self.imarray[idx,:,:,:]
+            else:
+                image = load_image(imagename, self.dataset, self.colors)
+            targets = self.images_df['Target'][idx]    
 
         if self.transformer:
             image = self.transformer(image=image)['image']
         else:
             image = transform.resize(image, (self.imsize, self.imsize))
+
         image = torch.from_numpy(image).permute(-1, 0, 1).float()
-        targets = self.images_df['Target'][idx]    
         return image, targets, str(imagename)

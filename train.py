@@ -178,7 +178,8 @@ def train_network(net, model_ckpt, fold=0):
                                                       test_size=config.test_size,
                                                       num_workers=config.num_workers,
                                                       preload=config.preload_data,
-                                                      external_data=config.external_data)
+                                                      external_data=config.external_data,
+                                                      mixup=config.mixup)
 
         # loss = F1Loss()
         if hasattr(config, 'focal_gamma'):
