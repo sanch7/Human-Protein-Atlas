@@ -3,7 +3,6 @@ import os
 import torch
 import pandas as pd
 from tqdm import tqdm
-import h5py
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -22,14 +21,13 @@ import warnings
 warnings.filterwarnings("ignore")
 
 train_labels_path = f"./data/train.csv"
-external_labels_path = f"./data/subcellular/augment.csv"
+external_labels_path = f"./data/external_data_m/HPAv18RBGY_wodpl.csv"
 # external_labels_path = f"/media/litemax/A036809A368072D8/Users/JALDI/Data/external-data-for-protein-atlas/protein_atlas_subcellular/augment.csv"
 test_submission_path = f"./data/sample_submission.csv"
 train_images_path = f"./data/train/"
-external_images_path = f"./data/subcellular/images/"
+external_images_path = f"./data/external_data_m/images512/"
 # external_images_path = f"/media/litemax/A036809A368072D8/Users/JALDI/Data/external-data-for-protein-atlas/protein_atlas_subcellular/images/"
 test_images_path = f"./data/test/"
-hdf_path = f'./data/hpa_data.hdf5'
 
 labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli", 
     3: "Nucleoli fibrillar center", 4: "Nuclear speckles", 5: "Nuclear bodies", 
@@ -59,8 +57,6 @@ class ProteinDataset(Dataset):
         self.preload = preload
         self.colors = color_channels[:num_channels]
         self.images_path = test_images_path if test else train_images_path
-        # self.data_hdf5 = h5py.File(hdf_path, "r")
-        self.hdf5_key = "test" if test else "train"
         if data_df is None:
             self.images_df = pd.read_csv(train_labels_path)
         else:
@@ -91,12 +87,6 @@ class ProteinDataset(Dataset):
         if self.preload:
             image = self.imarray[idx,:,:,:]
         else:
-            # if os.path.exists(hdf_path):
-            #     with h5py.File(hdf_path, "r") as data_hdf5:
-            #         image = data_hdf5[self.hdf5_key][idx, ...]
-            #     if len(self.colors) == 3:
-            #         image = image[:,:,:3]
-            # else:
             image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
             for ch, channel in enumerate(self.colors):
                 imagepath = self.images_path + imagename + '_' + channel + ".png"
@@ -158,10 +148,11 @@ def get_data_loaders(imsize=256, num_channels=4, batch_size=16, test_size=0.15, 
                                     num_channels = num_channels, 
                                     transformer = valid_tf, preload=preload)
 
-    external_dataset = ProteinExternalDataset(imsize=imsize, 
-                                    transformer = train_tf, preload=preload)
-
     if external_data and not eval_mode:
+        external_dataset = ProteinExternalDataset(imsize=imsize, 
+                                    num_channels = num_channels,
+                                    transformer = train_tf, preload=preload)
+        
         train_dataset = torch.utils.data.ConcatDataset([train_dataset, external_dataset])
         
     train_sampler = SubsetRandomSampler(range(len(train_dataset)))
@@ -211,7 +202,7 @@ def get_test_loader(imsize=256, num_channels=4, batch_size=16, num_workers=4):
 
 class ProteinExternalDataset(Dataset):
     def __init__(self, data_df = None, imsize = 256, 
-                    transformer = None, preload=False):
+                    num_channels = 4, transformer = None, preload=False):
         """
         Params:
             data_df: data DataFrame of image name and labels
@@ -221,6 +212,7 @@ class ProteinExternalDataset(Dataset):
         self.imsize = imsize
         self.transformer = transformer
         self.preload = preload
+        self.colors = color_channels[:num_channels]
         self.images_path = external_images_path
         if data_df is None:
             self.images_df = pd.read_csv(external_labels_path)
@@ -235,13 +227,14 @@ class ProteinExternalDataset(Dataset):
         if preload:
             print('Preloading images...')
             self.imarray = np.zeros((len(self.images_df), self.imsize, 
-                                        self.imsize, 3), dtype='uint8')
+                                        self.imsize, len(self.colors)), dtype='uint8')
             for idx, imagename in enumerate(tqdm(self.images_df['Id'])):
-                imagepath = self.images_path + str(imagename) + "_rgb.jpg"
-                img = cv2.imread(imagepath, cv2.IMREAD_COLOR)
-                img = cv2.resize(img, (self.imsize, self.imsize), 
-                                    interpolation=cv2.INTER_AREA)
-                self.imarray[idx,:,:,:] = img
+                for ch, channel in enumerate(self.colors):
+                    imagepath = self.images_path + imagename + '_' + channel + ".jpg"
+                    img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)
+                    img = cv2.resize(img, (self.imsize, self.imsize), 
+                                        interpolation=cv2.INTER_AREA)
+                    self.imarray[idx,:,:,ch] = img
 
     def __len__(self):
         return len(self.images_df)
@@ -251,8 +244,13 @@ class ProteinExternalDataset(Dataset):
         if self.preload:
             image = self.imarray[idx,:,:,:]
         else:
-            imagepath = self.images_path + str(imagename) + "_rgb.jpg"
-            image = cv2.imread(imagepath, cv2.IMREAD_COLOR)
+            image = np.zeros((512, 512, len(self.colors)), dtype='uint8')
+            for ch, channel in enumerate(self.colors):
+                imagepath = self.images_path + imagename + '_' + channel + ".jpg"
+                img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)     #232s
+                # img = io.imread(imagepath)                            #239s
+                # img = Image.open(imagepath)                           #236s
+                image[:,:, ch] = img
 
         if self.transformer:
             image = self.transformer(image=image)['image']

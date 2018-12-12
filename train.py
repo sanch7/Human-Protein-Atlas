@@ -35,8 +35,6 @@ with open(args.config) as f_in:
     d = json.load(f_in)
     config = namedtuple("config", d.keys())(*d.values())
 
-if config.external_data: assert(config.num_channels == 3), "Make num_channels = 3"
-
 print("Loaded configuration from ", args.config)
 print('')
 pprint.pprint(d)
@@ -95,14 +93,9 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
     t0 = time.time()
     ll = len(train_loader)
     # loop over the images for the desired amount
-    if args.dev_mode:
-        print("\nDev mode on. Prematurely stopping epoch training.")
 
-    for i in range(len(train_loader)):
-        if (args.dev_mode == True and i > 4 and i < len(train_loader)-6):
-            continue
-
-        data = next(iter(train_loader))
+    for i, data in enumerate(train_loader):
+        # data = next(iter(train_loader))       # Never do this
 
         imgs = data[0].to(device)
         labels = data[1].to(device)
@@ -129,6 +122,10 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
         sys.stdout.write('\r')
         sys.stdout.write('B: {:>3}/{:<3} | Loss: {:<7.4f} | ETA: {:>4d}s'.
             format(i+1, ll, tloss.item(), tr))
+
+        if (i == 5 and args.dev_mode == True):
+            print("\nDev mode on. Prematurely stopping epoch training.")
+            break
 
     epoch_loss = iter_loss / (len(train_loader.dataset) / config.batch_size)
     print('\n' + 'Avg Train Loss: {:.4}'.format(epoch_loss))
