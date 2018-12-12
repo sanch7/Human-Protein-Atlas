@@ -21,12 +21,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 train_labels_path = f"./data/train.csv"
-external_labels_path = f"./data/external_data_m/HPAv18RBGY_wodpl.csv"
-# external_labels_path = f"/media/litemax/A036809A368072D8/Users/JALDI/Data/external-data-for-protein-atlas/protein_atlas_subcellular/augment.csv"
+external_labels_path = f"./data/external/HPAv18RBGY_wodpl.csv"
 test_submission_path = f"./data/sample_submission.csv"
 train_images_path = f"./data/train/"
-external_images_path = f"./data/external_data_m/images512/"
-# external_images_path = f"/media/litemax/A036809A368072D8/Users/JALDI/Data/external-data-for-protein-atlas/protein_atlas_subcellular/images/"
+external_images_path = f"./data/external/images512/"
 test_images_path = f"./data/test/"
 
 labels_dict={ 0: "Nucleoplasm", 1: "Nuclear membrane", 2: "Nucleoli", 
@@ -43,18 +41,19 @@ color_channels = ('red','green','blue','yellow')
 
 def load_image(id, dataset = "train", colors = color_channels):
     npy_path = './data/{}_npy/'.format(dataset)
-    if os.path.exists(npy_path + '{}.npsy'.format(id)):
-        # print('Loading npy')
+    # if os.path.exists(npy_path + '{}.npy'.format(id)):
+    try:
         image = np.load(npy_path + '{}.npy'.format(id))
         if len(colors) == 3:
             image = image[:,:,:3]
 
-    else:
+    # else:
+    except:
         # print('Loading raw images')
         image = np.zeros((512, 512, len(colors)), dtype='uint8')
         for ch, channel in enumerate(colors):
             if dataset == "external":
-                imagepath = './data/{}/'.format(dataset) + id + '_' + channel + ".jpg"
+                imagepath = './data/{}/images512/'.format(dataset) + id + '_' + channel + ".jpg"
             else:
                 imagepath = './data/{}/'.format(dataset) + id + '_' + channel + ".png"
             img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)
@@ -62,15 +61,19 @@ def load_image(id, dataset = "train", colors = color_channels):
     return image
 
 def mixup_loader(idx, df, dataset, colors):
-    mixid = df.sample().values[0]
+    mixid = df.sample()
+    # if dataset=="train":
+    #     print(mixid)
     ratio = np.random.rand()
 
     targets1 = df.loc[idx, 'Target']
-    targets2 = mixid[1]
+    targets2 = mixid['Target'].values[0]
+    # print("Target1, ", targets1, type(targets1), dataset)
+    # print("Target2, ", targets2, type(targets2), dataset)
     targets = ratio*targets1 + (1-ratio)*targets2
 
     image1 = load_image(df.loc[idx, 'Id'], dataset, colors)
-    image2 = load_image(mixid[0], dataset, colors)
+    image2 = load_image(mixid['Id'].values[0], dataset, colors)
     image = (ratio*image1 + (1-ratio)*image2).round().astype('uint8')
     # print("ids = {}, {}. Ratio = {}".format(df.loc[idx, 'Id'], mixid[0], ratio))
     return image, targets

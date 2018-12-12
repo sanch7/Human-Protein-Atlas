@@ -1,10 +1,10 @@
 {   
-    "exp_name": "run39",
+    "exp_name": "run38",
     "model_name": "bninception",
     "pretrained": true,
     "external_data": true,
     "num_channels": 4,
-    "lr": 1e-2,
+    "lr": 1e-3,
     "focal_gamma": 2,
     "reduce_lr_plateau": true,
     "lr_scale": 0.1,
@@ -16,7 +16,6 @@
     "epochs": 200,
     "imsize": 512,
     "num_workers": 6,
-    "mixup": true,
     "preload_data": false,
     "desc": "bninception, focal loss gamma=2, external_data"
 }
