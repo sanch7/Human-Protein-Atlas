@@ -1,0 +1,472 @@
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 40,
+ 'cosine_annealing': False,
+ 'desc': 'bninception, focal loss gamma=2, external_data',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run39',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 4,
+ 'lr_scale': 0.1,
+ 'mixup': True,
+ 'model_name': 'bninception',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using BN Inception
+Loading weights...
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_bninception_run39.pth
+
+Epoch 0/200
+B: 2487/2487 | Loss: 1.2489  | ETA:    0s
+Avg Train Loss: 1.142
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 2.133, Avg Eval Macro F1: 0.01278, Avg Eval Acc. 0.9363
+Best val loss achieved. loss = 2.1335.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1450s
+
+Epoch 1/200
+B: 2487/2487 | Loss: 0.8717  | ETA:    0s
+Avg Train Loss: 0.9988
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 1.29, Avg Eval Macro F1: 0.04914, Avg Eval Acc. 0.9466
+Best val loss achieved. loss = 1.2903.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1505s
+
+Epoch 2/200
+B: 2487/2487 | Loss: 0.7912  | ETA:    0s
+Avg Train Loss: 0.8912
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 1.095, Avg Eval Macro F1: 0.1096, Avg Eval Acc. 0.9512
+Best val loss achieved. loss = 1.0952.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1423s
+
+Epoch 3/200
+B: 2487/2487 | Loss: 0.9659  | ETA:    0s
+Avg Train Loss: 0.811
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.9901, Avg Eval Macro F1: 0.1884, Avg Eval Acc. 0.9559
+Best val loss achieved. loss = 0.9901.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1471s
+
+Epoch 4/200
+B: 2487/2487 | Loss: 0.8627  | ETA:    0s
+Avg Train Loss: 0.7619
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.906, Avg Eval Macro F1: 0.258, Avg Eval Acc. 0.9585
+Best val loss achieved. loss = 0.9060.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1434s
+
+Epoch 5/200
+B: 2487/2487 | Loss: 0.7342  | ETA:    0s
+Avg Train Loss: 0.7315
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.8608, Avg Eval Macro F1: 0.2819, Avg Eval Acc. 0.9615
+Best val loss achieved. loss = 0.8608.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1424s
+
+Epoch 6/200
+B: 2487/2487 | Loss: 0.8545  | ETA:    0s
+Avg Train Loss: 0.7174
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.8377, Avg Eval Macro F1: 0.3415, Avg Eval Acc. 0.9612
+Best val loss achieved. loss = 0.8377.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1458s
+
+Epoch 7/200
+B: 2487/2487 | Loss: 0.6613  | ETA:    0s
+Avg Train Loss: 0.7093
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.808, Avg Eval Macro F1: 0.336, Avg Eval Acc. 0.9629
+Best val loss achieved. loss = 0.8080.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1453s
+
+Epoch 8/200
+B: 2487/2487 | Loss: 0.9217  | ETA:    0s
+Avg Train Loss: 0.6975
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7676, Avg Eval Macro F1: 0.3883, Avg Eval Acc. 0.965
+Best val loss achieved. loss = 0.7676.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1479s
+
+Epoch 9/200
+B: 2487/2487 | Loss: 0.8598  | ETA:    0s
+Avg Train Loss: 0.6898
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7911, Avg Eval Macro F1: 0.3432, Avg Eval Acc. 0.9637
+Time: 1425s
+
+Epoch 10/200
+B: 2487/2487 | Loss: 0.9285  | ETA:    0s
+Avg Train Loss: 0.6823
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7389, Avg Eval Macro F1: 0.418, Avg Eval Acc. 0.9659
+Best val loss achieved. loss = 0.7389.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1439s
+
+Epoch 11/200
+B: 2487/2487 | Loss: 0.6777  | ETA:    0s
+Avg Train Loss: 0.6792
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7829, Avg Eval Macro F1: 0.4002, Avg Eval Acc. 0.9642
+Time: 1438s
+
+Epoch 12/200
+B: 2487/2487 | Loss: 0.5522  | ETA:    0s
+Avg Train Loss: 0.6726
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7204, Avg Eval Macro F1: 0.4318, Avg Eval Acc. 0.9662
+Best val loss achieved. loss = 0.7204.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1429s
+
+Epoch 13/200
+B: 2487/2487 | Loss: 0.6061  | ETA:    0s
+Avg Train Loss: 0.6684
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.694, Avg Eval Macro F1: 0.4902, Avg Eval Acc. 0.9684
+Best val loss achieved. loss = 0.6940.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1436s
+
+Epoch 14/200
+B: 2487/2487 | Loss: 0.6917  | ETA:    0s
+Avg Train Loss: 0.6644
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7017, Avg Eval Macro F1: 0.4684, Avg Eval Acc. 0.9678
+Time: 1425s
+
+Epoch 15/200
+B: 2487/2487 | Loss: 0.6287  | ETA:    0s
+Avg Train Loss: 0.6618
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7057, Avg Eval Macro F1: 0.4012, Avg Eval Acc. 0.9677
+Time: 1431s
+
+Epoch 16/200
+B: 2487/2487 | Loss: 0.6646  | ETA:    0s
+Avg Train Loss: 0.6543
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7993, Avg Eval Macro F1: 0.4496, Avg Eval Acc. 0.9643
+Time: 1487s
+
+Epoch 17/200
+B: 2487/2487 | Loss: 0.8308  | ETA:    0s
+Avg Train Loss: 0.6552
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6827, Avg Eval Macro F1: 0.4897, Avg Eval Acc. 0.969
+Best val loss achieved. loss = 0.6827.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1483s
+
+Epoch 18/200
+B: 2487/2487 | Loss: 0.7952  | ETA:    0s
+Avg Train Loss: 0.6528
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.656, Avg Eval Macro F1: 0.5131, Avg Eval Acc. 0.9689
+Best val loss achieved. loss = 0.6560.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1464s
+
+Epoch 19/200
+B: 2487/2487 | Loss: 0.7673  | ETA:    0s
+Avg Train Loss: 0.6492
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6764, Avg Eval Macro F1: 0.4797, Avg Eval Acc. 0.9697
+Time: 1428s
+
+Epoch 20/200
+B: 2487/2487 | Loss: 0.6189  | ETA:    0s
+Avg Train Loss: 0.6467
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.7008, Avg Eval Macro F1: 0.5321, Avg Eval Acc. 0.968
+Time: 1426s
+
+Epoch 21/200
+B: 2487/2487 | Loss: 0.5028  | ETA:    0s
+Avg Train Loss: 0.6433
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6574, Avg Eval Macro F1: 0.527, Avg Eval Acc. 0.9691
+Time: 1442s
+
+Epoch 22/200
+B: 2487/2487 | Loss: 0.9058  | ETA:    0s
+Avg Train Loss: 0.6413
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6801, Avg Eval Macro F1: 0.4937, Avg Eval Acc. 0.9682
+Time: 1490s
+
+Epoch 23/200
+B: 2487/2487 | Loss: 0.6639  | ETA:    0s
+Avg Train Loss: 0.6364
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6539, Avg Eval Macro F1: 0.5374, Avg Eval Acc. 0.9693
+Best val loss achieved. loss = 0.6539.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1494s
+
+Epoch 24/200
+B: 2487/2487 | Loss: 0.9538  | ETA:    0s
+Avg Train Loss: 0.6358
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6663, Avg Eval Macro F1: 0.4957, Avg Eval Acc. 0.9692
+Time: 1439s
+
+Epoch 25/200
+B: 2487/2487 | Loss: 0.6053  | ETA:    0s
+Avg Train Loss: 0.634
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6486, Avg Eval Macro F1: 0.5659, Avg Eval Acc. 0.9705
+Best val loss achieved. loss = 0.6486.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1436s
+
+Epoch 26/200
+B: 2487/2487 | Loss: 0.5262  | ETA:    0s
+Avg Train Loss: 0.6349
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6303, Avg Eval Macro F1: 0.5367, Avg Eval Acc. 0.9706
+Best val loss achieved. loss = 0.6303.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1429s
+
+Epoch 27/200
+B: 2487/2487 | Loss: 0.7087  | ETA:    0s
+Avg Train Loss: 0.6333
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6521, Avg Eval Macro F1: 0.541, Avg Eval Acc. 0.9701
+Time: 1431s
+
+Epoch 28/200
+B: 2487/2487 | Loss: 0.6645  | ETA:    0s
+Avg Train Loss: 0.6302
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6569, Avg Eval Macro F1: 0.4832, Avg Eval Acc. 0.97
+Time: 1429s
+
+Epoch 29/200
+B: 2487/2487 | Loss: 0.7310  | ETA:    0s
+Avg Train Loss: 0.6266
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6413, Avg Eval Macro F1: 0.5423, Avg Eval Acc. 0.9702
+Time: 1478s
+
+Epoch 30/200
+B: 2487/2487 | Loss: 0.6341  | ETA:    0s
+Avg Train Loss: 0.6246
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6797, Avg Eval Macro F1: 0.5249, Avg Eval Acc. 0.9697
+Time: 1446s
+
+Epoch 31/200
+B: 2487/2487 | Loss: 0.5637  | ETA:    0s
+Avg Train Loss: 0.6237
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.6527, Avg Eval Macro F1: 0.5578, Avg Eval Acc. 0.9697
+Epoch    31: reducing learning rate of group 0 to 1.0000e-04.
+Time: 1489s
+
+Epoch 32/200
+B: 2487/2487 | Loss: 0.6725  | ETA:    0s
+Avg Train Loss: 0.604
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5809, Avg Eval Macro F1: 0.6186, Avg Eval Acc. 0.9734
+Best val loss achieved. loss = 0.5809.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1448s
+
+Epoch 33/200
+B: 2487/2487 | Loss: 0.4632  | ETA:    0s
+Avg Train Loss: 0.5997
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5762, Avg Eval Macro F1: 0.6234, Avg Eval Acc. 0.9733
+Best val loss achieved. loss = 0.5762.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1476s
+
+Epoch 34/200
+B: 2487/2487 | Loss: 0.5678  | ETA:    0s
+Avg Train Loss: 0.5953
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5774, Avg Eval Macro F1: 0.622, Avg Eval Acc. 0.9733
+Time: 1430s
+
+Epoch 35/200
+B: 2487/2487 | Loss: 0.5043  | ETA:    0s
+Avg Train Loss: 0.5932
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5813, Avg Eval Macro F1: 0.6257, Avg Eval Acc. 0.9733
+Time: 1484s
+
+Epoch 36/200
+B: 2487/2487 | Loss: 0.5264  | ETA:    0s
+Avg Train Loss: 0.5923
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5798, Avg Eval Macro F1: 0.6171, Avg Eval Acc. 0.9732
+Time: 1450s
+
+Epoch 37/200
+B: 2487/2487 | Loss: 0.4951  | ETA:    0s
+Avg Train Loss: 0.589
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5699, Avg Eval Macro F1: 0.6252, Avg Eval Acc. 0.9735
+Best val loss achieved. loss = 0.5699.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1479s
+
+Epoch 38/200
+B: 2487/2487 | Loss: 0.6042  | ETA:    0s
+Avg Train Loss: 0.5906
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5739, Avg Eval Macro F1: 0.6269, Avg Eval Acc. 0.9734
+Time: 1502s
+
+Epoch 39/200
+B: 2487/2487 | Loss: 0.8235  | ETA:    0s
+Avg Train Loss: 0.5877
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5689, Avg Eval Macro F1: 0.6236, Avg Eval Acc. 0.9736
+Best val loss achieved. loss = 0.5689.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1446s
+
+Epoch 40/200
+B: 2487/2487 | Loss: 0.4911  | ETA:    0s
+Avg Train Loss: 0.5899
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.569, Avg Eval Macro F1: 0.6294, Avg Eval Acc. 0.9736
+Time: 1495s
+
+Epoch 41/200
+B: 2487/2487 | Loss: 0.7674  | ETA:    0s
+Avg Train Loss: 0.5896
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5698, Avg Eval Macro F1: 0.6218, Avg Eval Acc. 0.9737
+Time: 1484s
+
+Epoch 42/200
+B: 2487/2487 | Loss: 0.6751  | ETA:    0s
+Avg Train Loss: 0.5859
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5645, Avg Eval Macro F1: 0.638, Avg Eval Acc. 0.9736
+Best val loss achieved. loss = 0.5645.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1451s
+
+Epoch 43/200
+B: 2487/2487 | Loss: 0.6725  | ETA:    0s
+Avg Train Loss: 0.5876
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5672, Avg Eval Macro F1: 0.6298, Avg Eval Acc. 0.9739
+Time: 1513s
+
+Epoch 44/200
+B: 2487/2487 | Loss: 0.5144  | ETA:    0s
+Avg Train Loss: 0.5856
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5672, Avg Eval Macro F1: 0.6446, Avg Eval Acc. 0.9739
+Time: 1450s
+
+Epoch 45/200
+B: 2487/2487 | Loss: 0.8758  | ETA:    0s
+Avg Train Loss: 0.5848
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.567, Avg Eval Macro F1: 0.6473, Avg Eval Acc. 0.9739
+Time: 1503s
+
+Epoch 46/200
+B: 2487/2487 | Loss: 0.6820  | ETA:    0s
+Avg Train Loss: 0.5855
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5667, Avg Eval Macro F1: 0.6545, Avg Eval Acc. 0.9738
+Time: 1450s
+
+Epoch 47/200
+B: 2487/2487 | Loss: 0.5876  | ETA:    0s
+Avg Train Loss: 0.5839
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5697, Avg Eval Macro F1: 0.6348, Avg Eval Acc. 0.9739
+Epoch    47: reducing learning rate of group 0 to 1.0000e-05.
+Time: 1452s
+
+Epoch 48/200
+B: 2487/2487 | Loss: 0.4718  | ETA:    0s
+Avg Train Loss: 0.5821
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5652, Avg Eval Macro F1: 0.6522, Avg Eval Acc. 0.9741
+Time: 1451s
+
+Epoch 49/200
+B: 2487/2487 | Loss: 0.4578  | ETA:    0s
+Avg Train Loss: 0.5804
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.565, Avg Eval Macro F1: 0.6436, Avg Eval Acc. 0.974
+Time: 1448s
+
+Epoch 50/200
+B: 2487/2487 | Loss: 0.3959  | ETA:    0s
+Avg Train Loss: 0.5827
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5617, Avg Eval Macro F1: 0.6219, Avg Eval Acc. 0.974
+Best val loss achieved. loss = 0.5617.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1499s
+
+Epoch 51/200
+B: 2487/2487 | Loss: 0.6924  | ETA:    0s
+Avg Train Loss: 0.5815
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.565, Avg Eval Macro F1: 0.6551, Avg Eval Acc. 0.9739
+Time: 1451s
+
+Epoch 52/200
+B: 2487/2487 | Loss: 0.3934  | ETA:    0s
+Avg Train Loss: 0.5801
+B: 156/156 | ETA:    0s
+Avg Eval Loss: 0.5617, Avg Eval Macro F1: 0.643, Avg Eval Acc. 0.9738
+Best val loss achieved. loss = 0.5617.  Saving model to  ./model_weights/best_bninception_run39.pth
+Time: 1449s
+
+Epoch 53/200
+^CB: 119/2487 | Loss: 0.5147  | ETA: 1464s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 40,
+ 'cosine_annealing': False,
+ 'desc': 'bninception, focal loss gamma=2, external_data',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run39',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 4,
+ 'lr_scale': 0.1,
+ 'mixup': True,
+ 'model_name': 'bninception',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using BN Inception
+Loading model from ./model_weights/best_bninception_run39.pth
+Generating predictions...
+B: 293/293 | ETA:    0s
+Generating submission with class wise thresholding...
+Finding best threshold...
+B: 777/777 | ETA:    0s
+Best Thresholds:  [-0.2  -0.15 -0.15 -0.2  -0.25 -0.25 -0.4  -0.2  -0.6  -0.3  -0.3  -0.35
+ -0.6  -0.5  -0.15 -1.15 -0.25 -0.55 -0.5  -0.4  -0.7  -0.2  -0.25 -0.45
+ -0.2  -0.2  -0.45 -1.1 ]
+Best Eval Macro F1:  [0.86188923 0.88497749 0.83678832 0.78895329 0.82244039 0.73169691
+ 0.67663744 0.84170306 0.8125     0.86363636 0.83333333 0.78131021
+ 0.75442648 0.70147783 0.88439306 0.63636364 0.53454134 0.53170732
+ 0.60343088 0.69285472 0.60465116 0.71224602 0.65045992 0.84847463
+ 0.76923077 0.73006977 0.58805513 0.37037037]
+Best Eval Macro F1 Avg:  0.7267363955494771
+Saved to  ./subm/best_bninception_run39.csv
+Saved to  ./subm/best_bninception_run39_m_b.csv

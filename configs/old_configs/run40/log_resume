@@ -1,0 +1,215 @@
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py --resume
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception, focal loss gamma=2, external_data, resuming',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run40',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception
+Loading weights...
+Resuming from checkpoint './model_weights/best_xception_run40.pth'
+Loaded checkpoint './model_weights/best_xception_run40.pth' (epoch 7)
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_xception_run40.pth
+
+Epoch 0/200
+B: 8287/8287 | Loss: 0.3895  | ETA:    0s
+Avg Train Loss: 0.6234
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5812, Avg Eval Macro F1: 0.6147, Avg Eval Acc. 0.9728
+Best val loss achieved. loss = 0.5812.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5200s
+
+Epoch 1/200
+B: 8287/8287 | Loss: 0.5669  | ETA:    0s
+Avg Train Loss: 0.6138
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5986, Avg Eval Macro F1: 0.5851, Avg Eval Acc. 0.9721
+Time: 5160s
+
+Epoch 2/200
+B: 8287/8287 | Loss: 0.7810  | ETA:    0s
+Avg Train Loss: 0.6053
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5982, Avg Eval Macro F1: 0.6112, Avg Eval Acc. 0.9725
+Time: 5065s
+
+Epoch 3/200
+B: 8287/8287 | Loss: 0.1759  | ETA:    0s
+Avg Train Loss: 0.5993
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5632, Avg Eval Macro F1: 0.6267, Avg Eval Acc. 0.9731
+Best val loss achieved. loss = 0.5632.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5191s
+
+Epoch 4/200
+B: 8287/8287 | Loss: 0.5756  | ETA:    0s
+Avg Train Loss: 0.5911
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5633, Avg Eval Macro F1: 0.6093, Avg Eval Acc. 0.9736
+Time: 5192s
+
+Epoch 5/200
+B: 8287/8287 | Loss: 0.7231  | ETA:    0s
+Avg Train Loss: 0.5836
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.6151, Avg Eval Macro F1: 0.6405, Avg Eval Acc. 0.9724
+Time: 5189s
+
+Epoch 6/200
+B: 8287/8287 | Loss: 0.5939  | ETA:    0s
+Avg Train Loss: 0.5767
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5503, Avg Eval Macro F1: 0.6279, Avg Eval Acc. 0.9737
+Best val loss achieved. loss = 0.5503.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5195s
+
+Epoch 7/200
+B: 8287/8287 | Loss: 0.6268  | ETA:    0s
+Avg Train Loss: 0.5696
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5614, Avg Eval Macro F1: 0.6407, Avg Eval Acc. 0.9734
+Time: 5193s
+
+Epoch 8/200
+B: 8287/8287 | Loss: 0.4978  | ETA:    0s
+Avg Train Loss: 0.5628
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5877, Avg Eval Macro F1: 0.6409, Avg Eval Acc. 0.9723
+Time: 5045s
+
+Epoch 9/200
+B: 8287/8287 | Loss: 0.9053  | ETA:    0s
+Avg Train Loss: 0.5556
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5499, Avg Eval Macro F1: 0.697, Avg Eval Acc. 0.9739
+Best val loss achieved. loss = 0.5499.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5019s
+
+Epoch 10/200
+B: 8287/8287 | Loss: 0.5787  | ETA:    0s
+Avg Train Loss: 0.5484
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5703, Avg Eval Macro F1: 0.6382, Avg Eval Acc. 0.9736
+Time: 5021s
+
+Epoch 11/200
+B: 8287/8287 | Loss: 0.5773  | ETA:    0s
+Avg Train Loss: 0.5416
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5784, Avg Eval Macro F1: 0.6984, Avg Eval Acc. 0.9731
+Time: 5034s
+
+Epoch 12/200
+B: 8287/8287 | Loss: 0.7212  | ETA:    0s
+Avg Train Loss: 0.5341
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5773, Avg Eval Macro F1: 0.6733, Avg Eval Acc. 0.9744
+Time: 5031s
+
+Epoch 13/200
+B: 8287/8287 | Loss: 0.8168  | ETA:    0s
+Avg Train Loss: 0.5254
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5507, Avg Eval Macro F1: 0.6773, Avg Eval Acc. 0.975
+Epoch    13: reducing learning rate of group 0 to 1.0000e-04.
+Time: 5118s
+
+Epoch 14/200
+B: 8287/8287 | Loss: 0.3740  | ETA:    0s
+Avg Train Loss: 0.4731
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5247, Avg Eval Macro F1: 0.7373, Avg Eval Acc. 0.9768
+Best val loss achieved. loss = 0.5247.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5073s
+
+Epoch 15/200
+B: 8287/8287 | Loss: 0.6174  | ETA:    0s
+Avg Train Loss: 0.4591
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5276, Avg Eval Macro F1: 0.7234, Avg Eval Acc. 0.9767
+Time: 5009s
+
+Epoch 16/200
+B: 8287/8287 | Loss: 0.3952  | ETA:    0s
+Avg Train Loss: 0.4513
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5244, Avg Eval Macro F1: 0.7137, Avg Eval Acc. 0.977
+Best val loss achieved. loss = 0.5244.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5021s
+
+Epoch 17/200
+B: 8287/8287 | Loss: 0.3349  | ETA:    0s
+Avg Train Loss: 0.4459
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.5295, Avg Eval Macro F1: 0.7289, Avg Eval Acc. 0.977
+Time: 5192s
+
+Epoch 18/200
+^CB: 230/8287 | Loss: 0.5534  | ETA: 4976s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception, focal loss gamma=2, external_data, resuming',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run40',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception
+Loading model from ./model_weights/best_xception_run40.pth
+Generating predictions...
+B: 976/976 | ETA:    0s
+Generating submission with class wise thresholding...
+Finding best threshold...
+B: 2590/2590 | ETA:    0s
+Best Thresholds:  [-1.50000000e-01  2.00000000e-01  1.77635684e-15 -1.50000000e-01
+ -5.00000000e-02 -1.00000000e-01  1.77635684e-15  5.00000000e-02
+ -9.00000000e-01 -2.50000000e-01 -3.00000000e-01  1.00000000e-01
+ -2.50000000e-01  1.00000000e-01 -2.50000000e-01 -2.00000000e-01
+ -5.00000000e-02  1.77635684e-15 -1.50000000e-01 -2.50000000e-01
+ -2.00000000e-01 -2.50000000e-01 -1.50000000e-01  1.00000000e-01
+  4.00000000e-01 -3.00000000e-01  1.50000000e-01 -1.05000000e+00]
+Best Eval Macro F1:  [0.89592556 0.92845528 0.8859175  0.87899322 0.89034014 0.81169639
+ 0.7767617  0.89942322 0.94444444 0.88636364 0.89655172 0.88552507
+ 0.85439763 0.82082082 0.93433396 0.9        0.71443193 0.75647668
+ 0.75617978 0.7743032  0.84900285 0.79452783 0.77654723 0.89526443
+ 0.84430177 0.78513732 0.73333333 0.86956522]
+Best Eval Macro F1 Avg:  0.8442507808373071
+Saved to  ./subm/best_xception_run40.csv
+Saved to  ./subm/best_xception_run40_m_b.csv

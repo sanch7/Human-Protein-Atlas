@@ -1,0 +1,95 @@
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception, focal loss gamma=2, external_data',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run40',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception
+Loading weights...
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_xception_run40.pth
+
+Epoch 0/200
+B: 8288/8288 | Loss: 0.5720  | ETA:    0s
+Avg Train Loss: 0.8693
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.835, Avg Eval Macro F1: 0.3695, Avg Eval Acc. 0.9629
+Best val loss achieved. loss = 0.8350.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5205s
+
+Epoch 1/200
+B: 8288/8288 | Loss: 0.9476  | ETA:    0s
+Avg Train Loss: 0.7453
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.7127, Avg Eval Macro F1: 0.4524, Avg Eval Acc. 0.9675
+Best val loss achieved. loss = 0.7127.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5033s
+
+Epoch 2/200
+B: 8288/8288 | Loss: 0.7881  | ETA:    0s
+Avg Train Loss: 0.7059
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.7026, Avg Eval Macro F1: 0.5075, Avg Eval Acc. 0.9683
+Best val loss achieved. loss = 0.7026.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5009s
+
+Epoch 3/200
+B: 8288/8288 | Loss: 0.6500  | ETA:    0s
+Avg Train Loss: 0.6827
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.6716, Avg Eval Macro F1: 0.5308, Avg Eval Acc. 0.9692
+Best val loss achieved. loss = 0.6716.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5010s
+
+Epoch 4/200
+B: 8288/8288 | Loss: 0.6447  | ETA:    0s
+Avg Train Loss: 0.6652
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.6596, Avg Eval Macro F1: 0.5204, Avg Eval Acc. 0.9696
+Best val loss achieved. loss = 0.6596.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5023s
+
+Epoch 5/200
+B: 8288/8288 | Loss: 0.8100  | ETA:    0s
+Avg Train Loss: 0.652
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.616, Avg Eval Macro F1: 0.5663, Avg Eval Acc. 0.9714
+Best val loss achieved. loss = 0.6160.  Saving model to  ./model_weights/best_xception_run40.pth
+Time: 5021s
+
+Epoch 6/200
+B: 8288/8288 | Loss: 0.4272  | ETA:    0s
+Avg Train Loss: 0.6409
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.6469, Avg Eval Macro F1: 0.5588, Avg Eval Acc. 0.9702
+Time: 5025s
+
+Epoch 7/200
+B: 8288/8288 | Loss: 0.6644  | ETA:    0s
+Avg Train Loss: 0.63
+B: 519/519 | ETA:    0s
+Avg Eval Loss: 0.641, Avg Eval Macro F1: 0.5688, Avg Eval Acc. 0.9706
+Time: 5015s
+
+Epoch 8/200
+^CB: 1502/8288 | Loss: 0.4828  | ETA: 4171s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n

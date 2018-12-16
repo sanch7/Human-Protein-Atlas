@@ -1,5 +1,5 @@
 {   
-    "exp_name": "run41",
+    "exp_name": "run40",
     "model_name": "xception",
     "pretrained": true,
     "external_data": true,
@@ -16,7 +16,7 @@
     "epochs": 200,
     "imsize": 512,
     "num_workers": 6,
-    "mixup": true,
+    "mixup": false,
     "preload_data": false,
-    "desc": "xception, focal loss gamma=2, mixup, resuming from run40"
+    "desc": "xception, focal loss gamma=2, external_data"
 }

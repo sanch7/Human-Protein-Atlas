@@ -47,7 +47,7 @@ def load_image(id, dataset = "train", colors = color_channels):
         if len(colors) == 3:
             image = image[:,:,:3]
 
-    # else:
+    # # else:
     except:
         # print('Loading raw images')
         image = np.zeros((512, 512, len(colors)), dtype='uint8')
@@ -162,7 +162,8 @@ def get_data_loaders(imsize=256, num_channels=4, batch_size=16, test_size=0.15, 
     # train_df, valid_df = train_test_split(images_df, test_size=test_size, random_state=42)
     images_df['labels'] = images_df['Target'].apply(label_gen_np)
     valid_idx, _, train_idx, _ = iterative_train_test_split(np.arange(len(images_df))[:, None], 
-                                    np.stack(images_df['labels']), test_size=test_size)
+                                    np.stack(images_df['labels']), test_size=test_size,
+                                    random_state=42)
     train_df = images_df.loc[train_idx.squeeze(1)]
     valid_df = images_df.loc[valid_idx.squeeze(1)]
 
