@@ -161,7 +161,7 @@ def get_data_loaders(imsize=256, num_channels=4, batch_size=16, test_size=0.15, 
     images_df = pd.read_csv(train_labels_path)
     # train_df, valid_df = train_test_split(images_df, test_size=test_size, random_state=42)
     images_df['labels'] = images_df['Target'].apply(label_gen_np)
-    valid_idx, _, train_idx, _ = iterative_train_test_split(np.arange(len(images_df))[:, None], 
+    train_idx, _, valid_idx, _ = iterative_train_test_split(np.arange(len(images_df))[:, None], 
                                     np.stack(images_df['labels']), test_size=test_size,
                                     random_state=42)
     train_df = images_df.loc[train_idx.squeeze(1)]

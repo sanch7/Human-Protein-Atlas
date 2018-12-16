@@ -100,16 +100,27 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
         imgs = data[0].to(device)
         labels = data[1].to(device)
 
+        if config.fp16:
+            net = net.half()
+            imgs = imgs.half()
+            labels = labels.half()
+
         # get predictions
         label_preds = net(imgs)
         #print(len(msk_preds), len(msks))
         # calculate loss
+        if config.fp16:
+            label_preds, labels = label_preds.float(), labels.float()
+
         tloss = loss(label_preds, labels)
 
         # zero gradients from previous run
         optimizer.zero_grad()
         #calculate gradients
-        tloss.backward()
+        if config.fp16:
+            optimizer.backward(tloss)
+        else:
+            tloss.backward()
         # update weights
         optimizer.step()
 
@@ -136,6 +147,9 @@ def train(net, optimizer, loss, train_loader, freeze_bn=False):
 def valid(net, optimizer, loss, valid_loader, save_imgs=False, fold_num=0):
     net.eval() 
     #keep track of preds
+    if config.fp16:
+        net = net.float()
+
     val_preds, val_labels = generate_preds(net, valid_loader)
     
     epoch_vloss = loss(val_preds, val_labels)
@@ -150,7 +164,16 @@ def train_network(net, model_ckpt, fold=0):
     try:
         # define optimizer
         # optimizer = optim.SGD(net.parameters(), lr=config.lr, momentum=0.9, weight_decay=configs.l2)
-        optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), 
+
+        if config.fp16:
+            optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), 
+                            lr=config.lr, eps=1e-04)
+
+            from apex.fp16_utils import FP16_Optimizer
+            optimizer = FP16_Optimizer(optimizer, dynamic_loss_scale=True, verbose=False)
+
+        else:
+            optimizer = optim.Adam(filter(lambda p: p.requires_grad,net.parameters()), 
                             lr=config.lr)
 
         valid_patience = 0

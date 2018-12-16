@@ -1,0 +1,126 @@
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception, focal loss gamma=2, mixup, resuming from run40',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run41',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': True,
+ 'model_name': 'xception',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception
+Loading weights...
+Resuming from checkpoint './model_weights/best_xception_run41.pth'
+Loaded checkpoint './model_weights/best_xception_run41.pth' (epoch 16)
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_xception_run41.pth
+
+Epoch 0/200
+B: 6737/6737 | Loss: 0.4551  | ETA:    0s
+Avg Train Loss: 0.5494
+B: 2070/2070 | ETA:    0s
+Avg Eval Loss: 0.3521, Avg Eval Macro F1: 0.8184, Avg Eval Acc. 0.982
+Best val loss achieved. loss = 0.3521.  Saving model to  ./model_weights/best_xception_run41.pth
+Time: 4542s
+
+Epoch 1/200
+B: 6737/6737 | Loss: 0.4681  | ETA:    0s
+Avg Train Loss: 0.5402
+B: 2070/2070 | ETA:    0s
+Avg Eval Loss: 0.3619, Avg Eval Macro F1: 0.8179, Avg Eval Acc. 0.9817
+Time: 4562s
+
+Epoch 2/200
+B: 6737/6737 | Loss: 0.5796  | ETA:    0s
+Avg Train Loss: 0.5367
+B: 2070/2070 | ETA:    0s
+Avg Eval Loss: 0.3639, Avg Eval Macro F1: 0.8132, Avg Eval Acc. 0.9817
+Time: 4460s
+
+Epoch 3/200
+B: 6737/6737 | Loss: 0.5908  | ETA:    0s
+Avg Train Loss: 0.5328
+B: 2070/2070 | ETA:    0s
+Avg Eval Loss: 0.3606, Avg Eval Macro F1: 0.8179, Avg Eval Acc. 0.9817
+Time: 4523s
+
+Epoch 4/200
+ansiB: 5097/6737 | Loss: 0.5289  | ETA: 1006s
+B: 6737/6737 | Loss: 0.4738  | ETA:    0s
+Avg Train Loss: 0.5293
+B: 2070/2070 | ETA:    0s
+Avg Eval Loss: 0.3763, Avg Eval Macro F1: 0.8107, Avg Eval Acc. 0.9811
+Epoch     4: reducing learning rate of group 0 to 1.0000e-05.
+Time: 4554s
+
+Epoch 5/200
+B: 6737/6737 | Loss: 0.5145  | ETA:    0s
+Avg Train Loss: 0.5282
+B: 2070/2070 | ETA:    0s
+Avg Eval Loss: 0.3688, Avg Eval Macro F1: 0.8207, Avg Eval Acc. 0.9816
+Time: 4559s
+
+Epoch 6/200
+^CB:  76/6737 | Loss: 0.6057  | ETA: 4194s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception, focal loss gamma=2, mixup, resuming from run40',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run41',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': True,
+ 'model_name': 'xception',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception
+Loading model from ./model_weights/best_xception_run41.pth
+Generating predictions...
+B: 976/976 | ETA:    0s
+Generating submission with class wise thresholding...
+Finding best threshold...
+B: 2590/2590 | ETA:    0s
+Best Thresholds:  [-1.50000000e-01  5.00000000e-02 -1.00000000e-01 -1.00000000e-01
+ -2.00000000e-01  1.77635684e-15 -2.50000000e-01 -3.00000000e-01
+ -1.00000000e-01 -6.50000000e-01  7.00000000e-01  1.00000000e-01
+ -3.00000000e-01 -1.50000000e-01 -2.00000000e-01 -4.50000000e-01
+  3.00000000e-01  1.50000000e-01 -4.00000000e-01 -3.00000000e-01
+ -2.00000000e-01 -3.00000000e-01 -4.00000000e-01 -2.50000000e-01
+  4.50000000e-01 -2.50000000e-01 -3.00000000e-01 -1.50000000e-01]
+Best Eval Macro F1:  [0.88603627 0.92164782 0.87383045 0.85732942 0.87207403 0.78847771
+ 0.74937718 0.88675214 0.90384615 0.91304348 0.87272727 0.85672798
+ 0.83682635 0.80074488 0.91849092 0.82608696 0.65319149 0.64837905
+ 0.70869565 0.76639893 0.80126183 0.77435297 0.74678112 0.88057942
+ 0.82504013 0.76778266 0.72566372 0.70588235]
+Best Eval Macro F1 Avg:  0.8131438685634012
+Saved to  ./subm/best_xception_run41.csv
+Saved to  ./subm/best_xception_run41_m_b.csv

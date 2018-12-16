@@ -3,6 +3,7 @@ from models.uselessnet import UselessNet
 from models.resnet import Atlas_ResNet
 from models.inception import Atlas_Inception
 from models.xception import Atlas_Xception
+from models.senet import Atlas_SENet
 
 def resnet18(pretrained=False, drop_rate=0.):
     return Atlas_ResNet(modeln="resnet18", pretrained=pretrained)
@@ -56,6 +57,9 @@ def xceptionalt(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_Xception(model_name = 'xceptionalt', pretrained=pretrained, 
                                 drop_rate=drop_rate, num_channels=num_channels)
 
+def seinceptionv3(pretrained=False, drop_rate=0., num_channels=4):
+    return Atlas_SENet(model_name = 'seinceptionv3', pretrained=pretrained, 
+                                drop_rate=drop_rate, num_channels=num_channels)
 
 def uselessnet():
     return UselessNet()
