@@ -23,8 +23,8 @@ def Atlas_Sononet_Attn(model_name = "sononet_grid_attention", pretrained=False, 
         if num_channels not in [3, 4]:
             raise ValueError('num_channels should be 3 or 4.')
 
-        model = sononet_grid_attention(feature_scale=8, n_classes=28, in_channels=num_channels, 
-                                is_batchnorm=True, n_convs=[8,8,16,16,16], 
+        model = sononet_grid_attention(feature_scale=1, n_classes=28, in_channels=num_channels, 
+                                is_batchnorm=True, n_convs=[3, 3, 3, 2, 2], 
                                 nonlocal_mode='concatenation_mean_flow', 
                                 aggregation_mode='concat')
         

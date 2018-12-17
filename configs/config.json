@@ -11,13 +11,13 @@
     "lr_patience": 3,
     "cosine_annealing": false,
     "drop_rate": 0,
-    "batch_size": 28,
+    "batch_size": 8,
     "test_size": 0.2,
     "epochs": 200,
     "imsize": 512,
     "fp16": false,
     "num_workers": 6,
-    "mixup": true,
+    "mixup": false,
     "preload_data": false,
-    "desc": "sononet_grid_attention, mixup, focal loss gamma=2"
+    "desc": "sononet_grid_attention, focal loss gamma=2"
 }
