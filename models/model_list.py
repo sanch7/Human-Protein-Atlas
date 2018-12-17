@@ -4,6 +4,7 @@ from models.resnet import Atlas_ResNet
 from models.inception import Atlas_Inception
 from models.xception import Atlas_Xception
 from models.senet import Atlas_SENet
+from models.sononet import Atlas_Sononet_Attn
 
 def resnet18(pretrained=False, drop_rate=0.):
     return Atlas_ResNet(modeln="resnet18", pretrained=pretrained)
@@ -60,6 +61,10 @@ def xceptionalt(pretrained=False, drop_rate=0., num_channels=4):
 def seinceptionv3(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_SENet(model_name = 'seinceptionv3', pretrained=pretrained, 
                                 drop_rate=drop_rate, num_channels=num_channels)
+
+def sononet_grid_attention(pretrained=False, drop_rate=0., num_channels=4):
+    return Atlas_Sononet_Attn(model_name = "sononet_grid_attention", pretrained=False, 
+                                drop_rate=0., num_channels=4)
 
 def uselessnet():
     return UselessNet()
