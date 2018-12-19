@@ -273,16 +273,17 @@ class Xception_Attn(nn.Module):
         x = self.block12(x)
 
         conv3 = self.conv3(x)
-        x = self.bn3(conv3)
-        x = self.relu(x)
+        conv3 = self.bn3(conv3)
+        x = self.relu(conv3)
 
         conv4 = self.conv4(x)
-        # x = self.bn4(x)
+        conv4 = self.bn4(conv4)
+        x = self.relu(conv4)
 
         # x = self.logits(x)
         batch_size = input.shape[0]
-        x = F.adaptive_avg_pool2d(x, (1, 1))
-        pooled = F.adaptive_avg_pool2d(conv4, (1, 1)).view(batch_size, -1)
+        # x = F.adaptive_avg_pool2d(x, (1, 1))
+        pooled = F.adaptive_avg_pool2d(x, (1, 1)).view(batch_size, -1)
 
         # Attention Mechanism
         g_conv1, att1 = self.compatibility_score1(block5, conv4)

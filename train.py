@@ -29,6 +29,8 @@ parser.add_argument('--dev_mode', action='store_true', default=False,
                     help='train only few batches per epoch')
 parser.add_argument('--resume', action='store_true', default=False,
                     help='Resume training from the checkpoint')
+parser.add_argument('--latest', action='store_true', default=False,
+                    help='Load the latest checkpoint (default best)')
 args = parser.parse_args()
 
 with open(args.config) as f_in:
@@ -54,6 +56,10 @@ if not os.path.exists('./logs'):
 def load_checkpoint(model, optimizer, model_ckpt):
     # Note: Input model & optimizer should be pre-defined.  This routine only updates their states.
     start_epoch = 0
+    
+    if args.latest:
+        model_ckpt = model_ckpt.replace('best', 'latest')
+
     if os.path.isfile(model_ckpt):
         print("Resuming from checkpoint '{}'".format(model_ckpt))
         checkpoint = torch.load(model_ckpt)
@@ -232,6 +238,7 @@ def train_network(net, model_ckpt, fold=0):
 
             t_l = train(net, optimizer, loss, train_loader, freeze_bn)
 
+            net.eval()
             state = {
                     'epoch': e,
                     'arch': config.model_name,

@@ -1,0 +1,148 @@
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception_grid_attention, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run44',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception_grid_attention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception Grid Attention
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_xception_grid_attention_run44.pth
+
+Epoch 0/200
+B: 8287/8287 | Loss: 0.8156  | ETA:    0s
+Avg Train Loss: 1.173
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 352.3, Avg Eval Macro F1: 0.09334, Avg Eval Acc. 0.9111
+Best val loss achieved. loss = 352.2888.  Saving model to  ./model_weights/best_xception_grid_attention_run44.pth
+Time: 5616s
+
+Epoch 1/200
+B: 8287/8287 | Loss: 0.8045  | ETA:    0s
+Avg Train Loss: 0.9502
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 3.881, Avg Eval Macro F1: 0.2707, Avg Eval Acc. 0.955
+Best val loss achieved. loss = 3.8813.  Saving model to  ./model_weights/best_xception_grid_attention_run44.pth
+Time: 5602s
+
+Epoch 2/200
+B: 8287/8287 | Loss: 0.5019  | ETA:    0s
+Avg Train Loss: 0.8158
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 43.56, Avg Eval Macro F1: 0.273, Avg Eval Acc. 0.9546
+Time: 5587s
+
+Epoch 3/200
+B: 8287/8287 | Loss: 0.8732  | ETA:    0s
+Avg Train Loss: 0.7608
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 14.23, Avg Eval Macro F1: 0.3402, Avg Eval Acc. 0.9556
+Time: 5571s
+
+Epoch 4/200
+B: 8287/8287 | Loss: 0.6409  | ETA:    0s
+Avg Train Loss: 0.7391
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 7.163, Avg Eval Macro F1: 0.404, Avg Eval Acc. 0.9634
+Time: 5568s
+
+Epoch 5/200
+^CB:  54/8287 | Loss: 0.4767  | ETA: 5624s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
+
+
+
+
+
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py --resume --latest
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception_grid_attention, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run44',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception_grid_attention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception Grid Attention
+Resuming from checkpoint './model_weights/latest_xception_grid_attention_run44.pth'
+Loaded checkpoint './model_weights/latest_xception_grid_attention_run44.pth' (epoch 4)
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_xception_grid_attention_run44.pth
+
+Epoch 0/200
+B: 8287/8287 | Loss: 0.7568  | ETA:    0s
+Avg Train Loss: 0.7142
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 8.705, Avg Eval Macro F1: 0.3972, Avg Eval Acc. 0.9643
+Time: 5571s
+
+Epoch 1/200
+B: 8287/8287 | Loss: 0.9659  | ETA:    0s
+Avg Train Loss: 0.6994
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 6.945, Avg Eval Macro F1: 0.4537, Avg Eval Acc. 0.9666
+Time: 5569s
+
+Epoch 2/200
+B: 8287/8287 | Loss: 0.4941  | ETA:    0s
+Avg Train Loss: 0.6877
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 27.48, Avg Eval Macro F1: 0.4224, Avg Eval Acc. 0.9671
+Time: 5561s
+
+Epoch 3/200
+B: 8287/8287 | Loss: 1.0010  | ETA:    0s
+Avg Train Loss: 0.6769
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 2.297, Avg Eval Macro F1: 0.4407, Avg Eval Acc. 0.9646
+Best val loss achieved. loss = 2.2968.  Saving model to  ./model_weights/best_xception_grid_attention_run44.pth
+Time: 5549s
+
+Epoch 4/200
+B: 8287/8287 | Loss: 0.7889  | ETA:    0s
+Avg Train Loss: 0.6697
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 7.945, Avg Eval Macro F1: 0.4458, Avg Eval Acc. 0.9634
+Time: 5554s
+
+Epoch 5/200
+^CB: 2269/8287 | Loss: 0.8026  | ETA: 3959s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
