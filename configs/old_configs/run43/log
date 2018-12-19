@@ -1,0 +1,259 @@
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 8,
+ 'cosine_annealing': False,
+ 'desc': 'sononet_grid_attention, focal loss gamma=2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run43',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'sononet_grid_attention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Sononet Grid Attention
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_sononet_grid_attention_run43.pth
+
+Epoch 0/200
+B: 12431/12431 | Loss: 1.2197  | ETA:    0s
+Avg Train Loss: 1.123
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 1.779, Avg Eval Macro F1: 0.09478, Avg Eval Acc. 0.9427
+Best val loss achieved. loss = 1.7789.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7009s
+
+Epoch 1/200
+B: 12431/12431 | Loss: 1.4669  | ETA:    0s
+Avg Train Loss: 0.982
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 1.027, Avg Eval Macro F1: 0.1881, Avg Eval Acc. 0.9543
+Best val loss achieved. loss = 1.0273.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 6921s
+
+Epoch 2/200
+B: 12431/12431 | Loss: 0.7146  | ETA:    0s
+Avg Train Loss: 0.8716
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 1.041, Avg Eval Macro F1: 0.2604, Avg Eval Acc. 0.9537
+Time: 6934s
+
+Epoch 3/200
+B: 12431/12431 | Loss: 0.2387  | ETA:    0s
+Avg Train Loss: 0.7977
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.8072, Avg Eval Macro F1: 0.3204, Avg Eval Acc. 0.9628
+Best val loss achieved. loss = 0.8072.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7004s
+
+Epoch 4/200
+B: 12431/12431 | Loss: 0.4259  | ETA:    0s
+Avg Train Loss: 0.7589
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.7411, Avg Eval Macro F1: 0.3913, Avg Eval Acc. 0.9658
+Best val loss achieved. loss = 0.7411.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7016s
+
+Epoch 5/200
+B: 12431/12431 | Loss: 0.8963  | ETA:    0s
+Avg Train Loss: 0.7342
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.7406, Avg Eval Macro F1: 0.3807, Avg Eval Acc. 0.9653
+Best val loss achieved. loss = 0.7406.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7013s
+
+Epoch 6/200
+B: 12431/12431 | Loss: 0.1361  | ETA:    0s
+Avg Train Loss: 0.7146
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6944, Avg Eval Macro F1: 0.4529, Avg Eval Acc. 0.9683
+Best val loss achieved. loss = 0.6944.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7015s
+
+Epoch 7/200
+B: 12431/12431 | Loss: 0.0329  | ETA:    0s
+Avg Train Loss: 0.7012
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6969, Avg Eval Macro F1: 0.4757, Avg Eval Acc. 0.9676
+Time: 7013s
+
+Epoch 8/200
+B: 12431/12431 | Loss: 0.7922  | ETA:    0s
+Avg Train Loss: 0.6901
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6839, Avg Eval Macro F1: 0.4579, Avg Eval Acc. 0.9685
+Best val loss achieved. loss = 0.6839.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7013s
+
+Epoch 9/200
+B: 12431/12431 | Loss: 1.5458  | ETA:    0s
+Avg Train Loss: 0.6818
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.7001, Avg Eval Macro F1: 0.5068, Avg Eval Acc. 0.9679
+Time: 6978s
+
+Epoch 10/200
+B: 12431/12431 | Loss: 0.3573  | ETA:    0s
+Avg Train Loss: 0.6729
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6452, Avg Eval Macro F1: 0.5001, Avg Eval Acc. 0.9699
+Best val loss achieved. loss = 0.6452.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7012s
+
+Epoch 11/200
+B: 12431/12431 | Loss: 0.3107  | ETA:    0s
+Avg Train Loss: 0.6655
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.658, Avg Eval Macro F1: 0.5275, Avg Eval Acc. 0.9689
+Time: 6893s
+
+Epoch 12/200
+B: 12431/12431 | Loss: 1.3132  | ETA:    0s
+Avg Train Loss: 0.6592
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6418, Avg Eval Macro F1: 0.5286, Avg Eval Acc. 0.97
+Best val loss achieved. loss = 0.6418.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 6909s
+
+Epoch 13/200
+B: 12431/12431 | Loss: 1.3962  | ETA:    0s
+Avg Train Loss: 0.6539
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6366, Avg Eval Macro F1: 0.5513, Avg Eval Acc. 0.9705
+Best val loss achieved. loss = 0.6366.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 6906s
+
+Epoch 14/200
+B: 12431/12431 | Loss: 1.1220  | ETA:    0s
+Avg Train Loss: 0.6487
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6168, Avg Eval Macro F1: 0.5172, Avg Eval Acc. 0.971
+Best val loss achieved. loss = 0.6168.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 6904s
+
+Epoch 15/200
+B: 12431/12431 | Loss: 1.1818  | ETA:    0s
+Avg Train Loss: 0.6447
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6388, Avg Eval Macro F1: 0.5199, Avg Eval Acc. 0.9705
+Time: 6938s
+
+Epoch 16/200
+B: 12431/12431 | Loss: 0.9484  | ETA:    0s
+Avg Train Loss: 0.6386
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6249, Avg Eval Macro F1: 0.5197, Avg Eval Acc. 0.971
+Time: 7011s
+
+Epoch 17/200
+B: 12431/12431 | Loss: 0.2417  | ETA:    0s
+Avg Train Loss: 0.6355
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6263, Avg Eval Macro F1: 0.5227, Avg Eval Acc. 0.9704
+Time: 7011s
+
+Epoch 18/200
+B: 12431/12431 | Loss: 0.4678  | ETA:    0s
+Avg Train Loss: 0.6312
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6144, Avg Eval Macro F1: 0.5272, Avg Eval Acc. 0.9712
+Best val loss achieved. loss = 0.6144.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7007s
+
+Epoch 19/200
+B: 12431/12431 | Loss: 0.2253  | ETA:    0s
+Avg Train Loss: 0.6277
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6067, Avg Eval Macro F1: 0.5232, Avg Eval Acc. 0.972
+Best val loss achieved. loss = 0.6067.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 6896s
+
+Epoch 20/200
+B: 12431/12431 | Loss: 0.2679  | ETA:    0s
+Avg Train Loss: 0.6232
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6097, Avg Eval Macro F1: 0.541, Avg Eval Acc. 0.9711
+Time: 6908s
+
+Epoch 21/200
+B: 12431/12431 | Loss: 0.5541  | ETA:    0s
+Avg Train Loss: 0.6206
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6297, Avg Eval Macro F1: 0.5593, Avg Eval Acc. 0.9711
+Time: 7010s
+
+Epoch 22/200
+B: 12431/12431 | Loss: 1.3926  | ETA:    0s
+Avg Train Loss: 0.618
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.6145, Avg Eval Macro F1: 0.5653, Avg Eval Acc. 0.971
+Time: 7038s
+
+Epoch 23/200
+B: 12431/12431 | Loss: 0.8980  | ETA:    0s
+Avg Train Loss: 0.6152
+B: 780/780 | ETA:    0s
+Avg Eval Loss: 0.5981, Avg Eval Macro F1: 0.5813, Avg Eval Acc. 0.9717
+Best val loss achieved. loss = 0.5981.  Saving model to  ./model_weights/best_sononet_grid_attention_run43.pth
+Time: 7020s
+
+Epoch 24/200
+^CB: 4425/12431 | Loss: 0.5216  | ETA: 4251s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 8,
+ 'cosine_annealing': False,
+ 'desc': 'sononet_grid_attention, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run43',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'sononet_grid_attention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Sononet Grid Attention
+Loading model from ./model_weights/best_sononet_grid_attention_run43.pth
+Generating predictions...
+B: 1463/1463 | ETA:    0s
+Generating submission with class wise thresholding...
+Finding best threshold...
+B: 3884/3884 | ETA:    0s
+Best Thresholds:  [ 0.15 -0.2  -0.65 -0.15 -0.45 -0.25 -0.4  -0.35 -0.8  -0.35 -0.6  -0.25
+ -0.3  -0.35 -0.05 -0.65 -0.45 -0.6  -0.5  -0.6  -0.3  -0.45 -0.05 -0.4
+ -0.15 -0.2  -0.1  -0.75]
+Best Eval Macro F1:  [0.85132505 0.86311475 0.81846414 0.77678571 0.80651289 0.71024513
+ 0.62385321 0.81560154 0.77358491 0.80487805 0.75409836 0.74448259
+ 0.68641618 0.67034179 0.87121951 0.61111111 0.47801578 0.41909814
+ 0.54266735 0.66999003 0.47282609 0.68019665 0.62745098 0.82536924
+ 0.72727273 0.71000874 0.55333333 0.22222222]
+Best Eval Macro F1 Avg:  0.6825173648525963
+Saved to  ./subm/best_sononet_grid_attention_run43.csv
+Saved to  ./subm/best_sononet_grid_attention_run43_m_b.csv
