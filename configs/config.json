@@ -19,5 +19,5 @@
     "num_workers": 6,
     "mixup": false,
     "preload_data": false,
-    "desc": "sononet_grid_attention, focal loss gamma=2"
+    "desc": "sononet_grid_attention, focal loss gamma = 2"
 }
