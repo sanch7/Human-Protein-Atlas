@@ -58,4 +58,31 @@ def Atlas_Inception(model_name, pretrained=False, drop_rate=0., num_channels=4):
                     nn.Linear(1536, 28),
                 )
 
+    if model_name == 'inceptionv4':
+        print("Using Inception v4")
+        if pretrained:
+            print('Loading weights...')
+            model = inceptionv4(pretrained="imagenet")
+        else:
+            model = inceptionv4(pretrained=None)
+        model.avg_pool = nn.AdaptiveAvgPool2d(1)
+        
+        if num_channels not in [3, 4]:
+            raise ValueError('num_channels should be 3 or 4.')
+
+        if num_channels == 4:
+            nconv = nn.Conv2d(4, 32, kernel_size=(3, 3), stride=(2, 2), bias=False)
+
+            if pretrained:
+                nconv.weight.data[:,:3,:,:] = model.features[0].conv.weight.data.clone()
+                nconv.weight.data[:,3,:,:] = model.features[0].conv.weight.data[:,1,:,:].clone()
+            
+            model.features[0].conv = nconv
+        
+        model.last_linear = nn.Sequential(
+                    nn.BatchNorm1d(1536),
+                    nn.Dropout(0.5),
+                    nn.Linear(1536, 28),
+                )
+
     return model

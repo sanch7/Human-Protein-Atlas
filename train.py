@@ -56,7 +56,7 @@ if not os.path.exists('./logs'):
 def load_checkpoint(model, optimizer, model_ckpt):
     # Note: Input model & optimizer should be pre-defined.  This routine only updates their states.
     start_epoch = 0
-    
+
     if args.latest:
         model_ckpt = model_ckpt.replace('best', 'latest')
 
@@ -238,16 +238,6 @@ def train_network(net, model_ckpt, fold=0):
 
             t_l = train(net, optimizer, loss, train_loader, freeze_bn)
 
-            net.eval()
-            state = {
-                    'epoch': e,
-                    'arch': config.model_name,
-                    'state_dict': net.state_dict(),
-                    'best_val_loss': best_val_loss,
-                    'optimizer' : optimizer.state_dict(),
-                }
-            torch.save(state, model_ckpt.replace('best', 'latest'))
-
             v_l, v_f1 = valid(net, optimizer, loss, valid_loader, save_imgs, fold)
 
             if config.reduce_lr_plateau:
@@ -265,6 +255,14 @@ def train_network(net, model_ckpt, fold=0):
                         model_ckpt.replace('best', 'cycle{}'.format(cycle))))
 
             lr_hist.append(optimizer.param_groups[0]['lr'])
+
+            state = {
+                    'epoch': e,
+                    'arch': config.model_name,
+                    'state_dict': net.state_dict(),
+                    'best_val_loss': best_val_loss,
+                    'optimizer' : optimizer.state_dict(),
+                }
             
             # save the model on best validation loss
             if best_val_loss is None or v_l < best_val_loss:
@@ -293,6 +291,8 @@ def train_network(net, model_ckpt, fold=0):
 
             else:
                 valid_patience += 1
+
+            torch.save(state, model_ckpt.replace('best', 'latest'))
 
             train_losses.append(t_l)
             valid_losses.append(v_l)

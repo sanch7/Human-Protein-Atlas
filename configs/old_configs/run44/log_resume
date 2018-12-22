@@ -1,0 +1,315 @@
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py --resume --latest
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception_grid_attention, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run44',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception_grid_attention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception Grid Attention
+Resuming from checkpoint './model_weights/latest_xception_grid_attention_run44.pth'
+Loaded checkpoint './model_weights/latest_xception_grid_attention_run44.pth' (epoch 4)
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_xception_grid_attention_run44.pth
+
+Epoch 0/200
+B: 8287/8287 | Loss: 0.3775  | ETA:    0s
+Avg Train Loss: 0.6626
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 2.589, Avg Eval Macro F1: 0.4934, Avg Eval Acc. 0.9684
+Time: 5627s
+
+Epoch 1/200
+B: 8287/8287 | Loss: 0.8166  | ETA:    0s
+Avg Train Loss: 0.6568
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 24.33, Avg Eval Macro F1: 0.4732, Avg Eval Acc. 0.9668
+Time: 5548s
+
+Epoch 2/200
+B: 8287/8287 | Loss: 0.5843  | ETA:    0s
+Avg Train Loss: 0.6504
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 69.44, Avg Eval Macro F1: 0.4624, Avg Eval Acc. 0.9608
+Time: 5549s
+
+Epoch 3/200
+B: 8287/8287 | Loss: 0.5926  | ETA:    0s
+Avg Train Loss: 0.6468
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 152.0, Avg Eval Macro F1: 0.4938, Avg Eval Acc. 0.9662
+Time: 5548s
+
+Epoch 4/200
+B: 8287/8287 | Loss: 0.6362  | ETA:    0s
+Avg Train Loss: 0.6402
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 1.23, Avg Eval Macro F1: 0.4777, Avg Eval Acc. 0.967
+Best val loss achieved. loss = 1.2295.  Saving model to  ./model_weights/best_xception_grid_attention_run44.pth
+Time: 5550s
+
+Epoch 5/200
+B: 8287/8287 | Loss: 0.5051  | ETA:    0s
+Avg Train Loss: 0.6359
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 6.947, Avg Eval Macro F1: 0.4889, Avg Eval Acc. 0.9672
+Time: 5544s
+
+Epoch 6/200
+B: 8287/8287 | Loss: 0.5826  | ETA:    0s
+Avg Train Loss: 0.6306
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 1.135, Avg Eval Macro F1: 0.5494, Avg Eval Acc. 0.9712
+Best val loss achieved. loss = 1.1345.  Saving model to  ./model_weights/best_xception_grid_attention_run44.pth
+Time: 5544s
+
+Epoch 7/200
+B: 8287/8287 | Loss: 0.7623  | ETA:    0s
+Avg Train Loss: 0.6266
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 8.539, Avg Eval Macro F1: 0.4906, Avg Eval Acc. 0.9673
+Time: 5543s
+
+Epoch 8/200
+B: 8287/8287 | Loss: 0.4061  | ETA:    0s
+Avg Train Loss: 0.6215
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 15.03, Avg Eval Macro F1: 0.5256, Avg Eval Acc. 0.9671
+Time: 5545s
+
+Epoch 9/200
+B: 8287/8287 | Loss: 0.4855  | ETA:    0s
+Avg Train Loss: 0.6187
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.7088, Avg Eval Macro F1: 0.5488, Avg Eval Acc. 0.971
+Best val loss achieved. loss = 0.7088.  Saving model to  ./model_weights/best_xception_grid_attention_run44.pth
+Time: 5549s
+
+Epoch 10/200
+B: 8287/8287 | Loss: 0.8351  | ETA:    0s
+Avg Train Loss: 0.613
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.7366, Avg Eval Macro F1: 0.5614, Avg Eval Acc. 0.971
+Time: 5594s
+
+Epoch 11/200
+B: 8287/8287 | Loss: 0.5763  | ETA:    0s
+Avg Train Loss: 0.6106
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.6229, Avg Eval Macro F1: 0.5757, Avg Eval Acc. 0.9717
+Best val loss achieved. loss = 0.6229.  Saving model to  ./model_weights/best_xception_grid_attention_run44.pth
+Time: 5548s
+
+Epoch 12/200
+B: 8287/8287 | Loss: 0.3280  | ETA:    0s
+Avg Train Loss: 0.6062
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.7982, Avg Eval Macro F1: 0.6045, Avg Eval Acc. 0.9712
+Time: 5663s
+
+Epoch 13/200
+B: 8287/8287 | Loss: 0.4236  | ETA:    0s
+Avg Train Loss: 0.603
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.8878, Avg Eval Macro F1: 0.5555, Avg Eval Acc. 0.9696
+Time: 5545s
+
+Epoch 14/200
+B: 8287/8287 | Loss: 0.4709  | ETA:    0s
+Avg Train Loss: 0.599
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 9.612, Avg Eval Macro F1: 0.5631, Avg Eval Acc. 0.9711
+Time: 5545s
+
+Epoch 15/200
+B: 8287/8287 | Loss: 0.8697  | ETA:    0s
+Avg Train Loss: 0.595
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 3.8, Avg Eval Macro F1: 0.564, Avg Eval Acc. 0.9693
+Epoch    15: reducing learning rate of group 0 to 1.0000e-04.
+Time: 5546s
+
+Epoch 16/200
+B: 8287/8287 | Loss: 0.7608  | ETA:    0s
+Avg Train Loss: 0.5523
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 32.56, Avg Eval Macro F1: 0.5919, Avg Eval Acc. 0.9695
+Time: 5548s
+
+Epoch 17/200
+B: 8287/8287 | Loss: 0.2191  | ETA:    0s
+Avg Train Loss: 0.5428
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 2.096, Avg Eval Macro F1: 0.628, Avg Eval Acc. 0.9718
+Time: 5547s
+
+Epoch 18/200
+B: 8287/8287 | Loss: 0.6297  | ETA:    0s
+Avg Train Loss: 0.538
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 3.82, Avg Eval Macro F1: 0.6381, Avg Eval Acc. 0.9713
+Time: 5546s
+
+Epoch 19/200
+B: 8287/8287 | Loss: 0.5271  | ETA:    0s
+Avg Train Loss: 0.5362
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 42.51, Avg Eval Macro F1: 0.5781, Avg Eval Acc. 0.9675
+Epoch    19: reducing learning rate of group 0 to 1.0000e-05.
+Time: 5548s
+
+Epoch 20/200
+B: 8287/8287 | Loss: 0.2626  | ETA:    0s
+Avg Train Loss: 0.5295
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 0.9369, Avg Eval Macro F1: 0.6728, Avg Eval Acc. 0.9733
+Time: 5549s
+
+Epoch 21/200
+B: 8287/8287 | Loss: 0.6330  | ETA:    0s
+Avg Train Loss: 0.5281
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 4.282, Avg Eval Macro F1: 0.6144, Avg Eval Acc. 0.9694
+Time: 5550s
+
+Epoch 22/200
+B: 8287/8287 | Loss: 0.3094  | ETA:    0s
+Avg Train Loss: 0.5284
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 5.512, Avg Eval Macro F1: 0.6244, Avg Eval Acc. 0.9704
+Time: 5547s
+
+Epoch 23/200
+B: 8287/8287 | Loss: 0.5992  | ETA:    0s
+Avg Train Loss: 0.5275
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 2.272, Avg Eval Macro F1: 0.6341, Avg Eval Acc. 0.9708
+Epoch    23: reducing learning rate of group 0 to 1.0000e-06.
+Time: 5576s
+
+Epoch 24/200
+B: 8287/8287 | Loss: 0.6664  | ETA:    0s
+Avg Train Loss: 0.5257
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 1.721, Avg Eval Macro F1: 0.6412, Avg Eval Acc. 0.9721
+Time: 5589s
+
+Epoch 25/200
+B: 8287/8287 | Loss: 0.4423  | ETA:    0s
+Avg Train Loss: 0.5262
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 1.993, Avg Eval Macro F1: 0.6556, Avg Eval Acc. 0.9726
+Time: 5590s
+
+Epoch 26/200
+^CB: 3054/8287 | Loss: 0.5333  | ETA: 3460s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception_grid_attention, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run44',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception_grid_attention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception Grid Attention
+^C^C^C^CTraceback (most recent call last):
+  File "make_submission.py", line 104, in <module>
+    main_subm(opcon=config)
+  File "make_submission.py", line 61, in main_subm
+    net = nn.parallel.DataParallel(net)
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 114, in __init__
+    self.module.cuda(device_ids[0])
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py", line 258, in cuda
+    return self._apply(lambda t: t.cuda(device))
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py", line 185, in _apply
+    module._apply(fn)
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py", line 191, in _apply
+    param.data = fn(param.data)
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py", line 258, in <lambda>
+    return self._apply(lambda t: t.cuda(device))
+KeyboardInterrupt
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ ^C
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'xception_grid_attention, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run44',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'xception_grid_attention',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using Xception Grid Attention
+Loading model from ./model_weights/best_xception_grid_attention_run44.pth
+Generating predictions...
+B: 976/976 | ETA:    0s
+Generating submission with class wise thresholding...
+Finding best threshold...
+B: 2590/2590 | ETA:    0s
+Best Thresholds:  [-1.50000000e-01 -2.50000000e-01 -1.00000000e-01 -5.00000000e-02
+ -1.00000000e-01 -2.00000000e-01 -3.00000000e-01 -1.00000000e-01
+ -6.00000000e-01 -3.50000000e-01 -1.50000000e-01  1.00000000e-01
+ -2.00000000e-01 -2.00000000e-01 -1.00000000e-01  5.00000000e-02
+ -2.00000000e-01 -3.50000000e-01 -4.50000000e-01 -2.00000000e-01
+ -2.50000000e-01 -2.50000000e-01 -2.00000000e-01  1.77635684e-15
+ -3.50000000e-01 -3.00000000e-01 -1.00000000e-01 -2.00000000e-01]
+Best Eval Macro F1:  [0.86063103 0.88414393 0.84120296 0.80601002 0.83042877 0.74571309
+ 0.6609717  0.85415136 0.82882883 0.83333333 0.87272727 0.72024065
+ 0.75190259 0.72066459 0.8761272  0.66666667 0.59027027 0.60229885
+ 0.6391545  0.7120954  0.63661972 0.71273313 0.67698259 0.85547703
+ 0.42197452 0.72678713 0.64770932 0.60869565]
+Best Eval Macro F1 Avg:  0.7351622185070381
+Saved to  ./subm/best_xception_grid_attention_run44.csv
+Saved to  ./subm/best_xception_grid_attention_run44_m_b.csv

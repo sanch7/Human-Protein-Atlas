@@ -48,6 +48,10 @@ def inceptionv2(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_Inception(model_name = 'bninception', pretrained=pretrained, 
                                 drop_rate=drop_rate, num_channels=num_channels)
 
+def inceptionv4(pretrained=False, drop_rate=0., num_channels=4):
+    return Atlas_Inception(model_name = 'inceptionv4', pretrained=pretrained, 
+                                drop_rate=drop_rate, num_channels=num_channels)
+
 def inceptionresnetv2(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_Inception(model_name = 'inceptionresnetv2', pretrained=pretrained, 
                                 drop_rate=drop_rate, num_channels=num_channels)

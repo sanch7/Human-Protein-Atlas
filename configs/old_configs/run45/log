@@ -1,0 +1,57 @@
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 12,
+ 'cosine_annealing': False,
+ 'desc': 'pnasnet, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run45',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'pnasnet',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using PNASnet
+96 96 24
+96 120 48
+120 240 96
+240 480 96
+480 480 192
+480 960 192
+960 960 384
+960 1920 384
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_pnasnet_run45.pth
+
+Epoch 0/200
+B: 8287/8287 | Loss: 0.8208  | ETA:    0s
+Avg Train Loss: 1.008
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 3.749, Avg Eval Macro F1: 0.226, Avg Eval Acc. 0.9554
+Best val loss achieved. loss = 3.7491.  Saving model to  ./model_weights/best_pnasnet_run45.pth
+Time: 5186s
+
+Epoch 1/200
+B: 8287/8287 | Loss: 0.8559  | ETA:    0s
+Avg Train Loss: 0.8187
+B: 520/520 | ETA:    0s
+Avg Eval Loss: 80.78, Avg Eval Macro F1: 0.2968, Avg Eval Acc. 0.9575
+Time: 5184s
+
+Epoch 2/200
+^CB: 3330/8287 | Loss: 1.0656  | ETA: 3047s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
