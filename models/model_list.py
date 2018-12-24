@@ -7,6 +7,7 @@ from models.senet import Atlas_SENet
 from models.sononet import Atlas_Sononet_Attn
 from models.xception_attention import Atlas_Xception_Attn
 from models.pnasnet import Atlas_PNASnet
+from models.Jongchan.bamnet import Atlas_BAMNet
 
 def resnet18(pretrained=False, drop_rate=0.):
     return Atlas_ResNet(modeln="resnet18", pretrained=pretrained)
@@ -78,6 +79,38 @@ def xception_grid_attention(pretrained=False, drop_rate=0., num_channels=4):
 
 def pnasnet(pretrained=False, drop_rate=0., num_channels=4):
     return Atlas_PNASnet(model_name = "pnasnet", pretrained=False, drop_rate=0., 
+                        num_channels=4)
+
+def resnet18cbam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet18cbam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def resnet18bam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet18bam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def resnet34cbam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet34cbam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def resnet34bam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet34bam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def resnet50cbam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet50cbam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def resnet50bam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet50bam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def resnet101cbam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet101cbam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def resnet101bam(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_BAMNet(model_name = "resnet101bam", drop_rate=0., pretrained=False, 
                         num_channels=4)
 
 def uselessnet():

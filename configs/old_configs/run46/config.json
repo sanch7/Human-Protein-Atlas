@@ -1,6 +1,6 @@
 {   
-    "exp_name": "run47",
-    "model_name": "resnet50cbam",
+    "exp_name": "run46",
+    "model_name": "inceptionv4",
     "pretrained": true,
     "external_data": true,
     "num_channels": 4,
@@ -19,5 +19,5 @@
     "num_workers": 6,
     "mixup": false,
     "preload_data": false,
-    "desc": "resnet50cbam, focal loss gamma = 2"
+    "desc": "inceptionv4, focal loss gamma = 2"
 }
