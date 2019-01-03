@@ -1,0 +1,458 @@
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 14,
+ 'cosine_annealing': False,
+ 'desc': 'resnet101cbam, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run47',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'resnet101cbam',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using resnet101 with CBAM Attention
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_resnet101cbam_run47.pth
+
+Epoch 0/200
+B: 7105/7105 | Loss: 1.3854  | ETA:    0s
+Avg Train Loss: 1.173
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 1.176, Avg Eval Macro F1: 0.07504, Avg Eval Acc. 0.9487
+Best val loss achieved. loss = 1.1761.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4167s
+
+Epoch 1/200
+B: 7105/7105 | Loss: 0.8416  | ETA:    0s
+Avg Train Loss: 0.9848
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 1.015, Avg Eval Macro F1: 0.1878, Avg Eval Acc. 0.9539
+Best val loss achieved. loss = 1.0155.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4106s
+
+Epoch 2/200
+B: 7105/7105 | Loss: 0.5808  | ETA:    0s
+Avg Train Loss: 0.8777
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.8835, Avg Eval Macro F1: 0.2394, Avg Eval Acc. 0.9599
+Best val loss achieved. loss = 0.8835.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4103s
+
+Epoch 3/200
+B: 7105/7105 | Loss: 0.6363  | ETA:    0s
+Avg Train Loss: 0.8125
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.8948, Avg Eval Macro F1: 0.2618, Avg Eval Acc. 0.9577
+Time: 4100s
+
+Epoch 4/200
+B: 7105/7105 | Loss: 0.3917  | ETA:    0s
+Avg Train Loss: 0.7781
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.8506, Avg Eval Macro F1: 0.2883, Avg Eval Acc. 0.9603
+Best val loss achieved. loss = 0.8506.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4099s
+
+Epoch 5/200
+B: 7105/7105 | Loss: 0.7906  | ETA:    0s
+Avg Train Loss: 0.7539
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.786, Avg Eval Macro F1: 0.3702, Avg Eval Acc. 0.9629
+Best val loss achieved. loss = 0.7860.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4101s
+
+Epoch 6/200
+B: 7105/7105 | Loss: 0.4432  | ETA:    0s
+Avg Train Loss: 0.7364
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.7535, Avg Eval Macro F1: 0.3986, Avg Eval Acc. 0.9655
+Best val loss achieved. loss = 0.7535.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4103s
+
+Epoch 7/200
+B: 7105/7105 | Loss: 1.0617  | ETA:    0s
+Avg Train Loss: 0.7231
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.7291, Avg Eval Macro F1: 0.4307, Avg Eval Acc. 0.9659
+Best val loss achieved. loss = 0.7291.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4105s
+
+Epoch 8/200
+B: 7105/7105 | Loss: 0.5184  | ETA:    0s
+Avg Train Loss: 0.7119
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.7278, Avg Eval Macro F1: 0.4263, Avg Eval Acc. 0.9663
+Best val loss achieved. loss = 0.7278.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4103s
+
+Epoch 9/200
+B: 7105/7105 | Loss: 0.4755  | ETA:    0s
+Avg Train Loss: 0.7024
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.7055, Avg Eval Macro F1: 0.4367, Avg Eval Acc. 0.9673
+Best val loss achieved. loss = 0.7055.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4100s
+
+Epoch 10/200
+B: 7105/7105 | Loss: 0.3275  | ETA:    0s
+Avg Train Loss: 0.6947
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.7114, Avg Eval Macro F1: 0.4538, Avg Eval Acc. 0.9676
+Time: 4098s
+
+Epoch 11/200
+B: 7105/7105 | Loss: 0.7475  | ETA:    0s
+Avg Train Loss: 0.6875
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6837, Avg Eval Macro F1: 0.4726, Avg Eval Acc. 0.9686
+Best val loss achieved. loss = 0.6837.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4101s
+
+Epoch 12/200
+B: 7105/7105 | Loss: 0.6871  | ETA:    0s
+Avg Train Loss: 0.6804
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6767, Avg Eval Macro F1: 0.4915, Avg Eval Acc. 0.9687
+Best val loss achieved. loss = 0.6767.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4099s
+
+Epoch 13/200
+B: 7105/7105 | Loss: 0.7330  | ETA:    0s
+Avg Train Loss: 0.6751
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6559, Avg Eval Macro F1: 0.5028, Avg Eval Acc. 0.9691
+Best val loss achieved. loss = 0.6559.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4098s
+
+Epoch 14/200
+B: 7105/7105 | Loss: 0.5614  | ETA:    0s
+Avg Train Loss: 0.6689
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6599, Avg Eval Macro F1: 0.5044, Avg Eval Acc. 0.969
+Time: 4098s
+
+Epoch 15/200
+B: 7105/7105 | Loss: 0.8597  | ETA:    0s
+Avg Train Loss: 0.6639
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6765, Avg Eval Macro F1: 0.4971, Avg Eval Acc. 0.9685
+Time: 4097s
+
+Epoch 16/200
+B: 7105/7105 | Loss: 1.0024  | ETA:    0s
+Avg Train Loss: 0.6813
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6449, Avg Eval Macro F1: 0.5175, Avg Eval Acc. 0.9699
+Best val loss achieved. loss = 0.6449.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4102s
+
+Epoch 17/200
+B: 7105/7105 | Loss: 0.4615  | ETA:    0s
+Avg Train Loss: 0.6478
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6426, Avg Eval Macro F1: 0.5135, Avg Eval Acc. 0.9697
+Best val loss achieved. loss = 0.6426.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4103s
+
+Epoch 18/200
+B: 7105/7105 | Loss: 0.8911  | ETA:    0s
+Avg Train Loss: 0.6522
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.666, Avg Eval Macro F1: 0.5265, Avg Eval Acc. 0.9691
+Time: 4097s
+
+Epoch 19/200
+B: 7105/7105 | Loss: 0.4908  | ETA:    0s
+Avg Train Loss: 0.6497
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6523, Avg Eval Macro F1: 0.4685, Avg Eval Acc. 0.9699
+Time: 4097s
+
+Epoch 20/200
+B: 7105/7105 | Loss: 0.5386  | ETA:    0s
+Avg Train Loss: 0.6463
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6441, Avg Eval Macro F1: 0.5392, Avg Eval Acc. 0.9699
+Time: 4099s
+
+Epoch 21/200
+B: 7105/7105 | Loss: 0.7801  | ETA:    0s
+Avg Train Loss: 0.6422
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6191, Avg Eval Macro F1: 0.5446, Avg Eval Acc. 0.9711
+Best val loss achieved. loss = 0.6191.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4101s
+
+Epoch 22/200
+B: 7105/7105 | Loss: 0.8504  | ETA:    0s
+Avg Train Loss: 0.6384
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6369, Avg Eval Macro F1: 0.5377, Avg Eval Acc. 0.9699
+Time: 4099s
+
+Epoch 23/200
+B: 7105/7105 | Loss: 0.4655  | ETA:    0s
+Avg Train Loss: 0.6361
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.621, Avg Eval Macro F1: 0.5631, Avg Eval Acc. 0.9706
+Time: 4101s
+
+Epoch 24/200
+B: 7105/7105 | Loss: 1.1397  | ETA:    0s
+Avg Train Loss: 0.6325
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6276, Avg Eval Macro F1: 0.5778, Avg Eval Acc. 0.9712
+Time: 4099s
+
+Epoch 25/200
+B: 7105/7105 | Loss: 1.2599  | ETA:    0s
+Avg Train Loss: 0.6286
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.6192, Avg Eval Macro F1: 0.5359, Avg Eval Acc. 0.9703
+Epoch    25: reducing learning rate of group 0 to 1.0000e-04.
+Time: 4099s
+
+Epoch 26/200
+B: 7105/7105 | Loss: 0.6851  | ETA:    0s
+Avg Train Loss: 0.5939
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5777, Avg Eval Macro F1: 0.5955, Avg Eval Acc. 0.9727
+Best val loss achieved. loss = 0.5777.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4099s
+
+Epoch 27/200
+B: 7105/7105 | Loss: 0.5572  | ETA:    0s
+Avg Train Loss: 0.5856
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5752, Avg Eval Macro F1: 0.5981, Avg Eval Acc. 0.9729
+Best val loss achieved. loss = 0.5752.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4101s
+
+Epoch 28/200
+B: 7105/7105 | Loss: 0.8648  | ETA:    0s
+Avg Train Loss: 0.5832
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5707, Avg Eval Macro F1: 0.5987, Avg Eval Acc. 0.9729
+Best val loss achieved. loss = 0.5707.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4100s
+
+Epoch 29/200
+B: 7105/7105 | Loss: 0.4776  | ETA:    0s
+Avg Train Loss: 0.5799
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5727, Avg Eval Macro F1: 0.5948, Avg Eval Acc. 0.9729
+Time: 4100s
+
+Epoch 30/200
+B: 7105/7105 | Loss: 0.2520  | ETA:    0s
+Avg Train Loss: 0.5782
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5712, Avg Eval Macro F1: 0.6106, Avg Eval Acc. 0.9733
+Time: 4098s
+
+Epoch 31/200
+B: 7105/7105 | Loss: 0.7307  | ETA:    0s
+Avg Train Loss: 0.576
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5692, Avg Eval Macro F1: 0.6297, Avg Eval Acc. 0.9733
+Best val loss achieved. loss = 0.5692.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4098s
+
+Epoch 32/200
+B: 7105/7105 | Loss: 0.7070  | ETA:    0s
+Avg Train Loss: 0.5744
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5697, Avg Eval Macro F1: 0.6317, Avg Eval Acc. 0.9727
+Time: 4099s
+
+Epoch 33/200
+B: 7105/7105 | Loss: 0.9861  | ETA:    0s
+Avg Train Loss: 0.5738
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5679, Avg Eval Macro F1: 0.6016, Avg Eval Acc. 0.973
+Best val loss achieved. loss = 0.5679.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4098s
+
+Epoch 34/200
+B: 7105/7105 | Loss: 0.2785  | ETA:    0s
+Avg Train Loss: 0.5726
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5672, Avg Eval Macro F1: 0.6108, Avg Eval Acc. 0.9732
+Best val loss achieved. loss = 0.5672.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4102s
+
+Epoch 35/200
+B: 7105/7105 | Loss: 0.4674  | ETA:    0s
+Avg Train Loss: 0.5716
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5679, Avg Eval Macro F1: 0.6204, Avg Eval Acc. 0.9731
+Time: 4100s
+
+Epoch 36/200
+B: 7105/7105 | Loss: 0.8087  | ETA:    0s
+Avg Train Loss: 0.5703
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5616, Avg Eval Macro F1: 0.631, Avg Eval Acc. 0.9734
+Best val loss achieved. loss = 0.5616.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4107s
+
+Epoch 37/200
+B: 7105/7105 | Loss: 0.2338  | ETA:    0s
+Avg Train Loss: 0.5685
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5624, Avg Eval Macro F1: 0.6201, Avg Eval Acc. 0.9733
+Time: 4099s
+
+Epoch 38/200
+B: 7105/7105 | Loss: 0.6839  | ETA:    0s
+Avg Train Loss: 0.5674
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5683, Avg Eval Macro F1: 0.6377, Avg Eval Acc. 0.973
+Time: 4101s
+
+Epoch 39/200
+B: 7105/7105 | Loss: 0.5748  | ETA:    0s
+Avg Train Loss: 0.5666
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5661, Avg Eval Macro F1: 0.6398, Avg Eval Acc. 0.9732
+Time: 4098s
+
+Epoch 40/200
+B: 7105/7105 | Loss: 0.3305  | ETA:    0s
+Avg Train Loss: 0.5658
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5636, Avg Eval Macro F1: 0.6272, Avg Eval Acc. 0.9733
+Epoch    40: reducing learning rate of group 0 to 1.0000e-05.
+Time: 4096s
+
+Epoch 41/200
+B: 7105/7105 | Loss: 0.2261  | ETA:    0s
+Avg Train Loss: 0.5608
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5584, Avg Eval Macro F1: 0.6448, Avg Eval Acc. 0.9736
+Best val loss achieved. loss = 0.5584.  Saving model to  ./model_weights/best_resnet101cbam_run47.pth
+Time: 4099s
+
+Epoch 42/200
+B: 7105/7105 | Loss: 0.7635  | ETA:    0s
+Avg Train Loss: 0.5604
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5602, Avg Eval Macro F1: 0.6416, Avg Eval Acc. 0.9732
+Time: 4096s
+
+Epoch 43/200
+B: 7105/7105 | Loss: 0.4574  | ETA:    0s
+Avg Train Loss: 0.5593
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5636, Avg Eval Macro F1: 0.6377, Avg Eval Acc. 0.9733
+Time: 4133s
+
+Epoch 44/200
+B: 7105/7105 | Loss: 0.8748  | ETA:    0s
+Avg Train Loss: 0.5586
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5601, Avg Eval Macro F1: 0.6561, Avg Eval Acc. 0.9736
+Time: 4151s
+
+Epoch 45/200
+B: 7105/7105 | Loss: 0.5779  | ETA:    0s
+Avg Train Loss: 0.5585
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5599, Avg Eval Macro F1: 0.6439, Avg Eval Acc. 0.9735
+Epoch    45: reducing learning rate of group 0 to 1.0000e-06.
+Time: 4145s
+
+Epoch 46/200
+B: 7105/7105 | Loss: 0.6034  | ETA:    0s
+Avg Train Loss: 0.5578
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5584, Avg Eval Macro F1: 0.6355, Avg Eval Acc. 0.9735
+Time: 4096s
+
+Epoch 47/200
+B: 7105/7105 | Loss: 0.5472  | ETA:    0s
+Avg Train Loss: 0.5579
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5612, Avg Eval Macro F1: 0.6291, Avg Eval Acc. 0.9735
+Time: 4097s
+
+Epoch 48/200
+B: 7105/7105 | Loss: 1.2215  | ETA:    0s
+Avg Train Loss: 0.5575
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.5605, Avg Eval Macro F1: 0.6441, Avg Eval Acc. 0.9735
+Time: 4094s
+
+Epoch 49/200
+B: 7105/7105 | Loss: 0.5049  | ETA:    0s
+Avg Train Loss: 0.5581
+B: 444/444 | ETA:    0s
+Avg Eval Loss: 0.561, Avg Eval Macro F1: 0.6439, Avg Eval Acc. 0.9738
+Epoch    49: reducing learning rate of group 0 to 1.0000e-07.
+Time: 4098s
+
+Epoch 50/200
+^CB: 5086/7105 | Loss: 0.4397  | ETA: 1139s
+
+Generate submission while the GPU is still hot from training? [Y/n]: nn
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 14,
+ 'cosine_annealing': False,
+ 'desc': 'resnet101cbam, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run47',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.001,
+ 'lr_patience': 3,
+ 'lr_scale': 0.1,
+ 'mixup': False,
+ 'model_name': 'resnet101cbam',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.2}
+
+Using resnet101 with CBAM Attention
+Loading model from ./model_weights/best_resnet101cbam_run47.pth
+Generating predictions...
+B: 836/836 | ETA:    0s
+Generating submission with class wise thresholding...
+Finding best threshold...
+B: 2220/2220 | ETA:    0s
+Best Thresholds:  [-1.50000000e-01  1.77635684e-15 -1.50000000e-01 -4.00000000e-01
+ -1.50000000e-01 -2.50000000e-01 -1.50000000e-01 -3.00000000e-01
+  1.77635684e-15 -6.00000000e-01 -2.50000000e-01  1.77635684e-15
+ -1.50000000e-01 -3.00000000e-01  1.00000000e-01 -7.00000000e-01
+ -3.00000000e-01 -2.00000000e-01 -4.00000000e-01 -2.00000000e-01
+ -4.00000000e-01 -3.00000000e-01 -3.00000000e-01 -1.50000000e-01
+ -4.50000000e-01 -2.00000000e-01 -2.50000000e-01 -8.00000000e-01]
+Best Eval Macro F1:  [0.86631905 0.87463798 0.83394509 0.79479034 0.82137912 0.73528201
+ 0.65892758 0.8391683  0.84536082 0.86666667 0.83333333 0.7781155
+ 0.73463035 0.71933472 0.88750598 0.66666667 0.56946039 0.59078591
+ 0.62828947 0.69061737 0.55151515 0.70189432 0.63867684 0.84307907
+ 0.77358491 0.72752452 0.56474259 0.63157895]
+Best Eval Macro F1 Avg:  0.7381361789904687
+Saved to  ./subm/best_resnet101cbam_run47.csv
+Saved to  ./subm/best_resnet101cbam_run47_m_b.csv

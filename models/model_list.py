@@ -8,6 +8,7 @@ from models.sononet import Atlas_Sononet_Attn
 from models.xception_attention import Atlas_Xception_Attn
 from models.pnasnet import Atlas_PNASnet
 from models.Jongchan.bamnet import Atlas_BAMNet
+from models.dilatedrn import Atlas_DRN
 
 def resnet18(pretrained=False, drop_rate=0.):
     return Atlas_ResNet(modeln="resnet18", pretrained=pretrained)
@@ -111,6 +112,14 @@ def resnet101cbam(pretrained=False, drop_rate=0, num_channels=4):
 
 def resnet101bam(pretrained=False, drop_rate=0, num_channels=4):
     return Atlas_BAMNet(model_name = "resnet101bam", drop_rate=0., pretrained=False, 
+                        num_channels=4)
+
+def drnd54(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_DRN(model_name = "drn-d-54", drop_rate=0., pretrained=True, 
+                        num_channels=4)
+
+def drnd105(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_DRN(model_name = "drn-d-105", drop_rate=0., pretrained=True, 
                         num_channels=4)
 
 def uselessnet():
