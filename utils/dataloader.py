@@ -52,10 +52,10 @@ def load_image(id, dataset = "train", colors = color_channels):
         # print('Loading raw images')
         image = np.zeros((512, 512, len(colors)), dtype='uint8')
         for ch, channel in enumerate(colors):
-            if dataset == "external":
-                imagepath = './data/{}/images512/'.format(dataset) + id + '_' + channel + ".jpg"
-            else:
-                imagepath = './data/{}/'.format(dataset) + id + '_' + channel + ".png"
+            # if dataset == "external":
+            #     imagepath = './data/{}/images512/'.format(dataset) + id + '_' + channel + ".jpg"
+            # else:
+            imagepath = './data/train/' + id + '_' + channel + ".png"
             img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)
             image[:,:, ch] = img
     return image
