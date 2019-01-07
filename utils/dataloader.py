@@ -41,6 +41,8 @@ color_channels = ('red','green','blue','yellow')
 
 def load_image(id, dataset = "train", colors = color_channels):
     npy_path = './data/{}_npy/'.format(dataset)
+    if dataset == "external":
+        dataset = "train"
     # if os.path.exists(npy_path + '{}.npy'.format(id)):
     try:
         image = np.load(npy_path + '{}.npy'.format(id))
@@ -55,8 +57,11 @@ def load_image(id, dataset = "train", colors = color_channels):
             # if dataset == "external":
             #     imagepath = './data/{}/images512/'.format(dataset) + id + '_' + channel + ".jpg"
             # else:
-            imagepath = './data/train/' + id + '_' + channel + ".png"
+            imagepath = './data/{}/'.format(dataset) + id + '_' + channel + ".png"
             img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)
+            if img is None:
+                imagepath = './data/{}/'.format(dataset) + id + '_' + channel + ".jpg"
+                img = cv2.imread(imagepath, cv2.IMREAD_GRAYSCALE)
             image[:,:, ch] = img
     return image
 
@@ -244,6 +249,62 @@ def get_test_loader(imsize=256, num_channels=4, batch_size=16, num_workers=4):
                                    drop_last=False)
 
     return test_loader
+
+def get_preds_loader(imsize=256, num_channels=4, batch_size=16, num_workers=4, 
+                        preload=False, mixup=False):
+    '''sets up the torch data loaders for training'''
+    train_df = pd.read_csv(train_labels_path)
+    train_df['labels'] = train_df['Target'].apply(label_gen_np)
+
+    # set up the transformers
+    train_tf = alb_transform_test(imsize, num_channels)
+    # train_tf = train_transformer(imsize)
+    # valid_tf = test_transformer(imsize)
+
+    # set up the datasets
+    train_dataset = ProteinDataset(data_df=train_df, imsize=imsize, 
+                                    num_channels=num_channels, 
+                                    transformer=train_tf, preload=preload,
+                                    mixup=mixup)
+
+    external_dataset = ProteinExternalDataset(imsize=imsize, 
+                                    num_channels = num_channels,
+                                    transformer = train_tf, preload=preload,
+                                    mixup=mixup)
+    # set up the data loaders
+    train_loader = DataLoader(train_dataset,
+                                   batch_size=batch_size,
+                                   shuffle=False,
+                                   num_workers=num_workers,
+                                   pin_memory=True,
+                                   drop_last=False)
+
+    external_loader = DataLoader(external_dataset,
+                                   batch_size=batch_size,
+                                   shuffle=False,
+                                   num_workers=num_workers,
+                                   pin_memory=True,
+                                   drop_last=False)
+
+    test_df = pd.read_csv(test_submission_path)
+
+    # set up the transformer
+    test_tf = alb_transform_test(imsize, num_channels)
+
+    # set up the datasets
+    test_dataset = ProteinDataset(data_df = test_df, imsize=imsize, 
+                                    num_channels = num_channels,
+                                    transformer = test_tf, test=True)
+
+    # set up the data loaders
+    test_loader = DataLoader(test_dataset,
+                                   batch_size=batch_size,
+                                   shuffle=False,
+                                   num_workers=num_workers,
+                                   pin_memory=True,
+                                   drop_last=False)
+
+    return train_loader, external_loader, test_loader
 
 class ProteinExternalDataset(Dataset):
     def __init__(self, data_df=None, imsize=256, num_channels=4, 

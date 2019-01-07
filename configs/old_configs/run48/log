@@ -1,0 +1,326 @@
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python train.py
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 8,
+ 'cosine_annealing': False,
+ 'desc': 'drnd54, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run48',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.0005,
+ 'lr_patience': 3,
+ 'lr_scale': 0.15,
+ 'mixup': False,
+ 'model_name': 'drnd54',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.1}
+
+Using DRN d-54
+Loading weights...
+Focal Loss with gamma =  2
+Training ...
+Saving to  ./model_weights/best_drnd54_run48.pth
+
+Epoch 0/200
+B: 12821/12821 | Loss: 0.6614  | ETA:    0s
+Avg Train Loss: 0.9269
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.8847, Avg Eval Macro F1: 0.3268, Avg Eval Acc. 0.9605
+Best val loss achieved. loss = 0.8847.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15573s
+
+Epoch 1/200
+B: 12821/12821 | Loss: 0.6800  | ETA:    0s
+Avg Train Loss: 0.7832
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.8071, Avg Eval Macro F1: 0.4638, Avg Eval Acc. 0.9638
+Best val loss achieved. loss = 0.8071.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15378s
+
+Epoch 2/200
+B: 12821/12821 | Loss: 0.6142  | ETA:    0s
+Avg Train Loss: 0.7363
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7906, Avg Eval Macro F1: 0.4929, Avg Eval Acc. 0.9662
+Best val loss achieved. loss = 0.7906.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15319s
+
+Epoch 3/200
+B: 12821/12821 | Loss: 0.3936  | ETA:    0s
+Avg Train Loss: 0.7104
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.722, Avg Eval Macro F1: 0.5166, Avg Eval Acc. 0.9679
+Best val loss achieved. loss = 0.7220.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15338s
+
+Epoch 4/200
+B: 12821/12821 | Loss: 0.5694  | ETA:    0s
+Avg Train Loss: 0.6919
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7495, Avg Eval Macro F1: 0.5017, Avg Eval Acc. 0.9683
+Time: 15342s
+
+Epoch 5/200
+B: 12821/12821 | Loss: 0.5760  | ETA:    0s
+Avg Train Loss: 0.6801
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7136, Avg Eval Macro F1: 0.5313, Avg Eval Acc. 0.9691
+Best val loss achieved. loss = 0.7136.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15319s
+
+Epoch 6/200
+B: 12821/12821 | Loss: 0.6643  | ETA:    0s
+Avg Train Loss: 0.6678
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7089, Avg Eval Macro F1: 0.5203, Avg Eval Acc. 0.9682
+Best val loss achieved. loss = 0.7089.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15326s
+
+Epoch 7/200
+B: 12821/12821 | Loss: 0.2844  | ETA:    0s
+Avg Train Loss: 0.6593
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.6935, Avg Eval Macro F1: 0.4874, Avg Eval Acc. 0.9686
+Best val loss achieved. loss = 0.6935.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15344s
+
+Epoch 8/200
+B: 12821/12821 | Loss: 0.5282  | ETA:    0s
+Avg Train Loss: 0.6501
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7301, Avg Eval Macro F1: 0.5822, Avg Eval Acc. 0.9686
+Time: 15361s
+
+Epoch 9/200
+B: 12821/12821 | Loss: 0.9377  | ETA:    0s
+Avg Train Loss: 0.6438
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7989, Avg Eval Macro F1: 0.5075, Avg Eval Acc. 0.9668
+Time: 15364s
+
+Epoch 10/200
+B: 12821/12821 | Loss: 0.9202  | ETA:    0s
+Avg Train Loss: 0.6361
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7057, Avg Eval Macro F1: 0.5512, Avg Eval Acc. 0.9708
+Time: 15360s
+
+Epoch 11/200
+B: 12821/12821 | Loss: 0.3349  | ETA:    0s
+Avg Train Loss: 0.6291
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.6877, Avg Eval Macro F1: 0.5381, Avg Eval Acc. 0.9691
+Best val loss achieved. loss = 0.6877.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15333s
+
+Epoch 12/200
+B: 12821/12821 | Loss: 0.5015  | ETA:    0s
+Avg Train Loss: 0.6246
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7449, Avg Eval Macro F1: 0.4986, Avg Eval Acc. 0.966
+Time: 15329s
+
+Epoch 13/200
+B: 12821/12821 | Loss: 0.3020  | ETA:    0s
+Avg Train Loss: 0.6178
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7513, Avg Eval Macro F1: 0.5356, Avg Eval Acc. 0.9685
+Time: 15302s
+
+Epoch 14/200
+B: 12821/12821 | Loss: 0.4391  | ETA:    0s
+Avg Train Loss: 0.6114
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.7334, Avg Eval Macro F1: 0.5664, Avg Eval Acc. 0.9682
+Time: 15321s
+
+Epoch 15/200
+B: 12821/12821 | Loss: 0.4436  | ETA:    0s
+Avg Train Loss: 0.6075
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.8795, Avg Eval Macro F1: 0.5113, Avg Eval Acc. 0.963
+Epoch    15: reducing learning rate of group 0 to 7.5000e-05.
+Time: 15326s
+
+Epoch 16/200
+B: 12821/12821 | Loss: 0.3896  | ETA:    0s
+Avg Train Loss: 0.5652
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.6186, Avg Eval Macro F1: 0.6418, Avg Eval Acc. 0.9737
+Best val loss achieved. loss = 0.6186.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15327s
+
+Epoch 17/200
+B: 12821/12821 | Loss: 0.2177  | ETA:    0s
+Avg Train Loss: 0.5559
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.5899, Avg Eval Macro F1: 0.6523, Avg Eval Acc. 0.9745
+Best val loss achieved. loss = 0.5899.  Saving model to  ./model_weights/best_drnd54_run48.pth
+Time: 15309s
+
+Epoch 18/200
+B: 12821/12821 | Loss: 0.4359  | ETA:    0s
+Avg Train Loss: 0.5513
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.5972, Avg Eval Macro F1: 0.6497, Avg Eval Acc. 0.9744
+Time: 15280s
+
+Epoch 19/200
+B: 12821/12821 | Loss: 0.1557  | ETA:    0s
+Avg Train Loss: 0.5472
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.6302, Avg Eval Macro F1: 0.6518, Avg Eval Acc. 0.9735
+Time: 15317s
+
+Epoch 20/200
+B: 12821/12821 | Loss: 0.6380  | ETA:    0s
+Avg Train Loss: 0.5445
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.6852, Avg Eval Macro F1: 0.6605, Avg Eval Acc. 0.9736
+Time: 15079s
+
+Epoch 21/200
+B: 12821/12821 | Loss: 0.4088  | ETA:    0s
+Avg Train Loss: 0.5413
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.6455, Avg Eval Macro F1: 0.64, Avg Eval Acc. 0.9731
+Epoch    21: reducing learning rate of group 0 to 1.1250e-05.
+Time: 15092s
+
+Epoch 22/200
+B: 12821/12821 | Loss: 0.5047  | ETA:    0s
+Avg Train Loss: 0.5318
+B: 389/389 | ETA:    0s
+Avg Eval Loss: 0.6252, Avg Eval Macro F1: 0.6569, Avg Eval Acc. 0.9742
+Time: 15135s
+
+Epoch 23/200
+^CB: 2901/12821 | Loss: 0.4676  | ETA: 11616s
+
+Generate submission while the GPU is still hot from training? [Y/n]: n
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 8,
+ 'cosine_annealing': False,
+ 'desc': 'drnd54, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run48',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.0005,
+ 'lr_patience': 3,
+ 'lr_scale': 0.15,
+ 'mixup': False,
+ 'model_name': 'drnd54',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.1}
+
+Using DRN d-54
+Loading weights...
+Loading model from ./model_weights/best_drnd54_run48.pth
+Generating predictions...
+Traceback (most recent call last):
+  File "make_submission.py", line 104, in <module>
+    main_subm(opcon=config)
+  File "make_submission.py", line 77, in main_subm
+    generate_submission(net, config, args.folds, SUBM_OUT, gen_csv=True, attn=attn)
+  File "/home/litemax/kaggle/Human-Protein-Atlas/evaluations.py", line 83, in generate_submission
+    test_preds += generate_preds(net, test_loader, test=True, attn=attn)
+  File "/home/litemax/kaggle/Human-Protein-Atlas/evaluations.py", line 42, in generate_preds
+    for i, data in enumerate(test_loader):
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 637, in __next__
+    return self._process_next_batch(batch)
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 658, in _process_next_batch
+    raise batch.exc_type(batch.exc_msg)
+TypeError: Traceback (most recent call last):
+  File "/home/litemax/kaggle/Human-Protein-Atlas/utils/dataloader.py", line 46, in load_image
+    image = np.load(npy_path + '{}.npy'.format(id))
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/numpy/lib/npyio.py", line 384, in load
+    fid = open(file, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: './data/test_npy/00008af0-bad0-11e8-b2b8-ac1f6b6435d0.npy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 138, in _worker_loop
+    samples = collate_fn([dataset[i] for i in batch_indices])
+  File "/home/litemax/anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 138, in <listcomp>
+    samples = collate_fn([dataset[i] for i in batch_indices])
+  File "/home/litemax/kaggle/Human-Protein-Atlas/utils/dataloader.py", line 133, in __getitem__
+    image = load_image(imagename, self.dataset, self.colors)
+  File "/home/litemax/kaggle/Human-Protein-Atlas/utils/dataloader.py", line 60, in load_image
+    image[:,:, ch] = img
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Traceback (most recent call last):
+  File "make_submission.py", line 15, in <module>
+    from utils.dataloader import get_data_loaders, get_test_loader
+  File "/home/litemax/kaggle/Human-Protein-Atlas/utils/dataloader.py", line 51
+    if dataset == "external":
+     ^
+SyntaxError: invalid syntax
+(pytorch) litemax@litemax-hub:~/kaggle/Human-Protein-Atlas$ python make_submission.py 
+Loaded configuration from  ./configs/config.json
+
+{'batch_size': 8,
+ 'cosine_annealing': False,
+ 'desc': 'drnd54, focal loss gamma = 2',
+ 'drop_rate': 0,
+ 'epochs': 200,
+ 'exp_name': 'run48',
+ 'external_data': True,
+ 'focal_gamma': 2,
+ 'fp16': False,
+ 'imsize': 512,
+ 'lr': 0.0005,
+ 'lr_patience': 3,
+ 'lr_scale': 0.15,
+ 'mixup': False,
+ 'model_name': 'drnd54',
+ 'num_channels': 4,
+ 'num_workers': 6,
+ 'preload_data': False,
+ 'pretrained': True,
+ 'reduce_lr_plateau': True,
+ 'test_size': 0.1}
+
+Using DRN d-54
+Loading weights...
+Loading model from ./model_weights/best_drnd54_run48.pth
+Generating predictions...
+B: 1463/1463 | ETA:    0s
+Generating submission with class wise thresholding...
+Finding best threshold...
+B: 3884/3884 | ETA:    0s
+Best Thresholds:  [-1.00000000e-01 -5.00000000e-02 -2.00000000e-01 -1.50000000e-01
+  1.50000000e-01 -1.00000000e-01 -3.00000000e-01 -1.00000000e-01
+ -2.00000000e-01 -1.50000000e-01  4.00000000e-01  1.00000000e-01
+ -1.50000000e-01  1.00000000e-01  1.77635684e-15 -2.00000000e-01
+ -3.50000000e-01 -5.00000000e-02  5.00000000e-02 -2.50000000e-01
+ -1.50000000e-01 -1.50000000e-01 -1.50000000e-01 -3.00000000e-01
+  2.00000000e-01 -2.50000000e-01 -1.50000000e-01 -4.00000000e-01]
+Best Eval Macro F1:  [0.86845107 0.88672351 0.84686971 0.80702896 0.83328741 0.74626866
+ 0.68369565 0.84989201 0.83333333 0.80851064 0.84615385 0.80038388
+ 0.79411765 0.74132805 0.88770571 0.55172414 0.58296943 0.56330749
+ 0.54288499 0.66886821 0.59587021 0.72833911 0.66864608 0.84828164
+ 0.75110457 0.73640648 0.59030837 0.57142857]
+Best Eval Macro F1 Avg:  0.7369246202933937
+Saved to  ./subm/best_drnd54_run48.csv
+Saved to  ./subm/best_drnd54_run48_m_b.csv
