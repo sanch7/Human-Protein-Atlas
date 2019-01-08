@@ -10,6 +10,8 @@ bleakfile = './leaks/brian_overlap.csv'
 mleakfile = './leaks/moriyama_leak.csv'
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
+parser.add_argument('--submfile', default=None, 
+                    help="submission file")
 parser.add_argument('--config', default='./configs/config.json', 
                     help="Run configuration")
 args = parser.parse_args()
@@ -38,4 +40,7 @@ def apply_leak(submfile = None):
     print('Saved to ', submfile)
 
 if __name__ == '__main__':
-    apply_leak()
+    if args.submfile:
+        apply_leak(submfile = args.submfile)
+    else:
+        apply_leak()
