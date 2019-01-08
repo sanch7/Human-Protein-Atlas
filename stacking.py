@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
 
-import os
+import os, glob
 import argparse
+import time
+from datetime import datetime
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -11,10 +13,6 @@ from sklearn.metrics import f1_score
 
 from pprint import pprint
 from utils.misc import label_gen_np, save_pred
-
-from datetime import datetime
-
-import glob
 
 parser = argparse.ArgumentParser(description='Atlas Protein')
 parser.add_argument('-n', '--name', default='./configs/config.json', required=True, 
@@ -93,6 +91,7 @@ if __name__ == '__main__':
         print("Doing label-wise stacking")
         pred = np.zeros((len(test_dfs[0]), 28))
         for label_ind in range(28):
+            t1 = time.time()
             print("Fitting label ", label_ind)
             features = pd.concat((train_dfs[i][str(label_ind)] \
                             for i in range(len(train_dfs))), axis=1)
@@ -107,9 +106,11 @@ if __name__ == '__main__':
             rf_random = fit_features(features, labels, "f1", n_iter=10, cv=3)
             pred[:, label_ind] = rf_random.predict(test_features)
             np.save('./stacks/{}_label_{}.npy'.format(args.name, str(label_ind)), pred)
-            print("Fitted. Best score: ", rf_random.best_score_)
+            t2 = time.time()
+            print("Fitted. Best score: ", rf_random.best_score_, ". Time taken = ", t2-t1)
 
     else:
+        t1 = time.time()
         print("Doing all labels stacking")
         features = pd.concat((train_dfs[i] for i in range(len(train_dfs))), axis=1)
         labels = np.stack(labels.values)
@@ -122,7 +123,8 @@ if __name__ == '__main__':
         rf_random = fit_features(features, labels, "f1_macro", n_iter=2, cv=3)
         pred = rf_random.predict(test_features)
         np.save('./stacks/{}.npy'.format(args.name), pred)
-        print("Fitted. Best score: ", rf_random.best_score_)
+        t2 = time.time()
+        print("Fitted. Best score: ", rf_random.best_score_, ". Time taken = ", t2-t1)
 
     save_pred(pred, th=0.5, SUBM_OUT='./subm/{}.csv'.format(args.name), fill_empty=False)
 
