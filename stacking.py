@@ -94,6 +94,8 @@ if __name__ == '__main__':
         for label_ind in range(28):
             lsave = './stacks/{}_label_{}.npy'.format(args.name, str(label_ind))
             if os.path.isfile(lsave):
+                print("Found this label already trained")
+                pred = np.load(lsave)
                 continue
             t1 = time.time()
             print("Fitting label ", label_ind)
@@ -105,7 +107,7 @@ if __name__ == '__main__':
             features = np.array(features)
             test_features = np.array(test_features)
 
-            rf_random = fit_features(features, labels[:, label_ind], "f1", n_iter=10, cv=3)
+            rf_random = fit_features(features, labels[:, label_ind], "f1", n_iter=12, cv=3)
             pred[:, label_ind] = rf_random.predict(test_features)
             np.save(lsave, pred)
             t2 = time.time()
