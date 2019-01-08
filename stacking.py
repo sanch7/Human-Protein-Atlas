@@ -86,26 +86,28 @@ if __name__ == '__main__':
     labels = pd.concat((pd.read_csv(train_labels_path), 
                 pd.read_csv(external_labels_path))).reset_index(drop=True)
     labels = labels['Target'].apply(label_gen_np)
+    labels = np.stack(labels.values)
 
     if args.individual:
         print("Doing label-wise stacking")
         pred = np.zeros((len(test_dfs[0]), 28))
         for label_ind in range(28):
+            lsave = './stacks/{}_label_{}.npy'.format(args.name, str(label_ind))
+            if os.path.isfile(lsave):
+                continue
             t1 = time.time()
             print("Fitting label ", label_ind)
             features = pd.concat((train_dfs[i][str(label_ind)] \
                             for i in range(len(train_dfs))), axis=1)
-            labels = np.stack(labels.values)[:, label_ind]
             test_features = pd.concat((test_dfs[i][str(label_ind)] \
                                 for i in range(len(test_dfs))), axis=1)
 
             features = np.array(features)
-            labels = np.array(labels)
             test_features = np.array(test_features)
 
-            rf_random = fit_features(features, labels, "f1", n_iter=10, cv=3)
+            rf_random = fit_features(features, labels[:, label_ind], "f1", n_iter=10, cv=3)
             pred[:, label_ind] = rf_random.predict(test_features)
-            np.save('./stacks/{}_label_{}.npy'.format(args.name, str(label_ind)), pred)
+            np.save(lsave, pred)
             t2 = time.time()
             print("Fitted. Best score: ", rf_random.best_score_, ". Time taken = ", t2-t1)
 
@@ -113,11 +115,9 @@ if __name__ == '__main__':
         t1 = time.time()
         print("Doing all labels stacking")
         features = pd.concat((train_dfs[i] for i in range(len(train_dfs))), axis=1)
-        labels = np.stack(labels.values)
         test_features = pd.concat((test_dfs[i] for i in range(len(test_dfs))), axis=1)
 
         features = np.array(features)
-        labels = np.array(labels)
         test_features = np.array(test_features)
 
         rf_random = fit_features(features, labels, "f1_macro", n_iter=2, cv=3)
