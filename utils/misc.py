@@ -27,12 +27,12 @@ def label_gen_np(labelstr):
         label[int(l)]=1
     return label
 
-def save_pred(pred, th=0., SUBM_OUT='./subm/submission.csv'):
+def save_pred(pred, th=0., SUBM_OUT='./subm/submission.csv', fill_empty=True):
     pred_list = []
     for line in pred:
         line -= th             # accomodate both class_wise and overall thresholding
         s = ' '.join(list([str(i) for i in np.nonzero(line>=0.)[0]]))
-        if s == '':
+        if fill_empty and s == '':
             s = str(line.argmax())
         pred_list.append(s)
     
