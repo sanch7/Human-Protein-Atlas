@@ -127,5 +127,9 @@ def airx50(pretrained=False, drop_rate=0, num_channels=4):
     return Atlas_AirX(model_name = "airx50_32x4d", drop_rate=0., pretrained=True, 
                         num_channels=4)
 
+def airx101(pretrained=False, drop_rate=0, num_channels=4):
+    return Atlas_AirX(model_name = "airx101_32x4d_r2", drop_rate=0., pretrained=True, 
+                        num_channels=4)
+
 def uselessnet():
     return UselessNet()
