@@ -1,6 +1,6 @@
 {   
-    "exp_name": "run41",
-    "model_name": "xception",
+    "exp_name": "run49",
+    "model_name": "airx50",
     "pretrained": true,
     "external_data": true,
     "num_channels": 4,
@@ -15,8 +15,9 @@
     "test_size": 0.2,
     "epochs": 200,
     "imsize": 512,
+    "fp16": false,
     "num_workers": 6,
-    "mixup": true,
+    "mixup": false,
     "preload_data": false,
-    "desc": "xception, focal loss gamma=2, mixup, resuming from run40"
+    "desc": "airx50, focal loss gamma=2"
 }

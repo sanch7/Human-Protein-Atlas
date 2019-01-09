@@ -100,7 +100,7 @@ def fit_neural_network(featuers, labels):
 
     model.compile(
      optimizer = Adam(1e-03),
-     loss = "binary_crossentropy",
+     loss = f1_loss_keras,
      metrics = ["accuracy", f1_keras]
     )
 
