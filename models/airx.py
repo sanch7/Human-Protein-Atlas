@@ -42,22 +42,22 @@ def Atlas_AirX(model_name = "airx50_32x4d", pretrained=False, drop_rate=0.,
 
     if model_name == "airx101_32x4d_r2":
         print("Using airx101_32x4d_r2")
-	    model = AIRX(baseWidth=4, cardinality=32, head7x7=False, layers=(3, 4, 23, 3), num_classes=28)
+        model = AIRX(baseWidth=4, cardinality=32, head7x7=False, layers=(3, 4, 23, 3), num_classes=28)
 
         if num_channels not in [3, 4]:
             raise ValueError('num_channels should be 3 or 4.')
 
         if num_channels == 4:
-	        nconv = nn.Conv2d(4, 32, 3, 2, 1, bias=False)
-	        model.conv1 = nconv
+            nconv = nn.Conv2d(4, 32, 3, 2, 1, bias=False)
+            model.conv1 = nconv
 
-	        for m in model.modules():
-            if isinstance(m, nn.Conv2d):
-                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                m.weight.data.normal_(0, math.sqrt(2. / n))
-            elif isinstance(m, nn.BatchNorm2d):
-                m.weight.data.fill_(1)
-                m.bias.data.zero_()
+            for m in model.modules():
+                if isinstance(m, nn.Conv2d):
+                    n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                    m.weight.data.normal_(0, math.sqrt(2. / n))
+                elif isinstance(m, nn.BatchNorm2d):
+                    m.weight.data.fill_(1)
+                    m.bias.data.zero_()
         
     return model
 
